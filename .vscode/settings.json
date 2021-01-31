@@ -1,0 +1,7 @@
+{
+  // not to format on save, but instead fix ESLint errors on save
+  "editor.formatOnSave": false,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  }
+}
