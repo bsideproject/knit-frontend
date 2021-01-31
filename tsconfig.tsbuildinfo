@@ -627,8 +627,8 @@
         "affectsGlobalScope": false
       },
       "./pages/_app.tsx": {
-        "version": "eef777957246d2486915e4351e376ca2f7233837d7f8ab1dd66887d1af0ffccb",
-        "signature": "f0991d439cbe70eda4258a51ab72baa991c260af0bc49142895ae7260e508f3e",
+        "version": "751838bd066316021202b65bc3b696604ca58c7febe24e91161be119680d9d5a",
+        "signature": "b68c825594e411dc137128651201cf4cf48cd12177866d786f03d6ac5cec2003",
         "affectsGlobalScope": false
       },
       "./node_modules/next/dist/next-server/lib/head.d.ts": {
@@ -642,13 +642,23 @@
         "affectsGlobalScope": false
       },
       "./pages/index.tsx": {
-        "version": "89327061888cf9f10e2239cd7ab4d5f646b62334788d940f1a60d9ecaa2bd9d6",
-        "signature": "e00c7a678c35334b49277b9846f1dfd64efa16f70e075ae4486c5b9ae249ac7e",
+        "version": "a37b1fedc940c8f7c31c52a0bbef0bc1c6ee5a867c21101c279f727492bf4c1a",
+        "signature": "d2befce5666eed97f65f0cd76e32b83678504c2cf0ec52d87f317ca6b45ff8a7",
         "affectsGlobalScope": false
       },
       "./node_modules/@types/json-schema/index.d.ts": {
         "version": "3a1e165b22a1cb8df82c44c9a09502fd2b33f160cd277de2cd3a055d8e5c6b27",
         "signature": "3a1e165b22a1cb8df82c44c9a09502fd2b33f160cd277de2cd3a055d8e5c6b27",
+        "affectsGlobalScope": false
+      },
+      "./node_modules/@types/json5/index.d.ts": {
+        "version": "96d14f21b7652903852eef49379d04dbda28c16ed36468f8c9fa08f7c14c9538",
+        "signature": "96d14f21b7652903852eef49379d04dbda28c16ed36468f8c9fa08f7c14c9538",
+        "affectsGlobalScope": false
+      },
+      "./node_modules/@types/parse-json/index.d.ts": {
+        "version": "2b8264b2fefd7367e0f20e2c04eed5d3038831fe00f5efbc110ff0131aab899b",
+        "signature": "2b8264b2fefd7367e0f20e2c04eed5d3038831fe00f5efbc110ff0131aab899b",
         "affectsGlobalScope": false
       }
     },
@@ -670,8 +680,9 @@
       "resolveJsonModule": true,
       "isolatedModules": true,
       "jsx": 1,
+      "project": "./tsconfig.json",
+      "pretty": true,
       "incremental": true,
-      "watch": true,
       "configFilePath": "./tsconfig.json"
     },
     "referencedMap": {
@@ -1297,12 +1308,16 @@
       ],
       "./pages/_app.tsx": [
         "./node_modules/next/app.d.ts"
+      ],
+      "./pages/index.tsx": [
+        "./node_modules/@types/react/index.d.ts"
       ]
     },
     "semanticDiagnosticsPerFile": [
       "./next-env.d.ts",
       "./node_modules/@next/env/types/index.d.ts",
       "./node_modules/@types/json-schema/index.d.ts",
+      "./node_modules/@types/json5/index.d.ts",
       "./node_modules/@types/node/assert.d.ts",
       "./node_modules/@types/node/async_hooks.d.ts",
       "./node_modules/@types/node/base.d.ts",
@@ -1350,6 +1365,7 @@
       "./node_modules/@types/node/wasi.d.ts",
       "./node_modules/@types/node/worker_threads.d.ts",
       "./node_modules/@types/node/zlib.d.ts",
+      "./node_modules/@types/parse-json/index.d.ts",
       "./node_modules/@types/prop-types/index.d.ts",
       "./node_modules/@types/react/global.d.ts",
       "./node_modules/@types/react/index.d.ts",
@@ -1442,6 +1458,10 @@
       ],
       [
         "./node_modules/@types/json-schema/index.d.ts",
+        1
+      ],
+      [
+        "./node_modules/@types/json5/index.d.ts",
         1
       ],
       [
@@ -1630,6 +1650,10 @@
       ],
       [
         "./node_modules/@types/node/zlib.d.ts",
+        1
+      ],
+      [
+        "./node_modules/@types/parse-json/index.d.ts",
         1
       ],
       [
