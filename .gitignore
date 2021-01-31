@@ -32,3 +32,9 @@ yarn-error.log*
 
 # vercel
 .vercel
+
+# typescript
+tsconfig.tsbuildinfo
+
+# yarn
+yarn.lock
