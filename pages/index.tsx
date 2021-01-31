@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import Head from 'next/head';
-import styles from '../styles/Home.module.css';
+import styles from '~/styles/Home.module.css';
 
 const Home: React.FC = () => {
   const [, setText] = useState<string>();
