@@ -13,7 +13,17 @@ module.exports = {
       files: ['**/*.ts', '**/*.tsx'],
       parser: '@typescript-eslint/parser',
       parserOptions: { project: './tsconfig.json' },
-      settings: { react: { version: 'detect' } },
+      settings: { 
+        react: { 
+          version: 'detect' 
+        },
+        'import/resolver': {
+          alias: {
+            map: [['~', '.']],
+            extensions: ['.js', '.ts', '.tsx'],
+          },
+        },
+      },
       env: {
         browser: true,
         node: true,
