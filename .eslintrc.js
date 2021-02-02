@@ -4,7 +4,7 @@ module.exports = {
     node: true,
     es6: true,
   },
-  parserOptions: { ecmaVersion: 8 }, // to enable features such as async/await
+  parserOptions: { ecmaVersion: 12 },
   ignorePatterns: ['node_modules/*', '.next/*', '.out/*', '!.prettierrc.js'], // We don't want to lint generated files nor node_modules, but we want to lint .prettierrc.js (ignored by default by eslint)
   extends: ['eslint:recommended'],
   overrides: [
@@ -28,6 +28,7 @@ module.exports = {
         browser: true,
         node: true,
         es6: true,
+        jest: true,
       },
       extends: [
         'airbnb-typescript', // airbnb rules,
@@ -62,6 +63,8 @@ module.exports = {
             allowConciseArrowFunctionExpressionsStartingWithVoid: true,
           },
         ],
+        //Prefer usage of as const over literal type
+        '@typescript-eslint/prefer-as-const' :['warn'],
         // Includes .prettierrc.js rules
         'prettier/prettier': ['error', {}, { usePrettierrc: true }],
       },
