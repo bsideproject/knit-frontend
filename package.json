@@ -1,10 +1,10 @@
 {
-  "name": "team-5-2-front",
+  "name": "knit-front",
   "version": "0.1.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "dev:ts": "concurrently 'yarn dev' 'yarn type-check --watch'",
+    "dev:ts": "concurrently -k 'yarn dev' 'yarn type-check --watch'",
     "build": "next build",
     "start": "next start",
     "type-check": "tsc --project tsconfig.json --pretty --noEmit --incremental",
