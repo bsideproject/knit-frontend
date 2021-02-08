@@ -7,7 +7,7 @@ export type DialogSliceState = {
 };
 
 const dialogSlice = createSlice({
-  name: 'slice',
+  name: 'dialog',
   initialState: {
     opened: false,
     title: '',
