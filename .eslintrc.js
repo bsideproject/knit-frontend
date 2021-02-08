@@ -53,16 +53,15 @@ module.exports = {
         'react/jsx-props-no-spreading': 'off',
         // This rule is not compatible with Next.js's <Link /> components
         'jsx-a11y/anchor-is-valid': 'off',
+        // allow single named export
+        'import/prefer-default-export': 'off',
+        // conflicts with redux-toolkit
+        'no-param-reassign': 'off',
         // Why would you want unused vars?
         '@typescript-eslint/no-unused-vars': ['error'],
-        // require return types on functions only where useful
-        '@typescript-eslint/explicit-function-return-type': [
-          'warn',
-          {
-            allowExpressions: true,
-            allowConciseArrowFunctionExpressionsStartingWithVoid: true,
-          },
-        ],
+        // Do not require return types on functions
+        '@typescript-eslint/explicit-function-return-type': 'off',
+        '@typescript-eslint/explicit-module-boundary-types': 'off',
         //Prefer usage of as const over literal type
         '@typescript-eslint/prefer-as-const' :['warn'],
         // Includes .prettierrc.js rules
