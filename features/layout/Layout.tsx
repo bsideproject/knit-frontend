@@ -1,19 +1,26 @@
 import Head from 'next/head';
-import { PropsWithChildren } from 'react';
+import { ReactNode } from 'react';
+
+import { Header } from '~/features/header';
 import styles from './Layout.module.css';
 
-type LayoutProps = PropsWithChildren<{
-  title: string;
-}>;
+interface LayoutProps {
+  title?: string;
+  children: ReactNode;
+}
 
-export default function Layout({ title, children }: LayoutProps) {
+export default function Layout({ title = 'isString', children }: LayoutProps) {
   return (
     <div className={styles.layout}>
       <Head>
-        <title>{title}</title>
         <link rel="icon" href="/favicon.ico" />
+        <title>{title}</title>
       </Head>
-      {children}
+      <Header key="header" />
+
+      <div id="main">{children}</div>
+
+      {/* <Footer key="footer" /> */}
     </div>
   );
 }

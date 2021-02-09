@@ -1,12 +1,13 @@
 import classNames from 'classnames';
-import { MouseEventHandler, PropsWithChildren } from 'react';
+import { MouseEventHandler, ReactNode } from 'react';
 import { ButtonType } from './types';
 import styles from './Button.module.css';
 
-export type ButtonProps = PropsWithChildren<{
+export interface ButtonProps {
   type?: ButtonType;
   onClick?: MouseEventHandler<HTMLButtonElement>;
-}>;
+  children: ReactNode;
+}
 
 export default function Button({ type = ButtonType.DEFAULT, children, onClick }: ButtonProps) {
   return (
