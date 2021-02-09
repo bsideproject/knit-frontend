@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import { MouseEventHandler, ReactNode } from 'react';
 import { ButtonType } from './types';
-import styles from './Button.module.css';
+import styles from './Button.module.scss';
 
 export interface ButtonProps {
   type?: ButtonType;

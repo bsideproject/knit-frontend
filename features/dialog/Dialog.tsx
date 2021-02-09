@@ -2,7 +2,7 @@ import { useDispatch } from 'react-redux';
 import { useRootState } from '~/app/store';
 import { Button, PrimaryButton } from '../button';
 import { closeDialog } from './slice';
-import styles from './Dialog.module.css';
+import styles from './Dialog.module.scss';
 
 export default function Dialog() {
   const dispatch = useDispatch();

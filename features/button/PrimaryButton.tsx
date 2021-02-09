@@ -1,9 +1,9 @@
 import Button, { ButtonProps } from './Button';
 import { ButtonType } from './types';
 
-type Props = Omit<ButtonProps, 'type'>;
+type PrimaryButtonProps = Omit<ButtonProps, 'type'>;
 
-export default function PrimaryButton({ children, ...restProps }: Props) {
+export default function PrimaryButton({ children, ...restProps }: PrimaryButtonProps) {
   return (
     <Button {...restProps} type={ButtonType.PRIMARY}>
       {children}

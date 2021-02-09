@@ -2,7 +2,7 @@ import Head from 'next/head';
 import { ReactNode } from 'react';
 
 import { Header } from '~/features/header';
-import styles from './Layout.module.css';
+import styles from './Layout.module.scss';
 
 interface LayoutProps {
   title?: string;
