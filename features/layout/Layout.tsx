@@ -14,20 +14,13 @@ export default function Layout({ title = 'isString', children }: LayoutProps) {
     <div className={styles.layout}>
       <Head>
         <link rel="icon" href="/favicon.ico" />
+        <title>{title}</title>
       </Head>
       <Header key="header" />
-      <title>{title}</title>
 
       <div id="main">{children}</div>
 
       {/* <Footer key="footer" /> */}
-      <style jsx global>
-        {`
-          body {
-            margin: 0;
-          }
-        `}
-      </style>
     </div>
   );
 }
