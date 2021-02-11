@@ -7,7 +7,7 @@
     "dev:ts": "concurrently -k 'yarn dev' 'yarn type-check --watch'",
     "build": "next build",
     "start": "next start",
-    "test": "jest .",
+    "test": "jest . --passWithNoTests",
     "type-check": "tsc --project tsconfig.json --pretty --noEmit --incremental",
     "lint": "eslint --ext js,jsx,ts,tsx --fix"
   },
