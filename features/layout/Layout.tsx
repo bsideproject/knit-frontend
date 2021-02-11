@@ -9,7 +9,7 @@ interface LayoutProps {
   children: ReactNode;
 }
 
-export default function Layout({ title = 'isString', children }: LayoutProps) {
+export default function Layout({ title = 'Knit', children }: LayoutProps) {
   return (
     <div className={styles.layout}>
       <Head>
