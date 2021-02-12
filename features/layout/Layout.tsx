@@ -1,7 +1,7 @@
 import Head from 'next/head';
 import { ReactNode } from 'react';
 
-import { Header } from '~/features/header';
+import { Header } from '~/features/layout/header';
 import styles from './Layout.module.scss';
 
 interface LayoutProps {

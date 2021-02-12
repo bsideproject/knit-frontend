@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { Container } from '~/features/container';
-import { Button } from '../button';
+import { Button } from '../../button';
 import styles from './Header.module.scss';
 
 const TempLogo = () => {
