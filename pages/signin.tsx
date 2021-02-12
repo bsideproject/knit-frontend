@@ -1,3 +1,3 @@
 export default function Signin() {
-  return <></>;
+  return <>로그인 페이지</>;
 }
