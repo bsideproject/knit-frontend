@@ -1,11 +1,5 @@
-import { Layout } from '~/features/layout';
-
 function Main() {
-  return (
-    <Layout>
-      <div>dddd</div>
-    </Layout>
-  );
+  return <div>dddd</div>;
 }
 
 export default Main;
