@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { Container } from '~/features/layout/container';
+import { Container } from '~/features/layout';
 import { Button } from '../../button';
 import styles from './Header.module.scss';
 
