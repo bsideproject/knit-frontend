@@ -1,0 +1,73 @@
+@use 'font';
+@use 'color';
+
+.wrapper {
+  $border: 1px solid #EEEEEE;
+
+  padding: {
+    top: 20px;
+    bottom: 20px;
+  }
+
+  position: relative;
+  border-top: $border;
+
+  &:last-of-type {
+    border-bottom: $border;
+  }
+
+  .title,
+  .desc {
+    @include font.ellipse;
+    margin: {
+      left: 20px;
+      bottom: 14px;
+    }
+  }
+
+  .title {
+    @include font.set(14px, bold);
+    color: color.$black;
+    
+    .number {
+      width: 20px;
+      
+      position: absolute;
+      left: 0;
+  
+      color: color.$primary;
+      font-size: 16px;
+      text-align: center;
+    }
+  }
+
+  .desc {
+    @include font.set(13px);
+    color: color.$light-grey;
+  }
+
+  .countCover {
+    margin-left: 20px;
+
+    .count {
+      @include font.set(12px);
+      color: color.$light-grey;
+  
+      &:not(:last-of-type) {
+        margin-right: 10px;
+      }
+  
+      &>.view {
+        ::before {
+          content: ''; // view count icon
+        }
+      }
+  
+      &>.like {
+        ::before {
+          content: ''; // like count icon
+        }
+      }
+    }
+  }
+}
