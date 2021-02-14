@@ -1,4 +1,5 @@
 import classNames from 'classnames';
+import { Link } from '~/atoms/link';
 import styles from './MostView.module.scss';
 
 interface MostViewProps {
@@ -12,11 +13,13 @@ interface MostViewProps {
 export default function MostView({ number, title, desc, viewCount, likeCount }: MostViewProps) {
   return (
     <div className={styles.wrapper}>
-      <span className={styles.title}>
-        <span className={styles.number}>{number}</span>
+      <span className={styles.number}>{number}</span>
+      <Link className={styles.title} href="#">
         {title}
-      </span>
-      <span className={styles.desc}>{desc}</span>
+      </Link>
+      <Link className={styles.desc} href="#">
+        {desc}
+      </Link>
       <div className={styles.countCover}>
         <span className={classNames(styles.count, styles.view)}>{viewCount.toLocaleString()}</span>
         <span className={classNames(styles.count, styles.like)}>{likeCount.toLocaleString()}</span>
