@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { Button, ButtonType, PrimaryButton } from '~/features/button';
-import { closeDialog, openDialog } from '~/features/dialog';
+import { Button, ButtonType, PrimaryButton } from '~/atoms/button';
+import { closeDialog, openDialog } from '~/atoms/dialog';
 import api from '~/modules/api';
 
 export default function ExamplePage() {

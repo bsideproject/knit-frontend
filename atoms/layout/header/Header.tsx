@@ -1,6 +1,6 @@
 import Link from 'next/link';
-import { Container } from '~/features/layout';
-import { Button } from '../../button';
+import { Container } from '~/atoms/layout';
+import { SearchInput } from '~/atoms/fields';
 import styles from './Header.module.scss';
 
 const TempLogo = () => {
@@ -24,7 +24,7 @@ export default function Header() {
         <div className={styles.rightBox}>
           <div className={styles.rightContent}>
             랜덤 문서
-            <Button>검색 버튼</Button>
+            <SearchInput placeHolder="검색어를 입력하세요." />
             <Link href="/signin">
               <a>로그인</a>
             </Link>
