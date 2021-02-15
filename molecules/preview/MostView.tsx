@@ -1,6 +1,6 @@
 import classNames from 'classnames';
+import Link from 'next/link';
 import { MostViewData } from '~/@types/MostView';
-import { Link } from '~/atoms/link';
 import styles from './MostView.module.scss';
 
 interface MostViewProps extends Omit<MostViewData, 'id'> {
@@ -11,11 +11,11 @@ export default function MostView({ number, title, desc, viewCount, likeCount }: 
   return (
     <div className={styles.wrapper}>
       <span className={styles.number}>{number}</span>
-      <Link className={styles.title} href="#">
-        {title}
+      <Link href="#">
+        <a className={styles.title}>{title}</a>
       </Link>
-      <Link className={styles.desc} href="#">
-        {desc}
+      <Link href="#">
+        <a className={styles.desc}>{desc}</a>
       </Link>
       <div className={styles.countCover}>
         <span className={classNames(styles.count, styles.view)}>{viewCount.toLocaleString()}</span>
