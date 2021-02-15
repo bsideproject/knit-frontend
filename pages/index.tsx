@@ -1,4 +1,5 @@
 import classNames from 'classnames';
+import { MostViewData } from '~/@types/MostView';
 import { Container } from '~/atoms/layout';
 import { MostView } from '~/molecules/preview';
 import styles from './index.module.scss';
@@ -6,7 +7,7 @@ import styles from './index.module.scss';
 const mockData = {
   mostView: [
     {
-      pageNo: '1111',
+      id: 1,
       title:
         '여기에 타이틀. 최근 많이 조회된 문서가 이자리 넘어가면 말줄임밑줄임...여기에 타이틀. 최근 많이 조회된 문서가 이자리 넘어가면 말줄임밑줄임...',
       desc:
@@ -15,7 +16,7 @@ const mockData = {
       likeCount: 9999,
     },
     {
-      pageNo: '2222',
+      id: 2,
       title:
         '여기에 타이틀. 최근 많이 조회된 문서가 이자리 넘어가면 말줄임밑줄임...여기에 타이틀. 최근 많이 조회된 문서가 이자리 넘어가면 말줄임밑줄임...',
       desc:
@@ -24,7 +25,7 @@ const mockData = {
       likeCount: 9999,
     },
     {
-      pageNo: '3333',
+      id: 3,
       title:
         '여기에 타이틀. 최근 많이 조회된 문서가 이자리 넘어가면 말줄임밑줄임...여기에 타이틀. 최근 많이 조회된 문서가 이자리 넘어가면 말줄임밑줄임...',
       desc:
@@ -33,7 +34,7 @@ const mockData = {
       likeCount: 9999,
     },
     {
-      pageNo: '4444',
+      id: 4,
       title:
         '여기에 타이틀. 최근 많이 조회된 문서가 이자리 넘어가면 말줄임밑줄임...여기에 타이틀. 최근 많이 조회된 문서가 이자리 넘어가면 말줄임밑줄임...',
       desc:
@@ -42,7 +43,7 @@ const mockData = {
       likeCount: 9999,
     },
     {
-      pageNo: '5555',
+      id: 5,
       title:
         '여기에 타이틀. 최근 많이 조회된 문서가 이자리 넘어가면 말줄임밑줄임...여기에 타이틀. 최근 많이 조회된 문서가 이자리 넘어가면 말줄임밑줄임...',
       desc:
@@ -51,7 +52,7 @@ const mockData = {
       likeCount: 9999,
     },
     {
-      pageNo: '6666',
+      id: 6,
       title:
         '여기에 타이틀. 최근 많이 조회된 문서가 이자리 넘어가면 말줄임밑줄임...여기에 타이틀. 최근 많이 조회된 문서가 이자리 넘어가면 말줄임밑줄임...',
       desc:
@@ -59,7 +60,7 @@ const mockData = {
       viewCount: 9999,
       likeCount: 9999,
     },
-  ],
+  ] as ReadonlyArray<MostViewData>,
 };
 
 export default function MainPage() {
@@ -74,9 +75,9 @@ export default function MainPage() {
             <div className={styles.sectionColumn}>
               {mockData.mostView
                 .filter((_, index) => index % 2 === 0)
-                .map(({ pageNo, title, desc, viewCount, likeCount }, index) => (
+                .map(({ id, title, desc, viewCount, likeCount }, index) => (
                   <MostView
-                    key={pageNo}
+                    key={id}
                     number={index * 2 + 1}
                     title={title}
                     desc={desc}
@@ -88,9 +89,9 @@ export default function MainPage() {
             <div className={styles.sectionColumn}>
               {mockData.mostView
                 .filter((_, index) => index % 2 === 1)
-                .map(({ pageNo, title, desc, viewCount, likeCount }, index) => (
+                .map(({ id, title, desc, viewCount, likeCount }, index) => (
                   <MostView
-                    key={pageNo}
+                    key={id}
                     number={index * 2 + 2}
                     title={title}
                     desc={desc}

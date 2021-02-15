@@ -1,13 +1,10 @@
 import classNames from 'classnames';
+import { MostViewData } from '~/@types/MostView';
 import { Link } from '~/atoms/link';
 import styles from './MostView.module.scss';
 
-interface MostViewProps {
+interface MostViewProps extends Omit<MostViewData, 'id'> {
   number: number;
-  title: string;
-  desc: string;
-  viewCount: number;
-  likeCount: number;
 }
 
 export default function MostView({ number, title, desc, viewCount, likeCount }: MostViewProps) {
