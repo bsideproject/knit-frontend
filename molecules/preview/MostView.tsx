@@ -1,5 +1,4 @@
 import classNames from 'classnames';
-// import styles from './MostView.module.scss';
 import { Typograpy } from '~/atoms/typography';
 import mockData from './data';
 import MostViewItem from './MostViewItem';
