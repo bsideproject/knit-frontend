@@ -1,25 +1,46 @@
 import classNames from 'classnames';
-import Link from 'next/link';
-import { MostViewData } from '~/@types/MostView';
+import { Typograpy } from '~/atoms/typography';
+import mockData from './data';
+import MostViewItem from './MostViewItem';
 import styles from './MostView.module.scss';
 
-interface MostViewProps extends Omit<MostViewData, 'id'> {
-  number: number;
-}
-
-export default function MostView({ number, title, desc, viewCount, likeCount }: MostViewProps) {
+export default function MostView() {
   return (
-    <div className={styles.wrapper}>
-      <span className={styles.number}>{number}</span>
-      <Link href="#">
-        <a className={styles.title}>{title}</a>
-      </Link>
-      <Link href="#">
-        <a className={styles.desc}>{desc}</a>
-      </Link>
-      <div className={styles.countCover}>
-        <span className={classNames(styles.count, styles.view)}>{viewCount.toLocaleString()}</span>
-        <span className={classNames(styles.count, styles.like)}>{likeCount.toLocaleString()}</span>
+    <div className={classNames(styles.column, styles.left)}>
+      <div className={styles.section}>
+        <div className={styles.titleCover}>
+          <Typograpy>최근 많이 조회된 문서</Typograpy>
+        </div>
+        <div className={styles.contents}>
+          <div className={styles.sectionColumn}>
+            {mockData.mostView
+              .filter((_, index) => index % 2 === 0)
+              .map(({ id, title, desc, viewCount, likeCount }, index) => (
+                <MostViewItem
+                  key={id}
+                  number={index * 2 + 1}
+                  title={title}
+                  desc={desc}
+                  viewCount={viewCount}
+                  likeCount={likeCount}
+                />
+              ))}
+          </div>
+          <div className={styles.sectionColumn}>
+            {mockData.mostView
+              .filter((_, index) => index % 2 === 1)
+              .map(({ id, title, desc, viewCount, likeCount }, index) => (
+                <MostViewItem
+                  key={id}
+                  number={index * 2 + 2}
+                  title={title}
+                  desc={desc}
+                  viewCount={viewCount}
+                  likeCount={likeCount}
+                />
+              ))}
+          </div>
+        </div>
       </div>
     </div>
   );

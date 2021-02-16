@@ -2,7 +2,7 @@
 @use 'color';
 
 .wrapper {
-  $border: 1px solid #EEEEEE;
+  $border: 1px solid #eeeeee;
 
   padding: {
     top: 20px;
@@ -38,7 +38,6 @@
   .title {
     @include font.set(14px, bold);
     color: color.$black;
-
   }
 
   .desc {
@@ -55,17 +54,47 @@
         margin-right: 10px;
       }
 
-      &>.view {
+      & > .view {
         ::before {
-          content: ''; // view count icon
+          content: ""; // view count icon
         }
       }
 
-      &>.like {
+      & > .like {
         ::before {
-          content: ''; // like count icon
+          content: ""; // like count icon
         }
       }
     }
   }
 }
+
+.column {
+  min-width: 0;
+  margin: {
+    right: 25px;
+    bottom: 25px;
+  }
+  &.left {
+    flex: 1 1 70%;
+  }
+  .section {
+    .titleCover {
+      margin-bottom: 20px;
+    }
+    .contents {
+      display: flex;
+
+      .sectionColumn {
+        flex: 1 1 50%;
+        min-width: 0;
+        flex-direction: column;
+
+        &:not(:last-of-type) {
+          margin-right: 14px;
+        }
+      }
+    }
+  }
+}
+

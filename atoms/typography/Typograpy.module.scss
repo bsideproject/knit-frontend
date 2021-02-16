@@ -1,0 +1,6 @@
+@use 'color';
+@use 'font';
+.title {
+    @include font.set(20px, bold);
+    color: color.$primary;
+}
