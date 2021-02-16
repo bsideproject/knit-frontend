@@ -2,46 +2,13 @@
   padding: {
     top: 55px;
   }
-
-  .column {
-    min-width: 0;
-    margin: {
-      right: 25px;
-      bottom: 25px;
-    }
-
-    &.left {
-      flex: 1 1 70%;
-    }
-
-    &.right {
+  &.right {
       margin-left: 70px;
       flex: 1 1 30%;
       max-width: 295px;
       height: 500px;
       background: red;
     }
-
-    .section {
-      .titleCover {
-        margin-bottom: 20px;
-      }
-
-      .contents {
-        display: flex;
-
-        .sectionColumn {
-          flex: 1 1 50%;
-          min-width: 0;
-          flex-direction: column;
-
-          &:not(:last-of-type) {
-            margin-right: 14px;
-          }
-        }
-      }
-    }
-  }
 }
 
 .mostViewWrapper {

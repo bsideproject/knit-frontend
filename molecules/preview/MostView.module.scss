@@ -69,3 +69,32 @@
   }
 }
 
+.column {
+  min-width: 0;
+  margin: {
+    right: 25px;
+    bottom: 25px;
+  }
+  &.left {
+    flex: 1 1 70%;
+  }
+  .section {
+    .titleCover {
+      margin-bottom: 20px;
+    }
+    .contents {
+      display: flex;
+
+      .sectionColumn {
+        flex: 1 1 50%;
+        min-width: 0;
+        flex-direction: column;
+
+        &:not(:last-of-type) {
+          margin-right: 14px;
+        }
+      }
+    }
+  }
+}
+

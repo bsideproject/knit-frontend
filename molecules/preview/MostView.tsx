@@ -2,11 +2,9 @@ import classNames from 'classnames';
 import { Typograpy } from '~/atoms/typography';
 import mockData from './data';
 import MostViewItem from './MostViewItem';
+import styles from './MostView.module.scss';
 
-interface MostViewProps {
-  styles: any; // todo define style object type
-}
-export default function MostView({ styles }: MostViewProps) {
+export default function MostView() {
   return (
     <div className={classNames(styles.column, styles.left)}>
       <div className={styles.section}>

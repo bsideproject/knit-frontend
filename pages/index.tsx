@@ -11,10 +11,8 @@ export default function MainPage() {
       <Banner />
       <Container className={styles.main}>
         <div className={styles.mostViewWrapper}>
-          <MostView styles={styles} />
-          <div className={classNames(styles.column, styles.right)}>
-            가이드 배너 들어가야하는 위치
-          </div>
+          <MostView />
+          <div className={classNames(styles.main, styles.right)}>가이드 배너 들어가야하는 위치</div>
         </div>
         <Featured />
       </Container>

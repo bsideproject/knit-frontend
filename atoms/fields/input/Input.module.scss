@@ -10,16 +10,16 @@
     //     height: 40px;
     //     border-radius: 8px;
     // }
-}
-
-
-.input {
-    width: 80%;
-    height:30px;
-    border: 0px;
-    &:focus{
-        border:0px;
-        outline: none;
+    
+    & > input {
+        width: 80%;
+        height:30px;
+        border: 0px;
+        &:focus{
+            border:0px;
+            outline: none;
+        }
     }
-   
 }
+
+
