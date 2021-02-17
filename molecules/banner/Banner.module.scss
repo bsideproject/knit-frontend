@@ -23,20 +23,24 @@
 }
 
 .hashtagWrapper {
-    margin-top: 10px;
     display: flex;
     & > div {
         margin: 10px;
     }
 }
 
-.title{
+.title {
     width: 45px;
     height: 24px;
     font-size: 42px;
     line-height: 24px;
     display: flex;
     align-items: center;
-
     color: #333333;
+}
+
+.searchWrapper {
+    margin-top: 20px;
+    width: 520px;
+    height: 50px;
 }
