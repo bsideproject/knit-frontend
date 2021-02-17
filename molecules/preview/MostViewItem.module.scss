@@ -27,7 +27,7 @@
     width: 24px;
 
     position: absolute;
-    top: 16px;
+    top: 18px;
     left: 0;
 
     color: color.$primary;
@@ -41,7 +41,7 @@
   }
 
   .desc {
-    @include font.set(13px);
+    @include font.set(14px);
     color: color.$light-grey;
   }
 
@@ -54,15 +54,15 @@
         margin-right: 10px;
       }
 
-      &>.view {
+      & > .view {
         ::before {
-          content: ""; // view count icon
+          content: ''; // view count icon
         }
       }
 
-      &>.like {
+      & > .like {
         ::before {
-          content: ""; // like count icon
+          content: ''; // like count icon
         }
       }
     }
