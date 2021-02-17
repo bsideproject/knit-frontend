@@ -1,17 +1,5 @@
 .button {
-  padding: 12px 20px;
-
-  position: relative;
-
-  border: 1px solid #FDFDFE;
-  box-sizing: border-box;
-  border-radius: 4px;
-
-  &.primary {
-    background: #CCE5FF;
-  }
-  
-  &.danger {
-    background: #F8D7DA;
-  }
+  outline: none;
+  border: none;
+  cursor: pointer;
 }

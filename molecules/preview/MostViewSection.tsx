@@ -1,16 +1,15 @@
 import mockData from './_data';
 import MostViewItem from './MostViewItem';
 import { Section } from '~/atoms/layout';
-import styles from './MostViewSection.module.scss';
+
+const { Title, Contents, Column } = Section;
 
 export default function MostViewSection() {
   return (
     <Section>
-      <div className={styles.titleCover}>
-        <Section.Title>최근 많이 조회된 문서</Section.Title>
-      </div>
-      <div className={styles.contents}>
-        <div className={styles.sectionColumn}>
+      <Title>최근 많이 조회된 문서</Title>
+      <Contents>
+        <Column>
           {mockData.mostView
             .filter((_, index) => index % 2 === 0)
             .map(({ id, title, desc, viewCount, likeCount }, index) => (
@@ -23,8 +22,8 @@ export default function MostViewSection() {
                 likeCount={likeCount}
               />
             ))}
-        </div>
-        <div className={styles.sectionColumn}>
+        </Column>
+        <Column>
           {mockData.mostView
             .filter((_, index) => index % 2 === 1)
             .map(({ id, title, desc, viewCount, likeCount }, index) => (
@@ -37,8 +36,8 @@ export default function MostViewSection() {
                 likeCount={likeCount}
               />
             ))}
-        </div>
-      </div>
+        </Column>
+      </Contents>
     </Section>
   );
 }

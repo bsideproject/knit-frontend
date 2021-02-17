@@ -1,16 +1,28 @@
 import { ReactNode } from 'react';
+import classNames from 'classnames';
 import styles from './Section.module.scss';
 
-interface SectionProps {
-  children: ReactNode;
-}
-export default function Section({ children }: SectionProps) {
-  return <div className={styles.section}>{children}</div>;
+interface ClassNameChildrenProp {
+  className?: string;
+  children?: ReactNode;
 }
 
-interface SectionTitleProps {
-  children: ReactNode;
+export default function Section({ className, children }: ClassNameChildrenProp) {
+  return <div className={classNames(styles.section, className)}>{children}</div>;
 }
-Section.Title = function SectionTitle({ children }: SectionTitleProps) {
-  return <span className={styles.title}>{children}</span>;
+
+Section.Title = function SectionTitle({ className, children }: ClassNameChildrenProp) {
+  return (
+    <div className={classNames(styles.titleCover, className)}>
+      <span className={styles.title}>{children}</span>
+    </div>
+  );
+};
+
+Section.Contents = function SectionContents({ className, children }: ClassNameChildrenProp) {
+  return <div className={classNames(styles.contents, className)}>{children}</div>;
+};
+
+Section.Column = function SectionColumn({ className, children }: ClassNameChildrenProp) {
+  return <div className={classNames(styles.column, className)}>{children}</div>;
 };

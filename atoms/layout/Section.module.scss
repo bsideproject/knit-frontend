@@ -6,8 +6,26 @@
     margin-bottom: 25px;
   }
 
-  .title {
-    @include font.set(20px, bold);
-    color: color.$primary;
+  .titleCover {
+    margin-bottom: 20px;
+
+    .title {
+      @include font.set(20px, bold);
+      color: color.$primary;
+    }
+  }
+
+  .contents {
+    display: flex;
+
+    .column {
+      flex: 1 1 auto;
+      min-width: 0;
+      flex-direction: column;
+
+      &:not(:last-of-type) {
+        margin-right: 14px;
+      }
+    }
   }
 }
