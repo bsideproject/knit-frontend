@@ -1,16 +1,18 @@
 import classNames from 'classnames';
 import { Button } from '~/atoms/button';
-import { Section } from '~/atoms/layout';
 import styles from './FeaturedSection.module.scss';
+import { Section } from '~/atoms/layout';
+
+const { Title, Contents } = Section;
 
 export default function FeaturedSection() {
   return (
     <Section>
-      <Section.Title>Featured</Section.Title>
-      <Section.Contents>
+      <Title>Featured</Title>
+      <Contents>
         <div
           className={classNames(styles.container, {
-            [styles.hasThumbnail]: true,
+            [styles.hasThumbnail]: false,
           })}
         >
           <img src="" alt="" className={styles.thumbnail} />
@@ -27,7 +29,7 @@ export default function FeaturedSection() {
             </div>
           </div>
         </div>
-      </Section.Contents>
+      </Contents>
     </Section>
   );
 }
