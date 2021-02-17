@@ -21,3 +21,22 @@
     text-align: center;
     color: #ffffff;
 }
+
+.hashtagWrapper {
+    margin-top: 10px;
+    display: flex;
+    & > div {
+        margin: 10px;
+    }
+}
+
+.title{
+    width: 45px;
+    height: 24px;
+    font-size: 42px;
+    line-height: 24px;
+    display: flex;
+    align-items: center;
+
+    color: #333333;
+}
