@@ -1,9 +1,10 @@
+import { ReactNode } from 'react';
 import classNames from 'classnames';
-import { ChildrenProp } from '~/@types/props';
 import styles from './Button.module.scss';
 
-interface ButtonProps extends ChildrenProp {
+interface ButtonProps {
   className?: string;
+  children: ReactNode;
 }
 
 export default function Button({ className, children }: ButtonProps) {

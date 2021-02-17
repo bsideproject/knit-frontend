@@ -1,9 +1,10 @@
+import { ReactNode } from 'react';
 import classNames from 'classnames';
-import { ChildrenProp } from '~/@types/props';
 import styles from './Section.module.scss';
 
-interface ClassNameChildrenProp extends ChildrenProp {
+interface ClassNameChildrenProp {
   className?: string;
+  children?: ReactNode;
 }
 
 export default function Section({ className, children }: ClassNameChildrenProp) {
