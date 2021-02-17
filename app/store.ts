@@ -1,12 +1,9 @@
 import { MakeStore, createWrapper } from 'next-redux-wrapper';
 import { configureStore, combineReducers } from '@reduxjs/toolkit';
 import { useSelector } from 'react-redux';
-import dialog from '~/atoms/dialog/slice';
 
 // create a root reducer
-const reducer = combineReducers({
-  dialog,
-});
+const reducer = combineReducers({});
 
 export type RootState = ReturnType<typeof reducer>;
 
