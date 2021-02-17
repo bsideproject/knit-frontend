@@ -1,1 +1,2 @@
-export { default as MostView } from './MostView';
+export { default as MostViewSection } from './MostViewSection';
+export { default as FeaturedSection } from './FeaturedSection';

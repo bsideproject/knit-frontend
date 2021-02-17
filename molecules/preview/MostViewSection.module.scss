@@ -1,0 +1,20 @@
+@use 'font';
+@use 'color';
+
+.titleCover {
+  margin-bottom: 20px;
+}
+
+.contents {
+  display: flex;
+
+  .sectionColumn {
+    flex: 1 1 50%;
+    min-width: 0;
+    flex-direction: column;
+
+    &:not(:last-of-type) {
+      margin-right: 14px;
+    }
+  }
+}
