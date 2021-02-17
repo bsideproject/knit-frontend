@@ -17,8 +17,6 @@ export default function Layout({ title = 'Knit', children }: LayoutProps) {
       </Head>
 
       <div id="main">{children}</div>
-
-      {/* <Footer key="footer" /> */}
     </div>
   );
 }
