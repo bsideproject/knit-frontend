@@ -1,13 +1,13 @@
 import classNames from 'classnames';
 import Link from 'next/link';
 import { MostViewData } from '~/@types/MostView';
-import styles from './MostView.module.scss';
+import styles from './MostViewItem.module.scss';
 
 interface MostViewProps extends Omit<MostViewData, 'id'> {
   number: number;
 }
 
-export default function MostView({ number, title, desc, viewCount, likeCount }: MostViewProps) {
+export default function MostViewItem({ number, title, desc, viewCount, likeCount }: MostViewProps) {
   return (
     <div className={styles.wrapper}>
       <span className={styles.number}>{number}</span>

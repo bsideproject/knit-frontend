@@ -1,0 +1,13 @@
+@use 'font';
+@use 'color';
+
+.section {
+  &:not(:last-of-type) {
+    margin-bottom: 25px;
+  }
+
+  .title {
+    @include font.set(20px, bold);
+    color: color.$primary;
+  }
+}

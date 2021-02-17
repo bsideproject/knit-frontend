@@ -1,14 +1,21 @@
-.main {
+.contents {
   padding: {
     top: 55px;
   }
-  &.right {
-      margin-left: 70px;
+
+  .column {
+    min-width: 0;
+    margin-right: 25px;
+
+    &.left {
+      flex: 1 1 70%;
+    }
+    &.right {
       flex: 1 1 30%;
       max-width: 295px;
-      height: 500px;
-      background: red;
+      background: whitesmoke; // just for test
     }
+  }
 }
 
 .mostViewWrapper {
