@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import { Container } from '~/atoms/layout';
 import { MostViewSection, FeaturedSection } from '~/molecules/preview';
-import { SearchBanner } from '~/molecules/banner';
+import { SearchBanner, GuideBanner } from '~/molecules/banner';
 import styles from './index.module.scss';
 
 export default function MainPage() {
@@ -15,7 +15,7 @@ export default function MainPage() {
             <FeaturedSection />
           </div>
           <div className={classNames(styles.column, styles.right)}>
-            가이드 배너 들어가야하는 위치
+            <GuideBanner />
           </div>
         </div>
       </Container>
