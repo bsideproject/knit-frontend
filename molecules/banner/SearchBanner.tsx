@@ -1,9 +1,9 @@
 import { SearchInput } from '~/atoms/fields';
 import { Hashtag } from '~/atoms/hashtag';
-import styles from './Banner.module.scss';
+import styles from './SearchBanner.module.scss';
 import mockData from './data';
 
-export default function Banner() {
+export default function SearchBanner() {
   return (
     <div className={styles.wrapper}>
       <div className={styles.bannerContent}>
