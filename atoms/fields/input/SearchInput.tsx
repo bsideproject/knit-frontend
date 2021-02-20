@@ -2,16 +2,14 @@ import classNames from 'classnames';
 
 import styles from './Input.module.scss';
 import Input, { Props as InputProps } from './Input';
-import { InputSize } from './types';
 
 interface Props extends InputProps {
-  size?: InputSize;
+  className?: string;
 }
-export default function SearchInput({ placeHolder, size = 'middle' }: Props) {
+export default function SearchInput({ placeHolder, className }: Props) {
   return (
-    <div className={classNames(styles.wrapper, { size })}>
+    <div className={classNames(styles.wrapper, className)}>
       <Input placeHolder={placeHolder} />
-      아이콘
     </div>
   );
 }

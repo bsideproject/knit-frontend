@@ -6,7 +6,7 @@ const mockData = [
     url: '#',
   },
   {
-    title: 'IT위키피디아테스트문구ㅇㅇㅇ',
+    title: 'IT위키피디아테스트문구',
     url: '##',
   },
   {
