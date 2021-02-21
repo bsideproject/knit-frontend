@@ -1,11 +1,14 @@
 import { DateTime } from 'luxon';
 import Link from 'next/link';
 import {
-  Container as ItemContainer,
-  Title as ItemTitle,
+  ItemContainer,
+  ItemTitle,
   Date,
-} from './RecentlyModifiedItem.styled';
-import { Container, Contents, Title } from './RecentlyModified.styled';
+  Container,
+  Contents,
+  Title,
+} from './RecentlyModified.styled';
+
 import mockData from './_data';
 import { RecentlyModified as RecentlyModifiedTypes } from '~/@types';
 

@@ -12,3 +12,25 @@ export const Title = styled.span`
 `;
 
 export const Contents = styled.div``;
+
+export const ItemContainer = styled.div`
+  display: flex;
+  margin-bottom: 10px;
+
+  ${font.set(13)}
+
+  cursor: pointer;
+`;
+
+export const ItemTitle = styled.span`
+  flex: 1 1 0;
+  margin-right: 10px;
+
+  ${font.ellipse(1)}
+`;
+
+export const Date = styled.span`
+  width: auto;
+
+  ${font.ellipse(1)}
+`;
