@@ -1,7 +1,7 @@
 import { SearchInput } from '~/atoms/field';
 import { Hashtag } from '~/atoms/hashtag';
 import styles from './SearchBanner.module.scss';
-import mockData from './data';
+import mockData from './_data';
 
 export default function SearchBanner() {
   return (
@@ -11,7 +11,7 @@ export default function SearchBanner() {
         <SearchInput className={styles.searchWrapper} placeHolder="아이폰12 디자인 가이드" />
 
         <div className={styles.hashtagWrapper}>
-          {mockData.map(({ url, title }) => (
+          {mockData.searchBanner.map(({ url, title }) => (
             <Hashtag key={url} url={url} title={title} />
           ))}
         </div>

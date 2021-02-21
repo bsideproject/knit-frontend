@@ -1,6 +1,29 @@
+import { Hashtag } from '~/@types/Hashtag';
 import { MostViewData } from '~/@types/MostView';
 
 const mockData = {
+  searchBanner: [
+    {
+      title: '비사이드',
+      url: '#',
+    },
+    {
+      title: 'IT위키피디아테스트문구',
+      url: '##',
+    },
+    {
+      title: 'Share',
+      url: '###',
+    },
+    {
+      title: 'Test',
+      url: '####',
+    },
+    {
+      title: '니트 가이드',
+      url: '#####',
+    },
+  ] as ReadonlyArray<Hashtag>,
   mostView: [
     {
       id: 1,
