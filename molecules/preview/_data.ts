@@ -57,5 +57,56 @@ const mockData = {
       likeCount: 9999,
     },
   ] as ReadonlyArray<MostViewData>,
+
+  recentlyModified: [
+    {
+      id: 1,
+      title:
+        '타이틀 몇자까지 들어가나 들어 타이틀 몇자까지 들어가나 들어 타이틀 몇자까지 타이틀 몇자까지 들어가나 타이틀',
+      modifiedDate: Date.now(),
+    },
+    {
+      id: 2,
+      title:
+        '타이틀 몇자까지 들어가나 들어 타이틀 몇자까지 들어가나 들어 타이틀 몇자까지 타이틀 몇자까지 들어가나 타이틀',
+      modifiedDate: Date.now(),
+    },
+    {
+      id: 3,
+      title:
+        '타이틀 몇자까지 들어가나 들어 타이틀 몇자까지 들어가나 들어 타이틀 몇자까지 타이틀 몇자까지 들어가나 타이틀',
+      modifiedDate: Date.now(),
+    },
+    {
+      id: 4,
+      title:
+        '타이틀 몇자까지 들어가나 들어 타이틀 몇자까지 들어가나 들어 타이틀 몇자까지 타이틀 몇자까지 들어가나 타이틀',
+      modifiedDate: Date.now(),
+    },
+    {
+      id: 5,
+      title:
+        '타이틀 몇자까지 들어가나 들어 타이틀 몇자까지 들어가나 들어 타이틀 몇자까지 타이틀 몇자까지 들어가나 타이틀',
+      modifiedDate: Date.now(),
+    },
+    {
+      id: 6,
+      title:
+        '타이틀 몇자까지 들어가나 들어 타이틀 몇자까지 들어가나 들어 타이틀 몇자까지 타이틀 몇자까지 들어가나 타이틀',
+      modifiedDate: Date.now(),
+    },
+    {
+      id: 7,
+      title:
+        '타이틀 몇자까지 들어가나 들어 타이틀 몇자까지 들어가나 들어 타이틀 몇자까지 타이틀 몇자까지 들어가나 타이틀',
+      modifiedDate: Date.now(),
+    },
+    {
+      id: 8,
+      title:
+        '타이틀 몇자까지 들어가나 들어 타이틀 몇자까지 들어가나 들어 타이틀 몇자까지 타이틀 몇자까지 들어가나 타이틀',
+      modifiedDate: Date.now(),
+    },
+  ],
 };
 export default mockData;
