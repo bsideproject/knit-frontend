@@ -1,7 +1,96 @@
-import { Hashtag } from '~/@types/Hashtag';
-import { MostViewData } from '~/@types/MostView';
+import { Debate, MostViewData, Hashtag, RecentlyModified } from '~/@types';
 
-const mockData = {
+interface MockDataType {
+  debate: ReadonlyArray<Debate>;
+  searchBanner: ReadonlyArray<Hashtag>;
+  mostView: ReadonlyArray<MostViewData>;
+  recentlyModified: ReadonlyArray<RecentlyModified>;
+}
+
+const mockData: MockDataType = {
+  debate: [
+    {
+      id: 1,
+      title: '여기는 타이틀 자리입니다.',
+      content: '지금 토론진행중지금 토론진행중 지금 토론진행중 두줄까지만 보여주자요',
+      commentCount: 20,
+    },
+    {
+      id: 2,
+      title: '여기는 타이틀 자리입니다2',
+      content: '지금 토론진행중지금 토론진행중 지금 토론진행중 두줄까지만 보여주자요',
+      commentCount: 20,
+    },
+    {
+      id: 3,
+      title: '여기는 타이틀 자리입니다3',
+      content: '지금 토론진행중지금 토론진행중 지금 토론진행중 두줄까지만 보여주자요',
+      commentCount: 20,
+    },
+    {
+      id: 4,
+
+      title: '여기는 타이틀 자리입니다4',
+      content: '지금 토론진행중지금 토론진행중 지금 토론진행중 두줄까지만 보여주자요',
+      commentCount: 20,
+    },
+    {
+      id: 5,
+
+      title: '두번째 캐러셀 타이틀 1',
+      content: '지금 토론진행중지금 토론진행중 지금 토론진행중 두줄까지만 보여주자요',
+      commentCount: 20,
+    },
+    {
+      id: 6,
+
+      title: '두번째 캐러셀 타이틀 2',
+      content: '지금 토론진행중지금 토론진행중 지금 토론진행중 두줄까지만 보여주자요',
+      commentCount: 20,
+    },
+    {
+      id: 7,
+
+      title: '두번째 캐러셀 타이틀 3',
+      content: '지금 토론진행중지금 토론진행중 지금 토론진행중 두줄까지만 보여주자요',
+      commentCount: 20,
+    },
+    {
+      id: 8,
+
+      title: '두번째 캐러셀 타이틀 4',
+      content: '지금 토론진행중지금 토론진행중 지금 토론진행중 두줄까지만 보여주자요',
+      commentCount: 20,
+    },
+    {
+      id: 9,
+
+      title: '세번째 캐러셀 타이틀 1',
+      content: '지금 토론진행중지금 토론진행중 지금 토론진행중 두줄까지만 보여주자요',
+      commentCount: 20,
+    },
+    {
+      id: 10,
+
+      title: '세번째 캐러셀 타이틀 2',
+      content: '지금 토론진행중지금 토론진행중 지금 토론진행중 두줄까지만 보여주자요',
+      commentCount: 20,
+    },
+    {
+      id: 11,
+
+      title: '세번째 캐러셀 타이틀 3',
+      content: '지금 토론진행중지금 토론진행중 지금 토론진행중 두줄까지만 보여주자요',
+      commentCount: 20,
+    },
+    {
+      id: 12,
+
+      title: '세번째 캐러셀 타이틀 4',
+      content: '지금 토론진행중지금 토론진행중 지금 토론진행중 두줄까지만 보여주자요',
+      commentCount: 20,
+    },
+  ],
   searchBanner: [
     {
       title: '비사이드',
@@ -23,7 +112,7 @@ const mockData = {
       title: '니트 가이드',
       url: '#####',
     },
-  ] as ReadonlyArray<Hashtag>,
+  ] as const,
   mostView: [
     {
       id: 1,
@@ -79,7 +168,7 @@ const mockData = {
       viewCount: 9999,
       likeCount: 9999,
     },
-  ] as ReadonlyArray<MostViewData>,
+  ] as const,
 
   recentlyModified: [
     {

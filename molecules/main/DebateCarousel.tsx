@@ -3,7 +3,9 @@ import { Debate } from '~/@types';
 import { Section } from '~/atoms/layout';
 
 import { DebateSlider, Box, BoxTitle, BoxContent, BoxComment } from './DebateCarousel.styled';
-import data from './DebateData';
+import data from './_data';
+
+const { debate } = data;
 
 const { Title } = Section;
 
@@ -49,7 +51,7 @@ export default function DebateCarousel() {
       <Title>진행중인 토론</Title>
       <div>
         <DebateSlider {...settings}>
-          {data.map(({ id, title, content, commentCount }) => {
+          {debate.map(({ id, title, content, commentCount }) => {
             return (
               <DebateItem key={id} title={title} content={content} commentCount={commentCount} />
             );

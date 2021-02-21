@@ -1,6 +1,13 @@
+import { DateTime } from 'luxon';
+import Link from 'next/link';
+import {
+  Container as ItemContainer,
+  Title as ItemTitle,
+  Date,
+} from './RecentlyModifiedItem.styled';
 import { Container, Contents, Title } from './RecentlyModified.styled';
-import RecentlyModifiedItem from './RecentlyModifiedItem';
 import mockData from './_data';
+import { RecentlyModified as RecentlyModifiedTypes } from '~/@types';
 
 export default function RecentlyModified() {
   return (
@@ -12,5 +19,20 @@ export default function RecentlyModified() {
         ))}
       </Contents>
     </Container>
+  );
+}
+
+interface RecentlyModifiedItemProps extends Omit<RecentlyModifiedTypes, 'id'> {
+  modifiedDate: number;
+}
+
+function RecentlyModifiedItem({ title, modifiedDate }: RecentlyModifiedItemProps) {
+  return (
+    <Link href="#">
+      <ItemContainer>
+        <ItemTitle>{title}</ItemTitle>
+        <Date>{DateTime.fromMillis(modifiedDate).toFormat('LL-dd HH:mm')}</Date>
+      </ItemContainer>
+    </Link>
   );
 }
