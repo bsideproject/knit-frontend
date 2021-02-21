@@ -3,7 +3,7 @@ import Link from 'next/link';
 import {
   ItemContainer,
   ItemTitle,
-  Date,
+  ItemDate,
   Container,
   Contents,
   Title,
@@ -34,7 +34,7 @@ function RecentlyModifiedItem({ title, modifiedDate }: RecentlyModifiedItemProps
     <Link href="#">
       <ItemContainer>
         <ItemTitle>{title}</ItemTitle>
-        <Date>{DateTime.fromMillis(modifiedDate).toFormat('LL-dd HH:mm')}</Date>
+        <ItemDate>{DateTime.fromMillis(modifiedDate).toFormat('LL-dd HH:mm')}</ItemDate>
       </ItemContainer>
     </Link>
   );

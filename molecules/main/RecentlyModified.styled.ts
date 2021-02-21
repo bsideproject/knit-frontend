@@ -29,7 +29,7 @@ export const ItemTitle = styled.span`
   ${font.ellipse(1)}
 `;
 
-export const Date = styled.span`
+export const ItemDate = styled.span`
   width: auto;
 
   ${font.ellipse(1)}
