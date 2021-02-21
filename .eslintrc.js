@@ -13,9 +13,9 @@ module.exports = {
       files: ['**/*.ts', '**/*.tsx'],
       parser: '@typescript-eslint/parser',
       parserOptions: { project: './tsconfig.json' },
-      settings: { 
-        react: { 
-          version: 'detect' 
+      settings: {
+        react: {
+          version: 'detect',
         },
         'import/resolver': {
           alias: {
@@ -52,7 +52,7 @@ module.exports = {
         // allow prop spreading
         'react/jsx-props-no-spreading': 'off',
         // allow not exist default props
-        'react/require-default-props' :'off',
+        'react/require-default-props': 'off',
         // This rule is not compatible with Next.js's <Link /> components
         'jsx-a11y/anchor-is-valid': 'off',
         // allow single named export
@@ -64,8 +64,12 @@ module.exports = {
         // Do not require return types on functions
         '@typescript-eslint/explicit-function-return-type': 'off',
         '@typescript-eslint/explicit-module-boundary-types': 'off',
+        // allow empty interface
+        '@typescript-eslint/no-empty-interface': 'off',
+        // This rule is not compatible with function
+        '@typescript-eslint/no-use-before-define': 'off',
         //Prefer usage of as const over literal type
-        '@typescript-eslint/prefer-as-const' :['warn'],
+        '@typescript-eslint/prefer-as-const': ['warn'],
         // Includes .prettierrc.js rules
         'prettier/prettier': ['error', {}, { usePrettierrc: true }],
       },
