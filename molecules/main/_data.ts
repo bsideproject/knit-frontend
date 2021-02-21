@@ -1,6 +1,29 @@
+import { Hashtag } from '~/@types/Hashtag';
 import { MostViewData } from '~/@types/MostView';
 
 const mockData = {
+  searchBanner: [
+    {
+      title: '비사이드',
+      url: '#',
+    },
+    {
+      title: 'IT위키피디아테스트문구',
+      url: '##',
+    },
+    {
+      title: 'Share',
+      url: '###',
+    },
+    {
+      title: 'Test',
+      url: '####',
+    },
+    {
+      title: '니트 가이드',
+      url: '#####',
+    },
+  ] as ReadonlyArray<Hashtag>,
   mostView: [
     {
       id: 1,
@@ -57,5 +80,56 @@ const mockData = {
       likeCount: 9999,
     },
   ] as ReadonlyArray<MostViewData>,
+
+  recentlyModified: [
+    {
+      id: 1,
+      title:
+        '타이틀 몇자까지 들어가나 들어 타이틀 몇자까지 들어가나 들어 타이틀 몇자까지 타이틀 몇자까지 들어가나 타이틀',
+      modifiedDate: Date.now(),
+    },
+    {
+      id: 2,
+      title:
+        '타이틀 몇자까지 들어가나 들어 타이틀 몇자까지 들어가나 들어 타이틀 몇자까지 타이틀 몇자까지 들어가나 타이틀',
+      modifiedDate: Date.now(),
+    },
+    {
+      id: 3,
+      title:
+        '타이틀 몇자까지 들어가나 들어 타이틀 몇자까지 들어가나 들어 타이틀 몇자까지 타이틀 몇자까지 들어가나 타이틀',
+      modifiedDate: Date.now(),
+    },
+    {
+      id: 4,
+      title:
+        '타이틀 몇자까지 들어가나 들어 타이틀 몇자까지 들어가나 들어 타이틀 몇자까지 타이틀 몇자까지 들어가나 타이틀',
+      modifiedDate: Date.now(),
+    },
+    {
+      id: 5,
+      title:
+        '타이틀 몇자까지 들어가나 들어 타이틀 몇자까지 들어가나 들어 타이틀 몇자까지 타이틀 몇자까지 들어가나 타이틀',
+      modifiedDate: Date.now(),
+    },
+    {
+      id: 6,
+      title:
+        '타이틀 몇자까지 들어가나 들어 타이틀 몇자까지 들어가나 들어 타이틀 몇자까지 타이틀 몇자까지 들어가나 타이틀',
+      modifiedDate: Date.now(),
+    },
+    {
+      id: 7,
+      title:
+        '타이틀 몇자까지 들어가나 들어 타이틀 몇자까지 들어가나 들어 타이틀 몇자까지 타이틀 몇자까지 들어가나 타이틀',
+      modifiedDate: Date.now(),
+    },
+    {
+      id: 8,
+      title:
+        '타이틀 몇자까지 들어가나 들어 타이틀 몇자까지 들어가나 들어 타이틀 몇자까지 타이틀 몇자까지 들어가나 타이틀',
+      modifiedDate: Date.now(),
+    },
+  ],
 };
 export default mockData;

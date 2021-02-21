@@ -1,9 +1,14 @@
 import classNames from 'classnames';
 
 import { Container } from '~/atoms/layout';
-import { MostViewSection, FeaturedSection } from '~/molecules/preview';
-import { SearchBanner, GuideBanner } from '~/molecules/banner';
-import { DebateCarousel } from '~/molecules/debate';
+import {
+  SearchBanner,
+  MostViewSection,
+  FeaturedSection,
+  BannerSection,
+  ExtraSection,
+  DebateCarousel,
+} from '~/molecules/main';
 import styles from './index.module.scss';
 
 export default function MainPage() {
@@ -17,7 +22,8 @@ export default function MainPage() {
             <FeaturedSection />
           </div>
           <div className={classNames(styles.column, styles.right)}>
-            <GuideBanner />
+            <BannerSection />
+            <ExtraSection />
           </div>
         </div>
         <div className={styles.DebateCarouselWrapper}>

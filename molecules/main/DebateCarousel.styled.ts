@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import Slider from 'react-slick';
-import * as font from '~/styles/font.styled';
+import * as font from '~/styles/font';
 
 export const DebateSlider = styled(Slider)`
   .slick-dots li.slick-active button:before {

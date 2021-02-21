@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { Container } from '~/atoms/layout';
-import { SearchInput } from '~/atoms/fields';
+import { SearchInput } from '~/atoms/field';
 import styles from './Header.module.scss';
 
 const TempLogo = () => {
