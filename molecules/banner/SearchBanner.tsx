@@ -1,4 +1,4 @@
-import { SearchInput } from '~/atoms/fields';
+import { SearchInput } from '~/atoms/field';
 import { Hashtag } from '~/atoms/hashtag';
 import styles from './SearchBanner.module.scss';
 import mockData from './data';
