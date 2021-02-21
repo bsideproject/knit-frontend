@@ -1,6 +1,6 @@
 import { ReactNode } from 'react';
 import styled from '@emotion/styled';
-import * as font from '~/styles/font.styled';
+import * as font from '~/styles/font';
 
 interface ChildrenProps {
   children: ReactNode;
