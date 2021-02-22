@@ -13,7 +13,7 @@ const TempLogo = () => {
   );
 };
 
-export default function Header() {
+const Header = () => {
   return (
     <div className={styles.wrapper}>
       <Container>
@@ -33,4 +33,5 @@ export default function Header() {
       </Container>
     </div>
   );
-}
+};
+export default Header;

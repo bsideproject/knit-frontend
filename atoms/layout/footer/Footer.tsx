@@ -1,7 +1,7 @@
 import { Container } from '~/atoms/layout';
 import styles from './Footer.module.scss';
 
-export default function Footer() {
+const Footer = () => {
   return (
     <footer className={styles.wrapper}>
       <Container>
@@ -12,4 +12,5 @@ export default function Footer() {
       </Container>
     </footer>
   );
-}
+};
+export default Footer;

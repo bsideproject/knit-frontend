@@ -11,7 +11,7 @@ import {
 } from '~/molecules/main';
 import styles from './index.module.scss';
 
-export default function MainPage() {
+const MainPage = () => {
   return (
     <>
       <SearchBanner />
@@ -32,4 +32,5 @@ export default function MainPage() {
       </Container>
     </>
   );
-}
+};
+export default MainPage;

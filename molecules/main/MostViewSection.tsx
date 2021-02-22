@@ -1,10 +1,14 @@
+import classNames from 'classnames';
+import Link from 'next/link';
+import { VFC } from 'react';
 import mockData from './_data';
-import MostViewItem from './MostViewItem';
 import { Section } from '~/atoms/layout';
+import { IMostViewData } from '~/@types/db';
+import styles from './MostViewItem.module.scss';
 
 const { Title, Contents, Column } = Section;
 
-export default function MostViewSection() {
+const MostViewSection = () => {
   return (
     <Section>
       <Title>최근 많이 조회된 문서</Title>
@@ -40,4 +44,27 @@ export default function MostViewSection() {
       </Contents>
     </Section>
   );
+};
+export default MostViewSection;
+
+interface MostViewProps extends Omit<IMostViewData, 'id'> {
+  number: number;
 }
+
+const MostViewItem: VFC<MostViewProps> = ({ number, title, desc, viewCount, likeCount }) => {
+  return (
+    <div className={styles.wrapper}>
+      <span className={styles.number}>{number}</span>
+      <Link href="#">
+        <a className={styles.title}>{title}</a>
+      </Link>
+      <Link href="#">
+        <a className={styles.desc}>{desc}</a>
+      </Link>
+      <div className={styles.countCover}>
+        <span className={classNames(styles.count, styles.view)}>{viewCount.toLocaleString()}</span>
+        <span className={classNames(styles.count, styles.like)}>{likeCount.toLocaleString()}</span>
+      </div>
+    </div>
+  );
+};

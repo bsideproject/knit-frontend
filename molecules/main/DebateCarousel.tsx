@@ -1,5 +1,5 @@
 import { Settings } from 'react-slick';
-import { Debate } from '~/@types';
+import { IDebate } from '~/@types/db';
 import { Section } from '~/atoms/layout';
 
 import { DebateSlider, Box, BoxTitle, BoxContent, BoxComment } from './DebateCarousel.styled';
@@ -45,7 +45,7 @@ const settings: Settings = {
   ],
 };
 
-export default function DebateCarousel() {
+const DebateCarousel = () => {
   return (
     <Section>
       <Title>진행중인 토론</Title>
@@ -60,11 +60,13 @@ export default function DebateCarousel() {
       </div>
     </Section>
   );
-}
+};
 
-interface DebateItemProps extends Omit<Debate, 'id'> {}
+export default DebateCarousel;
 
-function DebateItem({ title, content, commentCount }: DebateItemProps) {
+interface DebateItemProps extends Omit<IDebate, 'id'> {}
+
+const DebateItem = ({ title, content, commentCount }: DebateItemProps) => {
   return (
     <Box>
       <BoxTitle>{title}</BoxTitle>
@@ -72,4 +74,4 @@ function DebateItem({ title, content, commentCount }: DebateItemProps) {
       <BoxComment>코멘트 {commentCount}</BoxComment>
     </Box>
   );
-}
+};

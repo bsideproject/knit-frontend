@@ -1,4 +1,1 @@
-export type { Debate } from './Debate';
-export type { Hashtag } from './Hashtag';
-export type { MostViewData } from './MostView';
-export type { RecentlyModified } from './RecentlyModified';
+export type { IMostViewData, IDebate, IHashtag, IRecentlyModified } from './db';

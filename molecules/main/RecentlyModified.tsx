@@ -10,9 +10,9 @@ import {
 } from './RecentlyModified.styled';
 
 import mockData from './_data';
-import { RecentlyModified as RecentlyModifiedTypes } from '~/@types';
+import { IRecentlyModified } from '~/@types';
 
-export default function RecentlyModified() {
+const RecentlyModified = () => {
   return (
     <Container>
       <Title>최근 변경된 문서</Title>
@@ -23,13 +23,14 @@ export default function RecentlyModified() {
       </Contents>
     </Container>
   );
-}
+};
+export default RecentlyModified;
 
-interface RecentlyModifiedItemProps extends Omit<RecentlyModifiedTypes, 'id'> {
+interface RecentlyModifiedItemProps extends Omit<IRecentlyModified, 'id'> {
   modifiedDate: number;
 }
 
-function RecentlyModifiedItem({ title, modifiedDate }: RecentlyModifiedItemProps) {
+const RecentlyModifiedItem = ({ title, modifiedDate }: RecentlyModifiedItemProps) => {
   return (
     <Link href="#">
       <ItemContainer>
@@ -38,4 +39,4 @@ function RecentlyModifiedItem({ title, modifiedDate }: RecentlyModifiedItemProps
       </ItemContainer>
     </Link>
   );
-}
+};

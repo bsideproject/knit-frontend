@@ -1,8 +1,9 @@
 import type { AppProps } from 'next/app';
+import { VFC } from 'react';
 import { wrapper } from './store';
 import { Layout, Header, Footer } from '~/atoms/layout';
 
-function App({ Component, pageProps }: AppProps) {
+const App: VFC<AppProps> = ({ Component, pageProps }) => {
   return (
     <>
       <Header />
@@ -12,6 +13,6 @@ function App({ Component, pageProps }: AppProps) {
       <Footer />
     </>
   );
-}
+};
 
 export default wrapper.withRedux(App);
