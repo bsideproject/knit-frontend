@@ -3,7 +3,7 @@ import { Hashtag } from '~/atoms/hashtag';
 import styles from './SearchBanner.module.scss';
 import mockData from './_data';
 
-export default function SearchBanner() {
+const SearchBanner = () => {
   return (
     <div className={styles.wrapper}>
       <div className={styles.bannerContent}>
@@ -18,4 +18,5 @@ export default function SearchBanner() {
       </div>
     </div>
   );
-}
+};
+export default SearchBanner;

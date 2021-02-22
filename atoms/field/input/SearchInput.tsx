@@ -6,10 +6,11 @@ import Input, { Props as InputProps } from './Input';
 interface Props extends InputProps {
   className?: string;
 }
-export default function SearchInput({ placeHolder, className }: Props) {
+const SearchInput = ({ placeHolder, className }: Props) => {
   return (
     <div className={classNames(styles.wrapper, className)}>
       <Input placeHolder={placeHolder} />
     </div>
   );
-}
+};
+export default SearchInput;

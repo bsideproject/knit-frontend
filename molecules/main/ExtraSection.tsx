@@ -1,10 +1,12 @@
 import { Section } from '~/atoms/layout';
 import RecentlyModified from './RecentlyModified';
 
-export default function BannerSection() {
+const BannerSection = () => {
   return (
     <Section>
       <RecentlyModified />
     </Section>
   );
-}
+};
+
+export default BannerSection;

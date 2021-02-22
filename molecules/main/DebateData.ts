@@ -1,6 +1,6 @@
-import { Debate } from '~/@types';
+import { IDebate } from '~/@types';
 
-const mockData: ReadonlyArray<Debate> = [
+const mockData: ReadonlyArray<IDebate> = [
   {
     id: 1,
     title: '여기는 타이틀 자리입니다.',

@@ -1,14 +1,13 @@
+import { FC } from 'react';
 import Head from 'next/head';
-import { ReactNode } from 'react';
 
 import styles from './Layout.module.scss';
 
 interface LayoutProps {
   title?: string;
-  children: ReactNode;
 }
 
-export default function Layout({ title = 'Knit', children }: LayoutProps) {
+const Layout: FC<LayoutProps> = ({ title = 'Knit', children }) => {
   return (
     <div className={styles.layout}>
       <Head>
@@ -19,4 +18,5 @@ export default function Layout({ title = 'Knit', children }: LayoutProps) {
       <div id="main">{children}</div>
     </div>
   );
-}
+};
+export default Layout;

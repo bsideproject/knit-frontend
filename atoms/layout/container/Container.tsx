@@ -1,12 +1,12 @@
-import { ReactNode } from 'react';
+import { FC } from 'react';
 import classNames from 'classnames';
 import styles from './Container.module.scss';
 
 interface ContainerProps {
-  children: ReactNode;
   className?: string;
 }
 
-export default function Container({ children, className }: ContainerProps) {
+const Container: FC<ContainerProps> = ({ children, className }) => {
   return <div className={classNames(styles.wrapper, className)}>{children}</div>;
-}
+};
+export default Container;

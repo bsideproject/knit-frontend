@@ -1,10 +1,10 @@
-import { Debate, MostViewData, Hashtag, RecentlyModified } from '~/@types';
+import { IDebate, IMostViewData, IHashtag, IRecentlyModified } from '~/@types/db';
 
 interface MockDataType {
-  debate: ReadonlyArray<Debate>;
-  searchBanner: ReadonlyArray<Hashtag>;
-  mostView: ReadonlyArray<MostViewData>;
-  recentlyModified: ReadonlyArray<RecentlyModified>;
+  debate: ReadonlyArray<IDebate>;
+  searchBanner: ReadonlyArray<IHashtag>;
+  mostView: ReadonlyArray<IMostViewData>;
+  recentlyModified: ReadonlyArray<IRecentlyModified>;
 }
 
 const mockData: MockDataType = {

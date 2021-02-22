@@ -1,10 +1,11 @@
 import Link from 'next/link';
+import { VFC } from 'react';
 import styles from './Hashtag.module.scss';
-import { Hashtag as HashtagType } from '~/@types/Hashtag';
+import { IHashtag } from '~/@types';
 
-type HashtagProps = HashtagType;
+interface HashtagProps extends IHashtag {}
 
-export default function Hashtag({ url, title }: HashtagProps) {
+const Hashtag: VFC<HashtagProps> = ({ url, title }) => {
   return (
     <div className={styles.wrapper}>
       <Link href={url}>
@@ -12,4 +13,5 @@ export default function Hashtag({ url, title }: HashtagProps) {
       </Link>
     </div>
   );
-}
+};
+export default Hashtag;

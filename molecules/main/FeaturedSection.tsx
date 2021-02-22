@@ -5,7 +5,7 @@ import { Section } from '~/atoms/layout';
 
 const { Title, Contents } = Section;
 
-export default function FeaturedSection() {
+const FeaturedSection = () => {
   return (
     <Section>
       <Title>Featured</Title>
@@ -32,4 +32,6 @@ export default function FeaturedSection() {
       </Contents>
     </Section>
   );
-}
+};
+
+export default FeaturedSection;

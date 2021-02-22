@@ -7,10 +7,11 @@ interface ClassNameChildrenProp {
   children?: ReactNode;
 }
 
-export default function Section({ className, children }: ClassNameChildrenProp) {
+const Section = ({ className, children }: ClassNameChildrenProp) => {
   return <div className={classNames(styles.section, className)}>{children}</div>;
-}
+};
 
+// Component definition is missing display name
 Section.Title = function SectionTitle({ className, children }: ClassNameChildrenProp) {
   return (
     <div className={classNames(styles.titleCover, className)}>
@@ -26,3 +27,5 @@ Section.Contents = function SectionContents({ className, children }: ClassNameCh
 Section.Column = function SectionColumn({ className, children }: ClassNameChildrenProp) {
   return <div className={classNames(styles.column, className)}>{children}</div>;
 };
+
+export default Section;

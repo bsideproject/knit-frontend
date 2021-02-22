@@ -1,10 +1,11 @@
 import { Section } from '~/atoms/layout';
 import GuideBanner from './GuideBanner';
 
-export default function BannerSection() {
+const BannerSection = () => {
   return (
     <Section>
       <GuideBanner />
     </Section>
   );
-}
+};
+export default BannerSection;
