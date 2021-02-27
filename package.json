@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "dev:ts": "concurrently -k 'yarn dev' 'yarn type-check --watch'",
-    "build": "next build",
+    "build": "next build && next export",
     "start": "next start",
     "test": "jest . --passWithNoTests",
     "type-check": "tsc --project tsconfig.json --pretty --noEmit --incremental",
