@@ -38,3 +38,8 @@ tsconfig.tsbuildinfo
 
 # yarn
 yarn.lock
+
+# dotenv enviroment variables file
+.env
+
+.zip
