@@ -11,7 +11,7 @@ jobs:
       - name: Checkout source code.
         uses: actions/checkout@v2
 
-      - name: Cache node modules # caching node modules
+      - name: Cache node modules # node modules 캐싱
         uses: actions/cache@v1
         with:
           path: node_modules
@@ -38,18 +38,3 @@ jobs:
             --recursive \
             --region ap-northeast-2 \
             out s3://knit-bucket
-
-
-      - name: S3 업로드
-        run: aws deploy push 
-            --application-name EC2-S3-Deploy 
-            --description "This is a revision for the application airbnb_App" 
-            --s3-location s3://codesquad-deploy/server/build.zip --source .
-
-       - name: Code Deploy
-         run: aws deploy create-deployment 
-         --application-name EC2-S3-Deploy 
-         --deployment-config-name CodeDeployDefault.OneAtATime 
-         --deployment-group-name dev 
-         --s3-location bucket=codesquad-deploy,bundleType=zip,key=server/build.zip
-
