@@ -5,7 +5,7 @@ const SDK_URL: Record<SigninType, string> = {
   [SigninType.GOOGLE]: '',
 };
 
-export function injectSigninSDK(type: SigninType) {
+export const injectSigninSDK = (type: SigninType) => {
   const id = `${type}_SDK`;
   if (document.getElementById(id)) return Promise.resolve();
 
@@ -18,4 +18,4 @@ export function injectSigninSDK(type: SigninType) {
   return new Promise((resolve) => {
     scriptElement.onload = resolve;
   });
-}
+};

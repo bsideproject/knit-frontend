@@ -12,7 +12,7 @@ const NaverSigninButton: FC = () => {
 
 export default NaverSigninButton;
 
-async function injectNaverSigninSDK() {
+const injectNaverSigninSDK = async () => {
   await injectSigninSDK(SigninType.NAVER);
 
   const naverLogin = new (window as any).naver.LoginWithNaverId({
@@ -22,4 +22,4 @@ async function injectNaverSigninSDK() {
     loginButton: { color: 'white', type: 3, height: 50 },
   });
   naverLogin.init();
-}
+};
