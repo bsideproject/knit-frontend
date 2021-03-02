@@ -1,12 +1,13 @@
-const _ = require('lodash');
+// const _ = require('lodash');
 const path = require('path');
 
-['NEXT_PUBLIC_BASE_URL', 'NEXT_PUBLIC_AUTH_CLIENT_ID_NAVER'].forEach((key) => {
-  if (!_.has(process.env, key)) {
-    console.error(`${key} is not exist on process environment`);
-    process.exit(1);
-  }
-});
+// temp comment 처리
+// ['NEXT_PUBLIC_BASE_URL', 'NEXT_PUBLIC_AUTH_CLIENT_ID_NAVER'].forEach((key) => {
+//   if (!_.has(process.env, key)) {
+//     console.error(`${key} is not exist on process environment`);
+//     process.exit(1);
+//   }
+// });
 
 module.exports = {
   reactStrictMode: true,
