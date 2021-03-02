@@ -105,7 +105,7 @@ const mockData: MockDataType = {
       url: '###',
     },
     {
-      title: 'Test Build',
+      title: 'Test ECS CI/CD',
       url: '####',
     },
     {
