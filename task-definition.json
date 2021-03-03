@@ -35,6 +35,10 @@
         {
           "name": "knit-front-enviroments",
           "valueFrom": "arn:aws:secretsmanager:ap-northeast-2:390362269485:secret:knit-front-enviroments-QVtb9r"
+        },
+        {
+          "name": "test",
+          "valueFrom": "arn:aws:secretsmanager:ap-northeast-2:390362269485:secret:test-MWgLuh"
         }
       ],
       "dockerSecurityOptions": null,
