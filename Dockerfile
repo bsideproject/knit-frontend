@@ -1,8 +1,12 @@
 # Specifies where to get the base image (Node v12 in our case) and creates a new container for it
 FROM node:14.16.0
 
-# Set working directory. Paths will be relative this WORKDIR.
 WORKDIR /usr/src/app
+
+ENV NEXT_PUBLIC_BASE_URL localhost
+ENV NEXT_PUBLIC_API_URL ${secrets.AWS_ACCESS_KEY_ID}
+ENV NEXT_PUBLIC_AUTH_CLIENT_ID_NAVER __naver__
+
 
 # Install dependencies
 COPY package*.json ./
