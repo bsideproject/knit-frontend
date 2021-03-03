@@ -31,7 +31,12 @@
       "dnsServers": null,
       "mountPoints": [],
       "workingDirectory": null,
-      "secrets": null,
+      "secrets": [
+        {
+          "name": "knit-front-enviroments",
+          "valueFrom": "arn:aws:secretsmanager:ap-northeast-2:390362269485:secret:knit-front-enviroments-QVtb9r"
+        }
+      ],
       "dockerSecurityOptions": null,
       "memory": null,
       "memoryReservation": null,
