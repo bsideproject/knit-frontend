@@ -3,10 +3,11 @@ FROM node:14.16.0
 
 WORKDIR /usr/src/app
 
-# ENV NEXT_PUBLIC_BASE_URL localhost
-# ENV NEXT_PUBLIC_API_URL https://httpbin.org/
-# ENV NEXT_PUBLIC_AUTH_CLIENT_ID_NAVER __naver__
 
+ENV NEXT_PUBLIC_BASE_URL https://knitwiki.com
+ENV NEXT_PUBLIC_AUTH_CLIENT_ID_NAVER 'oxEmJeifshUzDPnoU6No'
+ENV NEXT_PUBLIC_AUTH_CLIENT_ID_GOOGLE ''
+ENV NEXT_PUBLIC_API_URL https://httpbin.org/
 
 # Install dependencies
 COPY package*.json ./
