@@ -2,8 +2,12 @@ version: '3'
 
 services:
   web:
+    # container_name: backend
+    build: .
+    volumes:
+      - ~/app_name:/code
+    ports:
+      - '8000:8000'
     environment:
       - NEXT_PUBLIC_BASE_URL=${NEXT_PUBLIC_BASE_URL}
       - NEXT_PUBLIC_API_URL=${NEXT_PUBLIC_API_URL}
-      - SECRET_KEY
-      - PORT
