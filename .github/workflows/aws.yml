@@ -1,6 +1,6 @@
 on:
   push:
-    branches: [develop]
+    # branches: [develop]
 
 name: Deploy to Amazon ECS
 
@@ -9,7 +9,7 @@ jobs:
     name: Deploy
     runs-on: ubuntu-latest
     env:
-      NEXT_PUBLIC_BASE_URL: ${{ secrets.NEXT_PUBLIC_BASE_URL }}
+      NEXT_PUBLIC_BASE_URL: ${{ secrets.AWS_ACCESS_KEY_ID }}
 
     steps:
       - name: Checkout
