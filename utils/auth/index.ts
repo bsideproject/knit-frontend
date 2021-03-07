@@ -5,7 +5,7 @@ const SDK_URL: Record<SigninType, string> = {
   [SigninType.GOOGLE]: '',
 };
 
-export const injectSigninSDK = (type: SigninType) => {
+const injectSigninSDK = (type: SigninType) => {
   const id = `${type}_SDK`;
   if (document.getElementById(id)) return Promise.resolve();
 
@@ -18,4 +18,21 @@ export const injectSigninSDK = (type: SigninType) => {
   return new Promise((resolve) => {
     scriptElement.onload = resolve;
   });
+};
+
+export const initNaverSigninSDK = async ({
+  callbackHandle = false,
+}: { callbackHandle?: boolean } = {}) => {
+  await injectSigninSDK(SigninType.NAVER);
+
+  const naverLogin = new (window as any).naver.LoginWithNaverId({
+    clientId: process.env.NEXT_PUBLIC_AUTH_CLIENT_ID_NAVER,
+    callbackUrl: `${process.env.NEXT_PUBLIC_BASE_URL}/signin/callback/${SigninType.NAVER}`,
+    isPopup: false,
+    ...(callbackHandle
+      ? { callbackHandle: true }
+      : { loginButton: { color: 'white', type: 3, height: 50 } }),
+  });
+  naverLogin.init();
+  return naverLogin;
 };
