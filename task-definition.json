@@ -10,12 +10,6 @@
           "type": "s3"
         }
       ],
-      "secrets": [
-        {
-          "name": "TEST_ENV",
-          "valueFrom": "123"
-        }
-      ],
       "logConfiguration": {
         "logDriver": "awslogs",
         "secretOptions": null,
