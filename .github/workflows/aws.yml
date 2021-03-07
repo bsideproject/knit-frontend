@@ -8,6 +8,8 @@ jobs:
   deploy:
     name: Deploy
     runs-on: ubuntu-latest
+    env:
+      NEXT_PUBLIC_BASE_URL: https://knitwiki.com
 
     steps:
       - name: Checkout
