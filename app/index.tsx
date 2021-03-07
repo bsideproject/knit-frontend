@@ -15,6 +15,7 @@ const App: VFC<AppProps> = ({ Component, pageProps, router }) => {
     const response = axios.get(`/`);
 
     response.then((data) => {
+      console.log(process.env);
       console.log('url>>>>', process.env.NEXT_PUBLIC_API_URL);
       console.log('data>>>>', data);
     });
