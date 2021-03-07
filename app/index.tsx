@@ -15,7 +15,7 @@ const App: VFC<AppProps> = ({ Component, pageProps, router }) => {
     const response = axios.get(`/`);
 
     response.then(() => {
-      console.log('api call success!!');
+      console.log('api call success!');
     });
   };
 
