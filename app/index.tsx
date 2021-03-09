@@ -1,8 +1,11 @@
 import type { AppProps } from 'next/app';
 import { useEffect, VFC } from 'react';
+import * as dotenv from 'dotenv';
 import { wrapper } from './store';
 import { Layout, Header, Footer } from '~/atoms/layout';
 import axios from '~/utils/api';
+
+dotenv.config();
 
 const App: VFC<AppProps> = ({ Component, pageProps, router }) => {
   const { pathname } = router;
