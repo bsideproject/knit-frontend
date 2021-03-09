@@ -17,10 +17,8 @@
         }
       ],
       "environment": [
-        {
-          "name": "TEST_ENV",
-          "value": "123"
-        }
+        { "name": "TEST_ENV", "value": "env!!!!!" },
+        { "name": "f***", "value": "fffffffff" }
       ],
       "logConfiguration": {
         "logDriver": "awslogs",
@@ -131,23 +129,5 @@
   "status": "ACTIVE",
   "inferenceAccelerators": null,
   "proxyConfiguration": null,
-  "volumes": [],
-  "environmentFiles": [
-    {
-      "value": "arn:aws:s3:::knit-bucket/.env",
-      "type": "s3"
-    }
-  ],
-  "secrets": [
-    {
-      "name": "TEST2",
-      "valueFrom": "arn:aws:secretsmanager:ap-northeast-2:390362269485:secret:test2-5tfhVy"
-    }
-  ],
-  "environment": [
-    {
-      "name": "TEST_ENV",
-      "value": "123"
-    }
-  ]
+  "volumes": []
 }
