@@ -1,6 +1,6 @@
 on:
   push:
-    branches: [master]
+    # branches: [master]
 
 name: Deploy to Amazon ECS
 
@@ -28,9 +28,11 @@ jobs:
         run: |
           touch .env
           echo NEXT_PUBLIC_API_URL=${{ secrets.NEXT_PUBLIC_API_URL }} >> .env
-          echo NEXT_PUBLIC_BASE_URL=${{ env.NEXT_PUBLIC_BASE_URL }} >> .env
-          echo NEXT_PUBLIC_AUTH_CLIENT_ID_GOOGLE=${{ secrets.NEXT_PUBLIC_AUTH_CLIENT_ID_GOOGLE }} >> .env
-          echo NEXT_PUBLIC_AUTH_CLIENT_ID_NAVER=${{ env.NEXT_PUBLIC_AUTH_CLIENT_ID_NAVER }} >> .env
+          echo NEXT_PUBLIC_BASE_URL=${{ secrets.NEXT_PUBLIC_BASE_URL }} >> .env
+          echo NEXT_PUBLIC_OAUTH_GOOGLE_CLIENT_ID=${{ secrets.NEXT_PUBLIC_OAUTH_GOOGLE_CLIENT_ID }} >> .env
+          echo NEXT_PUBLIC_OAUTH_GOOGLE_SDK_URL=${{ secrets.NEXT_PUBLIC_OAUTH_GOOGLE_SDK_URL }} >> .env
+          echo NEXT_PUBLIC_OAUTH_NAVER_CLIENT_ID=${{ secrets.NEXT_PUBLIC_OAUTH_NAVER_CLIENT_ID }} >> .env
+          echo NEXT_PUBLIC_OAUTH_NAVER_SDK_URL=${{ secrets.NEXT_PUBLIC_OAUTH_NAVER_SDK_URL }} >> .env
           cat .env
       - name: Build, tag, and push image to Amazon ECR
         id: build-image
