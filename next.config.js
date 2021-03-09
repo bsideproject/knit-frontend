@@ -7,6 +7,7 @@ Dotenv.config();
   (key) => {
     if (!_.has(process.env, key)) {
       // if (!process.env[key]) {
+
       console.error(`${key} is not exist on process environment`);
       //   process.exit(1);
     }
