@@ -4,6 +4,7 @@ FROM node:14.16.0
 WORKDIR /usr/src/app
 
 
+ENV NEXT_PUBLIC_BASE_URL=${NEXT_PUBLIC_BASE_URL}
 
 # Install dependencies
 COPY package*.json ./
