@@ -1,0 +1,26 @@
+.contents {
+  padding: {
+    top: 55px;
+  }
+
+  .column {
+    min-width: 0;
+    margin-right: 30px;
+
+    &.left {
+      flex: 1 1 70%;
+    }
+    &.right {
+      flex: 1 1 30%;
+      max-width: 295px;
+    }
+  }
+}
+
+.mostViewWrapper {
+  display: flex;
+}
+
+.DebateCarouselWrapper {
+  margin: 60px 0px;
+}

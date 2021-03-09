@@ -1,0 +1,11 @@
+version: '3'
+
+services:
+  web:
+    # container_name: backend
+    build: .
+    ports:
+      - '80:80'
+    environment:
+      - NEXT_PUBLIC_BASE_URL=${NEXT_PUBLIC_BASE_URL}
+      - NEXT_PUBLIC_API_URL=${NEXT_PUBLIC_API_URL}

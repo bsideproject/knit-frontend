@@ -1,0 +1,18 @@
+.wrapper {
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background: #dcf5f2;
+    height: 40px;
+
+    & > div {
+        display: flex;
+        padding-left: 40px;
+        & > span {
+            padding-right: 25px;
+            font-size: 13px;
+            line-height: 24px;
+            color: rgba(0, 0, 0, 0.5);
+        }
+    }
+}

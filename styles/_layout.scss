@@ -1,0 +1,9 @@
+$resolution-max-width: 1280px;
+
+@mixin fit-in-resolution {
+  max-width: $resolution-max-width;
+  margin: {
+    left: auto;
+    right: auto;
+  }
+}
