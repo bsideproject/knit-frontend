@@ -4,16 +4,6 @@
   "containerDefinitions": [
     {
       "dnsSearchDomains": null,
-      "environmentFiles": [
-        {
-          "value": "arn:aws:s3:::knit-bucket/.env",
-          "type": "s3"
-        }
-      ],
-      "environment": [
-        { "name": "TEST_ENV", "value": "env!!!!!" },
-        { "name": "f***", "value": "fffffffff" }
-      ],
       "logConfiguration": {
         "logDriver": "awslogs",
         "secretOptions": null,
