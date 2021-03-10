@@ -106,6 +106,7 @@
     }
   ],
   "pidMode": null,
+
   "requiresCompatibilities": ["FARGATE"],
   "networkMode": "awsvpc",
   "cpu": "256",
