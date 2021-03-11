@@ -41,7 +41,7 @@ yarn-error.log*
 tsconfig.tsbuildinfo
 
 # yarn
-yarn.lock
+# yarn.lock
 
 # dotenv enviroment variables file
 .env
