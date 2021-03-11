@@ -4,7 +4,7 @@ FROM node:14.16.0
 WORKDIR /usr/src/app
 
 # Install dependencies
-COPY package*.json ./
+COPY package*.json yarn.lock ./
 RUN yarn
 
 # Copy source files from host computer to the container

@@ -1,14 +1,13 @@
 const _ = require('lodash');
 const path = require('path');
 
-// const Dotenv = require('dotenv');
-// Dotenv.config();
-
 const ENV_KEY_LIST = [
-  'NEXT_PUBLIC_BASE_URL',
   'NEXT_PUBLIC_API_URL',
-  'NEXT_PUBLIC_AUTH_CLIENT_ID_GOOGLE',
-  'NEXT_PUBLIC_AUTH_CLIENT_ID_NAVER',
+  'NEXT_PUBLIC_BASE_URL',
+  'NEXT_PUBLIC_OAUTH_GOOGLE_CLIENT_ID',
+  'NEXT_PUBLIC_OAUTH_GOOGLE_SDK_URL',
+  'NEXT_PUBLIC_OAUTH_NAVER_CLIENT_ID',
+  'NEXT_PUBLIC_OAUTH_NAVER_SDK_URL',
 ];
 ENV_KEY_LIST.forEach((key) => {
   if (!_.has(process.env, key)) {
