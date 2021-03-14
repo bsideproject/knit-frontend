@@ -34,9 +34,7 @@ export const initNaverSigninSDK = async ({
     clientId: process.env.NEXT_PUBLIC_OAUTH_NAVER_CLIENT_ID,
     callbackUrl: OAUTH_CALLBACK_URL[SigninType.NAVER],
     isPopup: false,
-    ...(callbackHandle
-      ? { callbackHandle: true }
-      : { loginButton: { color: 'white', type: 3, height: 50 } }),
+    ...(callbackHandle ? { callbackHandle: true } : { loginButton: {} }),
   });
   naverLogin.init();
   return naverLogin;
