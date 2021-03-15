@@ -25,13 +25,10 @@ export interface AlignerProps {
 }
 export const Aligner = styled.div<AlignerProps>`
   display: flex;
-  ${(props) => {
-    const { top, bottom, left, right } = props;
-    return css`
-      align-items: ${top ? 'flex-start' : bottom ? 'flex-end' : 'center'};
-      justify-content: ${left ? 'flex-start' : right ? 'flex-end' : 'center'};
-    `;
-  }}
+  ${({ top, bottom, left, right }) => css`
+    align-items: ${top ? 'flex-start' : bottom ? 'flex-end' : 'center'};
+    justify-content: ${left ? 'flex-start' : right ? 'flex-end' : 'center'};
+  `}
 
   width: 80%;
   height: 80%;
