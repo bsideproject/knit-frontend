@@ -1,8 +1,8 @@
 import { SigninType } from '~/@types/auth';
 
 const SDK_URL: Record<SigninType, string> = {
-  [SigninType.NAVER]: process.env.NEXT_PUBLIC_OAUTH_NAVER_SDK_URL ?? '',
-  [SigninType.GOOGLE]: process.env.NEXT_PUBLIC_OAUTH_GOOGLE_SDK_URL ?? '',
+  [SigninType.NAVER]: process.env.NEXT_PUBLIC_OAUTH_NAVER_SDK_URL,
+  [SigninType.GOOGLE]: process.env.NEXT_PUBLIC_OAUTH_GOOGLE_SDK_URL,
 };
 
 const OAUTH_CALLBACK_URL: Record<SigninType, string> = {
