@@ -6,7 +6,7 @@ import { Label, Input } from './Checkbox.styled';
 interface Props {
   className?: string;
   checked: boolean;
-  onChange: (...args: any) => any;
+  onChange: (checked: boolean) => void;
 }
 
 const Checkbox: FC<Props> = ({ className, children, checked, onChange }) => {
