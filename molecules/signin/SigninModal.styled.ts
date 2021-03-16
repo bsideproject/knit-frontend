@@ -23,6 +23,7 @@ export const CloseButton = styled(AtomCloseButton)`
   position: absolute;
   top: 12px;
   right: 12px;
+  background: none !important;
 
   &:hover {
     animation: ${wriggle} 0.5s ease;

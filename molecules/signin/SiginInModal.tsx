@@ -1,5 +1,4 @@
 import { FC, useState } from 'react';
-import { Color } from '~/@types';
 import { Modal } from '~/atoms/modal';
 import GoogleSigninButton from './GoogleSigninButton';
 import NaverSigninButton from './NaverSigninButton';
@@ -23,7 +22,7 @@ const SigninModal: FC<Props> = ({ onClickClose }) => {
   return (
     <Modal top>
       <Container>
-        <CloseButton color={Color.PRIMARY} onClick={onClickClose} />
+        <CloseButton onClick={onClickClose} />
         <Title>Knit</Title>
         <SubTitle>서비스 가치를 전달하는 문구를 여기에</SubTitle>
         <SigninButtonContainer>

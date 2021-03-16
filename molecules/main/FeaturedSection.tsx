@@ -2,7 +2,7 @@ import classNames from 'classnames';
 import { Button } from '~/atoms/button';
 import styles from './FeaturedSection.module.scss';
 import { Section } from '~/atoms/layout';
-import { Color } from '~/@types';
+import { Color, Size } from '~/@types';
 
 const { Title, Contents } = Section;
 
@@ -26,7 +26,9 @@ const FeaturedSection = () => {
               이미지가 포함된 문서와, 이미지가 포함되지 않은 경우가 필요합니다. 3줄까지 보여주기
             </span>
             <div className={styles.buttonWrapper}>
-              <Button color={Color.PRIMARY}>이어서 읽기</Button>
+              <Button color={Color.PRIMARY} size={Size.MIDDLE}>
+                이어서 읽기
+              </Button>
             </div>
           </div>
         </div>

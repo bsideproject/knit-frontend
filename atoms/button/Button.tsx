@@ -4,12 +4,18 @@ import { Size, Color } from '~/@types';
 
 interface ButtonProps {
   color?: Color;
+  size?: Size;
   onClick?: MouseEventHandler<HTMLButtonElement>;
 }
 
-const ButtonComponent: FC<ButtonProps> = ({ color = Color.PRIMARY, children, onClick }) => {
+const ButtonComponent: FC<ButtonProps> = ({
+  color = Color.PRIMARY,
+  size = Size.MIDDLE,
+  children,
+  onClick,
+}) => {
   return (
-    <Button type="button" size={Size.MIDDLE} color={color} onClick={onClick}>
+    <Button type="button" size={size} color={color} onClick={onClick}>
       {children}
     </Button>
   );

@@ -12,7 +12,6 @@ const ButtonSize = ({ size }: IButton) => {
   switch (size) {
     case Size.XSMALL:
       cssSize = css`
-        width: 16px;
         height: 26px;
         ${font.set(12)};
       `;
@@ -21,20 +20,18 @@ const ButtonSize = ({ size }: IButton) => {
     case Size.SMALL:
       cssSize = css`
         height: 32px;
-        height: 16px;
         ${font.set(14)};
       `;
       break;
     case Size.MIDDLE:
       cssSize = css`
-        height: 24;
-        height: 40;
+        height: 40px;
         ${font.set(16)};
       `;
       break;
     case Size.LARGE:
       cssSize = css`
-        height: 46px;
+        height: 48px;
         ${font.set(20)};
       `;
       break;
@@ -51,26 +48,26 @@ const colorStyles = ({ theme, color }: IButton & { theme: Theme }) => {
   switch (color) {
     case Color.PRIMARY:
       cssColor = css`
-        ${background}
-        color : ${theme.palette.white};
+        background: ${background};
+        color: ${theme.palette.white};
       `;
       break;
     case Color.SECONDARY:
       cssColor = css`
-        ${background}
-        color : ${theme.palette.primary};
+        background: ${background};
+        color: ${theme.palette.primary};
       `;
       break;
     case Color.TERTIARY:
       cssColor = css`
-        ${background}
-        color : ${theme.palette.primary};
+        background: ${background};
+        color: ${theme.palette.primary};
       `;
       break;
     case Color.QUATENARY:
       cssColor = css`
-        ${background}
-        color : ${theme.palette.primary};
+        background: ${background};
+        color: ${theme.palette.primary};
       `;
       break;
     default:
@@ -79,8 +76,6 @@ const colorStyles = ({ theme, color }: IButton & { theme: Theme }) => {
   return cssColor;
 };
 export const Button = styled.button`
-  width: 114px;
-  height: 38px;
   outline: none;
   border: none;
   cursor: pointer;
