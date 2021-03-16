@@ -24,6 +24,7 @@ const SigninCallback: FC = () => {
        * Todo
        * - Google login callback
        */
+      return;
     }
 
     alert('잘못된 접근입니다.');
@@ -51,6 +52,7 @@ const handleNaverLogin = async () => {
         alert('이메일은 필수정보입니다. 정보제공을 동의해주세요.');
         /* 사용자 정보 재동의를 위하여 다시 네아로 동의페이지로 이동함 */
         naverLogin.reprompt();
+        return;
       }
 
       /**

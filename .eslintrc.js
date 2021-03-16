@@ -72,6 +72,7 @@ module.exports = {
         '@typescript-eslint/prefer-as-const': ['warn'],
         // Includes .prettierrc.js rules
         'prettier/prettier': ['error', {}, { usePrettierrc: true }],
+        'no-nested-ternary': 'off',
       },
     },
   ],
