@@ -1,14 +1,15 @@
-import { FC } from 'react';
+import { FC, MouseEventHandler } from 'react';
 import { Button } from './styled';
-import { Theme, Size } from '~/@types';
+import { Size, Color } from '~/@types';
 
 interface ButtonProps {
-  type: Theme;
+  color?: Color;
+  onClick?: MouseEventHandler<HTMLButtonElement>;
 }
 
-const ButtonComponent: FC<ButtonProps> = ({ type, children }) => {
+const ButtonComponent: FC<ButtonProps> = ({ color = Color.PRIMARY, children, onClick }) => {
   return (
-    <Button type="button" typea={type} size={Size.MIDDLE}>
+    <Button type="button" size={Size.MIDDLE} color={color} onClick={onClick}>
       {children}
     </Button>
   );

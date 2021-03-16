@@ -1,2 +1,2 @@
 export { set, ellipse } from './font';
-export { theme } from './theme';
+export { theme } from './color';

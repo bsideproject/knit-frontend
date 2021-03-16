@@ -1,27 +1,6 @@
-import '@emotion/react';
-// import { ITheme } from '~/@types';
+import '@emotion/styled';
+import { Theme as CustomTheme } from '~/@types';
 
-// declare module '@emotion/react' {
-//   export interface Theme {
-//     primary: any;
-//     palette: {
-//       purple: any;
-//     };
-//     // mode: IMode;
-//   }
-//   // export interface Theme {
-//   //   color: {
-//   //     primary: string;
-//   //     positive: string;
-//   //     negative: string;
-//   //   };
-//   // }
-// }
-
-interface IPalette {
-  purple: string;
-  black: string;
-  white: string;
-  lightGrey: string;
+declare module '@emotion/react' {
+  export interface Theme extends CustomTheme {}
 }
-interface IMode {}

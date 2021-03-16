@@ -1,6 +1,5 @@
 {
   "compilerOptions": {
-    "jsxImportSource": "@emotion/react",
     "baseUrl": ".",
     "paths": {
       "~/*": ["./*"]
@@ -21,6 +20,7 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "jsx": "preserve"
+    // "typeRoots": ["node_modules/@types", "src/@types"]
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
   "exclude": ["node_modules"]

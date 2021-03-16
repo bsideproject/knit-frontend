@@ -11,7 +11,6 @@ const App: VFC<AppProps> = ({ Component, pageProps, router }) => {
   if (pathname.startsWith('/signin')) {
     return <Component />;
   }
-
   return (
     <ThemeProvider theme={theme}>
       <Header />

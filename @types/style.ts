@@ -1,29 +1,17 @@
-export enum Theme {
+export enum Color {
   PRIMARY = 'primary',
   SECONDARY = 'secondary',
+  TERTIARY = 'tertiary',
+  QUATENARY = 'quaternary',
   SUCCESS = 'success',
   DANGER = 'danger',
   WARNING = 'warning',
   INFO = 'info',
-  LIGHT = 'light',
-  DARK = 'dark',
 }
 
 export enum Size {
+  XSMALL = 'xsmall',
   SMALL = 'small',
   MIDDLE = 'middle',
   LARGE = 'large',
 }
-
-// export interface ITheme {
-//   primary: any;
-//   secondary: any;
-//   tertiary: any;
-// }
-// interface IPalette {
-//   purple: string;
-//   black: string;
-//   white: string;
-//   lightGrey: string;
-// }
-// interface IMode {}
