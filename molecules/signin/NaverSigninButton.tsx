@@ -1,7 +1,8 @@
-import { FC, useEffect } from 'react';
-import { Global, css } from '@emotion/react';
+import { FC, useEffect, useState } from 'react';
+import Skeleton from 'react-loading-skeleton';
+import classNames from 'classnames';
 import { initNaverSigninSDK } from '~/utils/auth';
-import * as font from '~/styles/font';
+import { Container } from './NaverSigninButton.styled';
 
 const createCustomStyleButton = () => {
   const container = document.getElementById('naverIdLogin_loginButton');
@@ -22,75 +23,21 @@ const createCustomStyleButton = () => {
 };
 
 const NaverSigninButton: FC = () => {
+  const [ready, setReady] = useState(false);
+
   useEffect(() => {
-    initNaverSigninSDK().then(createCustomStyleButton);
+    (async () => {
+      await initNaverSigninSDK();
+      createCustomStyleButton();
+      setReady(true);
+    })();
   }, []);
 
   return (
-    <>
-      <Global
-        styles={css`
-          #naverIdLogin,
-          #naverIdLogin_loginButton {
-            width: 100%;
-          }
-
-          #naverIdLogin_loginButton {
-            & > img {
-              display: none;
-            }
-
-            & > .custom_button {
-              position: relative;
-
-              padding: 0;
-              width: 100%;
-              height: 50px;
-
-              background: #ffffff;
-              border: 1px solid #5dc872;
-              box-sizing: border-box;
-              border-radius: 50px;
-              outline: none;
-
-              ${font.set(16, 'bold')}
-
-              cursor: pointer;
-
-              transition: 0.15s ease-out;
-
-              &:hover {
-                box-shadow: 0 0 4px #5dc872;
-              }
-
-              & > .logo_wrapper {
-                display: flex;
-                align-items: center;
-                justify-content: center;
-
-                position: absolute;
-                top: 0;
-                left: 0;
-
-                width: 60px;
-                height: 100%;
-
-                &::before {
-                  content: '';
-                  display: inline-block;
-                  width: 20px;
-                  height: 20px;
-                  background: url('./assets/naver_logo.png');
-                  background-size: 20px 20px;
-                  background-repeat: no-repeat;
-                }
-              }
-            }
-          }
-        `}
-      />
-      <div id="naverIdLogin" />
-    </>
+    <Container className={classNames({ ready })}>
+      <Skeleton className="skeleton" />
+      <div id="naverIdLogin" className="signin_button" />
+    </Container>
   );
 };
 
