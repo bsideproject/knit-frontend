@@ -1,37 +1,47 @@
 import Link from 'next/link';
+import { useState, MouseEvent } from 'react';
 import { Container } from '~/atoms/layout';
 import { SearchInput } from '~/atoms/field';
-import styles from './Header.module.scss';
+import { SigninModal } from '~/molecules/signin';
+import { TempLogoWrapper, LeftBox, RightBox, RightContent, Wrapper } from './Header.styled';
 
 const TempLogo = () => {
   return (
-    <div className={styles.tempLogo}>
+    <TempLogoWrapper>
       <Link href="/">
         <a>Knit</a>
       </Link>
-    </div>
+    </TempLogoWrapper>
   );
 };
 
 const Header = () => {
+  const [signinModalOpened, setSigninModalOpened] = useState(false);
+
+  const handleClickSignin = (event: MouseEvent<HTMLAnchorElement>) => {
+    event.preventDefault();
+    setSigninModalOpened(true);
+  };
+
   return (
-    <div className={styles.wrapper}>
+    <Wrapper>
       <Container>
-        <div className={styles.leftBox}>
+        <LeftBox>
           <TempLogo />
           전체 카테고리
-        </div>
-        <div className={styles.rightBox}>
-          <div className={styles.rightContent}>
+        </LeftBox>
+        <RightBox>
+          <RightContent>
             랜덤 문서
             <SearchInput placeHolder="검색어를 입력하세요." />
-            <Link href="/signin">
-              <a>로그인</a>
-            </Link>
-          </div>
-        </div>
+            <a href="#" onClick={handleClickSignin}>
+              로그인
+            </a>
+            {signinModalOpened && <SigninModal onClickClose={() => setSigninModalOpened(false)} />}
+          </RightContent>
+        </RightBox>
       </Container>
-    </div>
+    </Wrapper>
   );
 };
 export default Header;

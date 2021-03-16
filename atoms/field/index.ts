@@ -1,1 +1,2 @@
-export { Input, SearchInput } from './input';
+export * from './input';
+export * from './checkbox';

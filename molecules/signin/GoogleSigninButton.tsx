@@ -1,11 +1,12 @@
+import { css, Global } from '@emotion/react';
 import { FC, useEffect } from 'react';
-import { Global, css } from '@emotion/react';
-import { initNaverSigninSDK } from '~/utils/auth';
+import { initGoogleSigninSDK } from '~/utils/auth';
 import * as font from '~/styles/font';
 
 const createCustomStyleButton = () => {
-  const container = document.getElementById('naverIdLogin_loginButton');
-  if (!container) throw new Error('Create NAVER custom login button failed');
+  const container = document.getElementById('googleIdLogin');
+  if (!container || !container.firstChild)
+    throw new Error('Create GOOGLE custom login button failed');
 
   const logoWrapper = document.createElement('div');
   const logoIcon = document.createElement('i');
@@ -13,30 +14,27 @@ const createCustomStyleButton = () => {
   logoWrapper.appendChild(logoIcon);
 
   const button = document.createElement('button');
-  const text = document.createTextNode('NAVER로 시작하기');
+  const text = document.createTextNode('GOOGLE로 시작하기');
   button.classList.add('custom_button');
   button.appendChild(text);
   button.appendChild(logoWrapper);
-
+  button.onclick = (container.firstChild as HTMLElement).onclick;
   container.appendChild(button);
 };
 
-const NaverSigninButton: FC = () => {
+const GoogleSigninButton: FC = () => {
   useEffect(() => {
-    initNaverSigninSDK().then(createCustomStyleButton);
+    initGoogleSigninSDK().then(createCustomStyleButton);
   }, []);
 
   return (
     <>
       <Global
         styles={css`
-          #naverIdLogin,
-          #naverIdLogin_loginButton {
+          #googleIdLogin {
             width: 100%;
-          }
 
-          #naverIdLogin_loginButton {
-            & > img {
+            .abcRioButton {
               display: none;
             }
 
@@ -48,7 +46,7 @@ const NaverSigninButton: FC = () => {
               height: 50px;
 
               background: #ffffff;
-              border: 1px solid #5dc872;
+              border: 1px solid #dcdcdc;
               box-sizing: border-box;
               border-radius: 50px;
               outline: none;
@@ -60,7 +58,7 @@ const NaverSigninButton: FC = () => {
               transition: 0.15s ease-out;
 
               &:hover {
-                box-shadow: 0 0 4px #5dc872;
+                box-shadow: 0 0 4px #dcdcdc;
               }
 
               & > .logo_wrapper {
@@ -80,7 +78,7 @@ const NaverSigninButton: FC = () => {
                   display: inline-block;
                   width: 20px;
                   height: 20px;
-                  background: url('./assets/naver_logo.png');
+                  background: url('./assets/google_logo.png');
                   background-size: 20px 20px;
                   background-repeat: no-repeat;
                 }
@@ -89,9 +87,9 @@ const NaverSigninButton: FC = () => {
           }
         `}
       />
-      <div id="naverIdLogin" />
+      <div id="googleIdLogin" />
     </>
   );
 };
 
-export default NaverSigninButton;
+export default GoogleSigninButton;
