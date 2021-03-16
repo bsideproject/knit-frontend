@@ -1,17 +1,17 @@
 import { FC } from 'react';
-import classNames from 'classnames';
-import styles from './Button.module.scss';
+import { Button } from './styled';
+import { Theme, Size } from '~/@types';
 
 interface ButtonProps {
-  className?: string;
+  type: Theme;
 }
 
-const Button: FC<ButtonProps> = ({ className, children }) => {
+const ButtonComponent: FC<ButtonProps> = ({ type, children }) => {
   return (
-    <button type="button" className={classNames(className, styles.button)}>
+    <Button type="button" typea={type} size={Size.MIDDLE}>
       {children}
-    </button>
+    </Button>
   );
 };
 
-export default Button;
+export default ButtonComponent;
