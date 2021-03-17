@@ -1,7 +1,11 @@
 import styled from '@emotion/styled';
-import Button from './Button';
 
-const CloseButton = styled(Button)`
+export const ModalCloseButtonStyled = styled.button`
+  outline: none;
+  border: none;
+  cursor: pointer;
+  background: transparent;
+
   &::before {
     content: '';
     display: inline-block;
@@ -12,5 +16,3 @@ const CloseButton = styled(Button)`
     background-repeat: no-repeat;
   }
 `;
-
-export default CloseButton;

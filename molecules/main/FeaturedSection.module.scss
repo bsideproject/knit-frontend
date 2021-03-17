@@ -28,18 +28,6 @@
     }
 
     .readMoreButton {
-      width: 114px;
-      height: 38px;
-
-      position: absolute;
-      right: $padding;
-      bottom: $padding-bottom;
-
-      @include font.set(13px);
-      color: color.$white;
-
-      background: color.$primary;
-      border-radius: 50px;
     }
   }
 
