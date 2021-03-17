@@ -1,10 +1,7 @@
 import { FC, MouseEventHandler } from 'react';
-import { Size, Color } from '~/@types';
 import { ModalCloseButtonStyled } from './ModalCloseButtonStyled';
 
 interface ButtonProps {
-  color?: Color;
-  size?: Size;
   onClick?: MouseEventHandler<HTMLButtonElement>;
   className?: string;
 }

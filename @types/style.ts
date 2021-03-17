@@ -7,6 +7,9 @@ export enum Color {
   DANGER = 'danger',
   WARNING = 'warning',
   INFO = 'info',
+  BLACK = 'black',
+  WHITE = 'white',
+  LIGHTGREY = 'lightGrey',
 }
 
 export enum Size {
