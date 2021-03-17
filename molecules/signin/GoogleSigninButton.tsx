@@ -1,7 +1,8 @@
-import { css, Global } from '@emotion/react';
-import { FC, useEffect } from 'react';
+import { FC, useEffect, useState } from 'react';
+import Skeleton from 'react-loading-skeleton';
+import classNames from 'classnames';
 import { initGoogleSigninSDK } from '~/utils/auth';
-import * as font from '~/styles/font';
+import { Container } from './GoogleSigninButton.styled';
 
 const createCustomStyleButton = () => {
   const container = document.getElementById('googleIdLogin');
@@ -23,72 +24,21 @@ const createCustomStyleButton = () => {
 };
 
 const GoogleSigninButton: FC = () => {
+  const [ready, setReady] = useState(false);
+
   useEffect(() => {
-    initGoogleSigninSDK().then(createCustomStyleButton);
+    (async () => {
+      await initGoogleSigninSDK();
+      createCustomStyleButton();
+      setReady(true);
+    })();
   }, []);
 
   return (
-    <>
-      <Global
-        styles={css`
-          #googleIdLogin {
-            width: 100%;
-
-            .abcRioButton {
-              display: none;
-            }
-
-            & > .custom_button {
-              position: relative;
-
-              padding: 0;
-              width: 100%;
-              height: 50px;
-
-              background: #ffffff;
-              border: 1px solid #dcdcdc;
-              box-sizing: border-box;
-              border-radius: 50px;
-              outline: none;
-
-              ${font.set(16, 'bold')}
-
-              cursor: pointer;
-
-              transition: 0.15s ease-out;
-
-              &:hover {
-                box-shadow: 0 0 4px #dcdcdc;
-              }
-
-              & > .logo_wrapper {
-                display: flex;
-                align-items: center;
-                justify-content: center;
-
-                position: absolute;
-                top: 0;
-                left: 0;
-
-                width: 60px;
-                height: 100%;
-
-                &::before {
-                  content: '';
-                  display: inline-block;
-                  width: 20px;
-                  height: 20px;
-                  background: url('./assets/google_logo.png');
-                  background-size: 20px 20px;
-                  background-repeat: no-repeat;
-                }
-              }
-            }
-          }
-        `}
-      />
-      <div id="googleIdLogin" />
-    </>
+    <Container className={classNames({ ready })}>
+      <Skeleton className="skeleton" />
+      <div id="googleIdLogin" className="signin_button" />
+    </Container>
   );
 };
 
