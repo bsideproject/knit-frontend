@@ -1,5 +1,5 @@
 interface Theme {
-  palette: IPalette;
+  palette: Record<Color, string>;
 }
 
 interface IPalette {
