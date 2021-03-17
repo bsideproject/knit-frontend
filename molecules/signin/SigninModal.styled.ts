@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
-import { ModalCloseButton } from '~/atoms/button';
-import { wriggle } from '~/styles/animation';
+import { CloseButton as CloseButtonAtom } from '~/atoms/button';
+import * as animation from '~/styles/animation';
 import * as font from '~/styles/font';
 import { Checkbox as AtomCheckbox } from '~/atoms/field';
 
@@ -15,17 +15,13 @@ export const Container = styled.div`
   border-radius: 16px;
 `;
 
-export const CloseButton = styled(ModalCloseButton)`
-  padding: 0;
-  width: 36px;
-  height: 36px;
-
+export const CloseButton = styled(CloseButtonAtom)`
   position: absolute;
   top: 12px;
   right: 12px;
 
   &:hover {
-    animation: ${wriggle} 0.5s ease;
+    ${animation.wriggle}
   }
 `;
 

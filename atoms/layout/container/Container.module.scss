@@ -1,8 +1,8 @@
 @use 'layout';
 
 .wrapper {
-    @include layout.fit-in-resolution;
-    width: 100%;
-    height: 100%;
-    align-items: center;
+  @include layout.fit-in-resolution;
+  width: 100%;
+  height: 100%;
+  align-items: center;
 }
