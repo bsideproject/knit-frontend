@@ -3,7 +3,7 @@ import { VFC } from 'react';
 import { ThemeProvider } from '@emotion/react';
 import { wrapper } from './store';
 import { theme } from '~/styles';
-import { Layout, Header, Footer } from '~/atoms/layout';
+import { Layout } from '~/atoms/layout';
 
 const App: VFC<AppProps> = ({ Component, pageProps, router }) => {
   const { pathname } = router;
@@ -13,11 +13,9 @@ const App: VFC<AppProps> = ({ Component, pageProps, router }) => {
   }
   return (
     <ThemeProvider theme={theme}>
-      <Header />
       <Layout>
         <Component {...pageProps} />
       </Layout>
-      <Footer />
     </ThemeProvider>
   );
 };
