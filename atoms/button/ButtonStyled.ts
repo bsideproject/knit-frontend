@@ -1,13 +1,18 @@
 import styled from '@emotion/styled';
 import { css, Theme } from '@emotion/react';
+import { MouseEventHandler } from 'react';
 import * as font from '~/styles/font';
 import { Color, Size } from '~/@types';
 
-interface IButton {
-  size: Size;
+export interface ButtonProps {
   color: Color;
+  size: Size;
+  className?: string;
+  disabled?: boolean;
+  onClick?: MouseEventHandler<HTMLButtonElement>;
 }
-const ButtonSize = ({ size }: IButton) => {
+
+const ButtonSize = ({ size }: ButtonProps) => {
   let cssSize;
   switch (size) {
     case Size.XSMALL:
@@ -42,46 +47,80 @@ const ButtonSize = ({ size }: IButton) => {
   return cssSize;
 };
 
-const colorStyles = ({ theme, color }: IButton & { theme: Theme }) => {
+const colorStyles = ({ theme, color, disabled }: ButtonProps & { theme: Theme }) => {
   let cssColor;
   const background = theme.palette[color];
+
   switch (color) {
     case Color.PRIMARY:
       cssColor = css`
         background: ${background};
         color: ${theme.palette.white};
+        &:hover {
+          // 이런 color 들도 theme 로 설정 할건지?
+          background: #8550d8;
+        }
+        &:active {
+          background: #4708aa;
+        }
       `;
+      if (disabled) {
+        cssColor = css`
+          background: #a09db1;
+          color: ${theme.palette.white};
+        `;
+      }
+
       break;
     case Color.SECONDARY:
       cssColor = css`
+        border: 1px solid #5c16cb;
         background: ${background};
         color: ${theme.palette.primary};
       `;
+
+      if (disabled) {
+        cssColor = css`
+          background: #dddddd;
+          border: 1px solid #a09db1;
+          color: #a09db1;
+        `;
+      }
       break;
     case Color.TERTIARY:
       cssColor = css`
         background: ${background};
         color: ${theme.palette.primary};
       `;
+      if (disabled) {
+        cssColor = css`
+          background: #dddddd;
+          color: #a09db1;
+        `;
+      }
       break;
     case Color.QUATENARY:
       cssColor = css`
         background: ${background};
         color: ${theme.palette.primary};
       `;
+      if (disabled) {
+        cssColor = css`
+          background: ${background};
+          color: #a09db1;
+        `;
+      }
       break;
     default:
       break;
   }
   return cssColor;
 };
-export const Button = styled.button`
+export const ButtonStyled = styled.button`
   outline: none;
   border: none;
   cursor: pointer;
-  position: absolute;
-  right: 30px;
-  bottom: 20px;
+
   border-radius: 4px;
 
   /* Size */
@@ -89,4 +128,10 @@ export const Button = styled.button`
 
   /* Color */
   ${colorStyles}
+
+  ${({ disabled }) =>
+    disabled &&
+    css`
+      cursor: not-allowed;
+    `}
 `;

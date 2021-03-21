@@ -1,8 +1,8 @@
 import classNames from 'classnames';
-import { Button } from '~/atoms/button';
 import styles from './FeaturedSection.module.scss';
 import { Section } from '~/atoms/layout';
 import { Color, Size } from '~/@types';
+import { FeaturedSectionButton } from './FeaturedSection.styled';
 
 const { Title, Contents } = Section;
 
@@ -25,11 +25,9 @@ const FeaturedSection = () => {
               보여주고, 이후의 내용은 우측 하단의 [이어서 읽기] 버튼을 눌러서 볼 수 있습니다. 대표
               이미지가 포함된 문서와, 이미지가 포함되지 않은 경우가 필요합니다. 3줄까지 보여주기
             </span>
-            <div className={styles.buttonWrapper}>
-              <Button color={Color.PRIMARY} size={Size.MIDDLE}>
-                이어서 읽기
-              </Button>
-            </div>
+            <FeaturedSectionButton color={Color.PRIMARY} size={Size.MIDDLE}>
+              이어서 읽기
+            </FeaturedSectionButton>
           </div>
         </div>
       </Contents>

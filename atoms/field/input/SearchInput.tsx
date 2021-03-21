@@ -1,6 +1,4 @@
-import classNames from 'classnames';
-
-import styles from './Input.module.scss';
+import { Wrapper } from './SearchInput.styled';
 import Input, { Props as InputProps } from './Input';
 
 interface Props extends InputProps {
@@ -8,9 +6,9 @@ interface Props extends InputProps {
 }
 const SearchInput = ({ placeHolder, className }: Props) => {
   return (
-    <div className={classNames(styles.wrapper, className)}>
+    <Wrapper className={className}>
       <Input placeHolder={placeHolder} />
-    </div>
+    </Wrapper>
   );
 };
 export default SearchInput;
