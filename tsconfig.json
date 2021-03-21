@@ -4,6 +4,9 @@
     "paths": {
       "~/*": ["./*"]
     },
+    // "paths": {
+    //   "*": ["src/@types/*"]
+    // },
     "target": "es6",
     "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
@@ -16,8 +19,8 @@
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "jsx": "preserve",
-    "typeRoots": ["node_modules/@types", "src/@types"]
+    "jsx": "preserve"
+    // "typeRoots": ["node_modules/@types", "src/@types"]
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
   "exclude": ["node_modules"]

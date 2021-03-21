@@ -1,18 +1,25 @@
 import { FC, MouseEventHandler } from 'react';
-import classNames from 'classnames';
-import styles from './Button.module.scss';
+import { Button } from './ButtonStyled';
+import { Size, Color } from '~/@types';
 
-export interface ButtonProps {
-  className?: string;
+interface ButtonProps {
+  color?: Color;
+  size?: Size;
   onClick?: MouseEventHandler<HTMLButtonElement>;
+  className?: string;
 }
 
-const Button: FC<ButtonProps> = ({ className, children, onClick }) => {
+const ButtonComponent: FC<ButtonProps> = ({
+  color = Color.PRIMARY,
+  size = Size.MIDDLE,
+  children,
+  onClick,
+}) => {
   return (
-    <button type="button" className={classNames(className, styles.button)} onClick={onClick}>
+    <Button type="button" size={size} color={color} onClick={onClick}>
       {children}
-    </button>
+    </Button>
   );
 };
 
-export default Button;
+export default ButtonComponent;
