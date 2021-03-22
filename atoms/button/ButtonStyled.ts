@@ -63,7 +63,6 @@ const colorStyles = ({ theme, color, disabled }: ButtonProps & { theme: Theme })
         background: ${background};
         color: ${theme.palette.white};
         &:hover {
-          // 이런 color 들도 theme 로 설정 할건지?
           background: #8550d8;
         }
         &:active {
