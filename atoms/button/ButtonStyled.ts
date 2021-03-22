@@ -12,7 +12,7 @@ export interface ButtonProps {
   onClick?: MouseEventHandler<HTMLButtonElement>;
 }
 
-const ButtonSize = ({ size }: ButtonProps) => {
+const buttonSize = ({ size }: ButtonProps) => {
   let cssSize;
   switch (size) {
     case Size.XSMALL:
@@ -124,7 +124,7 @@ export const ButtonStyled = styled.button`
   border-radius: 4px;
 
   /* Size */
-  ${ButtonSize}
+  ${buttonSize}
 
   /* Color */
   ${colorStyles}
