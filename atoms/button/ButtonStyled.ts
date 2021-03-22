@@ -53,6 +53,12 @@ const colorStyles = ({ theme, color, disabled }: ButtonProps & { theme: Theme })
 
   switch (color) {
     case Color.PRIMARY:
+      if (disabled) {
+        cssColor = css`
+          background: #a09db1;
+          color: ${theme.palette.white};
+        `;
+      }
       cssColor = css`
         background: ${background};
         color: ${theme.palette.white};
@@ -64,12 +70,6 @@ const colorStyles = ({ theme, color, disabled }: ButtonProps & { theme: Theme })
           background: #4708aa;
         }
       `;
-      if (disabled) {
-        cssColor = css`
-          background: #a09db1;
-          color: ${theme.palette.white};
-        `;
-      }
 
       break;
     case Color.SECONDARY:
