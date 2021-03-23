@@ -1,25 +1,27 @@
-import { FC, MouseEventHandler } from 'react';
-import { Button } from './ButtonStyled';
+import { FC } from 'react';
+import { ButtonStyled, ButtonProps } from './ButtonStyled';
 import { Size, Color } from '~/@types';
 
-interface ButtonProps {
-  color?: Color;
-  size?: Size;
-  onClick?: MouseEventHandler<HTMLButtonElement>;
-  className?: string;
-}
-
-const ButtonComponent: FC<ButtonProps> = ({
+const Button: FC<ButtonProps> = ({
   color = Color.PRIMARY,
   size = Size.MIDDLE,
   children,
   onClick,
+  disabled,
+  className,
 }) => {
   return (
-    <Button type="button" size={size} color={color} onClick={onClick}>
+    <ButtonStyled
+      type="button"
+      className={className}
+      size={size}
+      color={color}
+      disabled={disabled}
+      onClick={onClick}
+    >
       {children}
-    </Button>
+    </ButtonStyled>
   );
 };
 
-export default ButtonComponent;
+export default Button;

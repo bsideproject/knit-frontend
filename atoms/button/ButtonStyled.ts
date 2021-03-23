@@ -1,13 +1,18 @@
 import styled from '@emotion/styled';
 import { css, Theme } from '@emotion/react';
+import { MouseEventHandler } from 'react';
 import * as font from '~/styles/font';
 import { Color, Size } from '~/@types';
 
-interface IButton {
-  size: Size;
+export interface ButtonProps {
   color: Color;
+  size: Size;
+  className?: string;
+  disabled?: boolean;
+  onClick?: MouseEventHandler<HTMLButtonElement>;
 }
-const ButtonSize = ({ size }: IButton) => {
+
+const buttonSize = ({ size }: ButtonProps) => {
   let cssSize;
   switch (size) {
     case Size.XSMALL:
@@ -42,51 +47,82 @@ const ButtonSize = ({ size }: IButton) => {
   return cssSize;
 };
 
-const colorStyles = ({ theme, color }: IButton & { theme: Theme }) => {
-  let cssColor;
+const colorStyles = ({ theme, color, disabled }: ButtonProps & { theme: Theme }) => {
   const background = theme.palette[color];
+
   switch (color) {
     case Color.PRIMARY:
-      cssColor = css`
+      if (disabled) {
+        return css`
+          background: #a09db1;
+          color: ${theme.palette.white};
+        `;
+      }
+      return css`
         background: ${background};
         color: ${theme.palette.white};
+        &:hover {
+          background: #8550d8;
+        }
+        &:active {
+          background: #4708aa;
+        }
       `;
-      break;
     case Color.SECONDARY:
-      cssColor = css`
+      if (disabled) {
+        return css`
+          background: #dddddd;
+          border: 1px solid #a09db1;
+          color: #a09db1;
+        `;
+      }
+      return css`
+        border: 1px solid #5c16cb;
         background: ${background};
         color: ${theme.palette.primary};
       `;
-      break;
     case Color.TERTIARY:
-      cssColor = css`
+      if (disabled) {
+        return css`
+          background: #dddddd;
+          color: #a09db1;
+        `;
+      }
+      return css`
         background: ${background};
         color: ${theme.palette.primary};
       `;
-      break;
     case Color.QUATENARY:
-      cssColor = css`
+      if (disabled) {
+        return css`
+          background: ${background};
+          color: #a09db1;
+        `;
+      }
+      return css`
         background: ${background};
         color: ${theme.palette.primary};
       `;
-      break;
     default:
-      break;
+      return null;
   }
-  return cssColor;
 };
-export const Button = styled.button`
+export const ButtonStyled = styled.button`
   outline: none;
   border: none;
   cursor: pointer;
-  position: absolute;
-  right: 30px;
-  bottom: 20px;
+
   border-radius: 4px;
 
   /* Size */
-  ${ButtonSize}
+  ${buttonSize}
 
   /* Color */
   ${colorStyles}
+
+  ${({ disabled }) =>
+    disabled &&
+    css`
+      cursor: not-allowed;
+    `}
 `;
