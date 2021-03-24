@@ -1,6 +1,6 @@
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
-import { CSSzIndex } from '~/app/constants';
+import { CSSzIndex } from '~/styles/constants';
 
 export const Container = styled.div`
   display: flex;
