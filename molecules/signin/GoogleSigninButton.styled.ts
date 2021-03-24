@@ -65,7 +65,7 @@ export const Container = styled.div`
           display: inline-block;
           width: 20px;
           height: 20px;
-          background: url('./assets/google_logo.png');
+          background: url('/assets/google_logo.png');
           background-size: 20px 20px;
           background-repeat: no-repeat;
         }
