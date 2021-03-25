@@ -12,7 +12,7 @@ const SearchBanner = () => {
 
         <div className={styles.hashtagWrapper}>
           {mockData.searchBanner.map(({ url, title }) => (
-            <Hashtag key={url} url={url} title={title} />
+            <Hashtag key={url} url={url} title={title} colorMode="dark" />
           ))}
         </div>
       </div>

@@ -1,17 +1,20 @@
+import styled from '@emotion/styled';
 import Link from 'next/link';
 import { VFC } from 'react';
-import styles from './Hashtag.module.scss';
 import { IHashtag } from '~/@types';
+import { Anchor, AnchorProps } from './Hashtag.styled';
 
-interface HashtagProps extends IHashtag {}
+interface HashtagProps extends IHashtag, Partial<AnchorProps> {
+  className?: string;
+}
 
-const Hashtag: VFC<HashtagProps> = ({ url, title }) => {
+const Hashtag: VFC<HashtagProps> = ({ url, title, colorMode = 'light', className }) => {
   return (
-    <div className={styles.wrapper}>
-      <Link href={url}>
-        <a className={styles.title}>{title}</a>
-      </Link>
-    </div>
+    <Link href={url}>
+      <Anchor href={url} colorMode={colorMode} className={className}>
+        {title}
+      </Anchor>
+    </Link>
   );
 };
-export default Hashtag;
+export default styled(Hashtag)``;

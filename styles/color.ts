@@ -1,4 +1,6 @@
-export const theme = {
+import { Theme } from '~/@types';
+
+export const theme: Theme = {
   palette: {
     primary: '#5C16CB',
     secondary: '#FFFFFF',
@@ -10,6 +12,8 @@ export const theme = {
     info: '#17A2B8',
     black: 'black',
     white: 'white',
-    lightGrey: '#888888',
+    lightGrey: 'rgb(250, 250, 250)',
+    grey: 'rgb(230, 230, 230)',
+    darkGrey: 'rgb(112, 112, 112)',
   },
 };
