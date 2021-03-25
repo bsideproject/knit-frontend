@@ -24,7 +24,7 @@ export default styled.button<CloseButtonProps>`
     display: inline-block;
     width: ${({ iconSizePx = DEFAULT_ICON_SIZE_PX }) => iconSizePx}px;
     height: ${({ iconSizePx = DEFAULT_ICON_SIZE_PX }) => iconSizePx}px;
-    background: url(./assets/close.png);
+    background: url(/assets/close.png);
     background-size: ${({ iconSizePx = DEFAULT_ICON_SIZE_PX }) => {
       return `${iconSizePx}px ${iconSizePx}px`;
     }};

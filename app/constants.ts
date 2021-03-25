@@ -1,4 +1,3 @@
-export enum CSSzIndex {
-  HEADER = 1,
-  MODAL,
-}
+export const LocalStorageKey = {
+  PROMOTION_CLOSE_TIMESTAMP: 'knit::promotion_close_timestamp',
+};

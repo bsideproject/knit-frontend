@@ -6,17 +6,20 @@ import NavigationBar from './NavigationBar';
 import { HEIGHT_PX as NAVIGATION_BAR_HEIGHT_PX } from './NavigationBar.styled';
 import PromotionBanner from './PromotionBanner';
 import { HEIGHT_PX as PROMOTION_BANNER_HEIGHT_PX } from './PromotionBanner.styled';
+import { LocalStorageKey } from '~/app/constants';
+
+const PROMOTION_CLOSE_RETENTION_TIME_MS = 24 * 60 * 60 * 1000;
 
 const Header: FC = () => {
   const dispatch = useDispatch();
-  const [promotionBannerOpened, setPromotionBannerOpened] = useState(() => {
-    /**
-     * TODO
-     * - 프로모션 배너 '24시간 동안 보지 않기' 여부 로컬스토리지에 저장
-     * - 로컬스토리지에 저장된 값 확인해서 24시간이 아직 안지났으면 false
-     */
-    return true;
-  });
+  const [promotionBannerOpened, setPromotionBannerOpened] = useState(false);
+
+  useEffect(() => {
+    const lastCloseTime = localStorage.getItem(LocalStorageKey.PROMOTION_CLOSE_TIMESTAMP);
+    if (!lastCloseTime || Date.now() > Number(lastCloseTime) + PROMOTION_CLOSE_RETENTION_TIME_MS) {
+      setPromotionBannerOpened(true);
+    }
+  }, []);
 
   useEffect(() => {
     let heightPx = NAVIGATION_BAR_HEIGHT_PX;
@@ -24,11 +27,14 @@ const Header: FC = () => {
     dispatch(setHeightPx(heightPx));
   }, [promotionBannerOpened]);
 
+  const handleClickClosePromotionBanner = () => {
+    setPromotionBannerOpened(false);
+    window.localStorage.setItem(LocalStorageKey.PROMOTION_CLOSE_TIMESTAMP, `${Date.now()}`);
+  };
+
   return (
     <Container>
-      {promotionBannerOpened && (
-        <PromotionBanner onClickClose={() => setPromotionBannerOpened(false)} />
-      )}
+      {promotionBannerOpened && <PromotionBanner onClickClose={handleClickClosePromotionBanner} />}
       <NavigationBar />
     </Container>
   );

@@ -6,4 +6,5 @@ interface ContentsProps {
 
 export const Contents = styled.div<ContentsProps>`
   padding-top: ${({ paddingTopPx }) => paddingTopPx}px;
+  flex: 1 1 auto;
 `;
