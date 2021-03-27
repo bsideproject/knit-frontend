@@ -1,7 +1,7 @@
-import { Section } from '~/atoms/layout';
+import Section from '../Section';
 import RecentlyModified from './RecentlyModified';
 
-const BannerSection = () => {
+const ExtraSection = () => {
   return (
     <Section>
       <RecentlyModified />
@@ -9,4 +9,4 @@ const BannerSection = () => {
   );
 };
 
-export default BannerSection;
+export default ExtraSection;

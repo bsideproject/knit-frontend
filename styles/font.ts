@@ -13,6 +13,9 @@ export const set = (
     font-weight: ${fontWeight};
     font-style: normal;
     text-decoration: none;
+    text-align: justify;
+    letter-spacing: -0.025rem;
+    -webkit-font-smoothing: antialiased;
   `;
 };
 
