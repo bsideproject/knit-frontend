@@ -1,14 +1,20 @@
-import { Wrapper } from './SearchInput.styled';
-import Input, { Props as InputProps } from './Input';
+import styled from '@emotion/styled';
+import { FC, DetailedHTMLProps, InputHTMLAttributes } from 'react';
+import { Container, Input, SearchButton } from './SearchInput.styled';
 
-interface Props extends InputProps {
+export interface Props
+  extends DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement> {
   className?: string;
+  onSubmit: () => void;
 }
-const SearchInput = ({ placeHolder, className }: Props) => {
+
+const SearchInput: FC<Props> = ({ className, onSubmit, ...restProps }) => {
   return (
-    <Wrapper className={className}>
-      <Input placeHolder={placeHolder} />
-    </Wrapper>
+    <Container className={className}>
+      <Input {...restProps} />
+      <SearchButton onClick={onSubmit} />
+    </Container>
   );
 };
-export default SearchInput;
+
+export default styled(SearchInput)``;
