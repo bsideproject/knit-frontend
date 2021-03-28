@@ -73,3 +73,15 @@ export const MetaList = styled.table`
   margin-top: 40px;
   border-collapse: collapse;
 `;
+
+export const Devider = styled.hr`
+  margin-top: 20px;
+  border: none;
+  border-bottom: 1px solid #eee;
+`;
+
+export const Contents = styled.div`
+  margin-top: 40px;
+  padding-left: 20px;
+  padding-right: 20px;
+`;

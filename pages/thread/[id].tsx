@@ -3,7 +3,7 @@ import { FC } from 'react';
 import { CategoryType, LineType, Thread } from '~/@types/resources/thread';
 import { Layout, CreatedDateTime, Thumbnail, Meta, Category, Hashtag } from '~/molecules/thread';
 
-const { Container, Header, TaskList, Task, Title, SubTitle, MetaList } = Layout;
+const { Container, Header, TaskList, Task, Title, SubTitle, MetaList, Devider, Contents } = Layout;
 
 const mockingData: Thread = {
   id: 123,
@@ -66,6 +66,8 @@ const ThreadPage: FC = () => {
           </Meta>
         )}
       </MetaList>
+      <Devider />
+      <Contents>본문</Contents>
     </Container>
   );
 };
