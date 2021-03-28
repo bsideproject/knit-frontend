@@ -1,7 +1,7 @@
 import { CSSProperties } from 'react';
 import { css } from '@emotion/react';
 
-export const fontFamily = 'Noto Sans KR';
+export const fontFamily = 'Noto Sans KR, sans-serif';
 
 export const set = (
   fontSize: CSSProperties['fontSize'],
