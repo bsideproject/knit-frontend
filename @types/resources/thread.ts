@@ -52,4 +52,8 @@ export interface CodeLine extends Line<LineType.CODE> {
 
 export interface DeviderLine extends Line<LineType.DEVIDER> {}
 
-export type CodeFormat = 'javascript' | 'json' | 'none';
+export type CodeFormat = 'javascript' | 'json' | void;
+
+export enum ThreadAction {
+  EDIT = 'edit',
+}

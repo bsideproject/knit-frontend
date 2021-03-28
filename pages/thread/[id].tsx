@@ -1,9 +1,19 @@
 import { useRouter } from 'next/router';
 import { FC } from 'react';
-import { CategoryType, LineType, Thread } from '~/@types/resources/thread';
-import { Layout, CreatedDateTime, Thumbnail, Meta, Category, Hashtag } from '~/molecules/thread';
+import { Color } from '~/@types';
+import { CategoryType, LineType, Thread, ThreadAction } from '~/@types/resources/thread';
+import {
+  Layout,
+  CreatedDateTime,
+  ButtonTask,
+  LinkTask,
+  Thumbnail,
+  Meta,
+  Category,
+  Hashtag,
+} from '~/molecules/thread';
 
-const { Container, Header, TaskList, Task, Title, SubTitle, MetaList, Devider, Contents } = Layout;
+const { Container, Header, TaskList, Title, SubTitle, MetaList, Devider, Contents } = Layout;
 
 const mockingData: Thread = {
   id: 123,
@@ -35,36 +45,55 @@ const mockingData: Thread = {
 
 const ThreadPage: FC = () => {
   const router = useRouter();
-  const { id } = router.query;
+  const { id, action } = router.query;
 
-  console.log(id);
+  const handleClickThumbnail = () => {
+    if (action !== ThreadAction.EDIT) return;
+
+    alert('썸네일 변경');
+  };
 
   return (
     <Container>
-      <Header>
-        <CreatedDateTime dateTime={mockingData.createdDateTime} />
-        <TaskList>
-          <Task>편집</Task>
-          <Task>토론</Task>
-          <Task>히스토리</Task>
+      {action === ThreadAction.EDIT ? (
+        <TaskList action={ThreadAction.EDIT}>
+          <ButtonTask onClick={() => router.push(`/thread/${id}`)}>취소</ButtonTask>
+          <ButtonTask color={Color.PRIMARY}>등록</ButtonTask>
         </TaskList>
-      </Header>
-      {mockingData.thumbnailUrl && <Thumbnail url={mockingData.thumbnailUrl} />}
+      ) : (
+        <Header>
+          <CreatedDateTime dateTime={mockingData.createdDateTime} />
+          <TaskList>
+            <LinkTask href={`/thread/${id}?action=${ThreadAction.EDIT}`}>편집</LinkTask>
+            <LinkTask href="/#">토론</LinkTask>
+            <LinkTask href="/#">히스토리</LinkTask>
+          </TaskList>
+        </Header>
+      )}
+      {mockingData.thumbnailUrl && (
+        <Thumbnail
+          url={mockingData.thumbnailUrl}
+          action={action as ThreadAction}
+          onClick={handleClickThumbnail}
+        />
+      )}
       <Title>{mockingData.title}</Title>
       {mockingData.subTitle && <SubTitle>{mockingData.subTitle}</SubTitle>}
       <MetaList>
-        <Meta label="직군">
-          {mockingData.categories.map((categoryType) => (
-            <Category key={categoryType} type={categoryType} />
-          ))}
-        </Meta>
-        {mockingData.hashtags.length > 0 && (
-          <Meta label="주제태그">
-            {mockingData.hashtags.map((hashtag) => (
-              <Hashtag key={hashtag} url="/#" title={hashtag} />
+        <tbody>
+          <Meta label="직군">
+            {mockingData.categories.map((categoryType) => (
+              <Category key={categoryType} type={categoryType} />
             ))}
           </Meta>
-        )}
+          {mockingData.hashtags.length > 0 && (
+            <Meta label="주제태그">
+              {mockingData.hashtags.map((hashtag) => (
+                <Hashtag key={hashtag} url="/#" title={hashtag} />
+              ))}
+            </Meta>
+          )}
+        </tbody>
       </MetaList>
       <Devider />
       <Contents>본문</Contents>

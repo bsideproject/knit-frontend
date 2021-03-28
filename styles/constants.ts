@@ -1,4 +1,4 @@
 export enum CSSzIndex {
-  HEADER = 1,
+  HEADER,
   MODAL,
 }
