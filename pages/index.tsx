@@ -1,36 +1,36 @@
-import classNames from 'classnames';
-
-import { Container } from '~/atoms/layout';
 import {
+  Layout,
   SearchBanner,
   MostViewSection,
   FeaturedSection,
   BannerSection,
   ExtraSection,
-  DebateCarousel,
+  DebateSection,
 } from '~/molecules/main';
-import styles from './index.module.scss';
+
+const { Contents, Group, Column } = Layout;
 
 const MainPage = () => {
   return (
     <>
       <SearchBanner />
-      <Container className={styles.contents}>
-        <div className={styles.mostViewWrapper}>
-          <div className={classNames(styles.column, styles.left)}>
+      <Contents>
+        <Group>
+          <Column left>
             <MostViewSection />
             <FeaturedSection />
-          </div>
-          <div className={classNames(styles.column, styles.right)}>
+          </Column>
+          <Column right>
             <BannerSection />
             <ExtraSection />
-          </div>
-        </div>
-        <div className={styles.DebateCarouselWrapper}>
-          <DebateCarousel />
-        </div>
-      </Container>
+          </Column>
+        </Group>
+        <Group>
+          <DebateSection />
+        </Group>
+      </Contents>
     </>
   );
 };
+
 export default MainPage;

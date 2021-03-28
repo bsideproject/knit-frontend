@@ -39,6 +39,7 @@ export const Container = styled.div`
       outline: none;
 
       ${font.set(16, 'bold')}
+      text-align: center;
 
       cursor: pointer;
 

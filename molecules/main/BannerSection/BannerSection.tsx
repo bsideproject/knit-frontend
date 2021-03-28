@@ -1,4 +1,4 @@
-import { Section } from '~/atoms/layout';
+import Section from '../Section';
 import GuideBanner from './GuideBanner';
 
 const BannerSection = () => {

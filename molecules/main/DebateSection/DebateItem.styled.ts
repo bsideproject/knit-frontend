@@ -1,12 +1,5 @@
 import styled from '@emotion/styled';
-import Slider from 'react-slick';
 import * as font from '~/styles/font';
-
-export const DebateSlider = styled(Slider)`
-  .slick-dots li.slick-active button:before {
-    color: #81007f !important;
-  }
-`;
 
 export const Box = styled.div`
   width: 295px;
@@ -26,10 +19,12 @@ export const BoxTitle = styled.span`
   line-height: 36px;
   color: #000000;
 `;
+
 export const BoxContent = styled.span`
   ${font.set(13, 'normal')}
   color: #555555;
 `;
+
 export const BoxComment = styled.span`
   ${font.set(13, 'normal')}
   color: #888888;
