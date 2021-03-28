@@ -33,7 +33,7 @@ const NavigationBar = () => {
         <RightBox>
           <RightContent>
             랜덤 문서
-            <SearchInput placeHolder="검색어를 입력하세요." />
+            <SearchInput placeholder="검색어를 입력하세요." onSubmit={() => alert('search')} />
             <a href="#" onClick={handleClickSignin}>
               시작하기
             </a>

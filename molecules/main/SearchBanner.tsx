@@ -1,22 +1,19 @@
 import { Hashtag } from '~/atoms/hashtag';
-import styles from './SearchBanner.module.scss';
 import mockData from './_data';
-import { SearchInputStyled } from './SearchBanner.styled';
+import { Container, HashtagsContainer, Headline, SearchInput } from './SearchBanner.styled';
 
 const SearchBanner = () => {
   return (
-    <div className={styles.wrapper}>
-      <div className={styles.bannerContent}>
-        <span className={styles.bannerText}>IT의 모든것 knIT</span>
-        <SearchInputStyled placeHolder="아이폰12 디자인 가이드" />
+    <Container>
+      <Headline>IT의 모든것 Knit</Headline>
+      <SearchInput placeholder="아이폰12 디자인 가이드" onSubmit={() => alert('search')} />
 
-        <div className={styles.hashtagWrapper}>
-          {mockData.searchBanner.map(({ url, title }) => (
-            <Hashtag key={url} url={url} title={title} colorMode="dark" />
-          ))}
-        </div>
-      </div>
-    </div>
+      <HashtagsContainer>
+        {mockData.searchBanner.map(({ url, title }) => (
+          <Hashtag key={url} url={url} title={title} colorMode="dark" />
+        ))}
+      </HashtagsContainer>
+    </Container>
   );
 };
 export default SearchBanner;

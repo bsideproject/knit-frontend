@@ -9,7 +9,7 @@ import {
   Title,
 } from './RecentlyModified.styled';
 
-import mockData from './_data';
+import mockData from '../_data';
 import { IRecentlyModified } from '~/@types';
 
 const RecentlyModified = () => {
