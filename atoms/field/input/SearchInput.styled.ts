@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
 import * as font from '~/styles/font';
+import { SearchIcon } from '~/public/assets/icon';
 
 export const Container = styled.div`
   position: relative;
@@ -31,18 +32,13 @@ export const Input = styled.input`
   }
 `;
 
-export const SearchButton = styled.button`
+export const SearchButton = styled(SearchIcon)`
   position: absolute;
-  right: 0;
-
+  right: 15px;
   padding: 0;
-  height: 100%;
-  width: 60px;
-
   background: transparent;
-
+  height: 100%;
   border: none;
   outline: none;
-
   cursor: pointer;
 `;

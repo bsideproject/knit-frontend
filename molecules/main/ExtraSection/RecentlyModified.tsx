@@ -32,7 +32,7 @@ interface RecentlyModifiedItemProps extends Omit<IRecentlyModified, 'id'> {
 
 const RecentlyModifiedItem = ({ title, modifiedDate }: RecentlyModifiedItemProps) => {
   return (
-    <Link href="#">
+    <Link href="/thread/12">
       <ItemContainer>
         <ItemTitle>{title}</ItemTitle>
         <ItemDate>{DateTime.fromMillis(modifiedDate).toFormat('LL-dd HH:mm')}</ItemDate>

@@ -18,18 +18,6 @@ export const Wrapper = styled.div`
   }
 `;
 
-export const TempLogoWrapper = styled.div`
-  width: 67px;
-  height: 34.67px;
-  font-family: Noto Sans KR; //(@kwonth211):Todo global font
-  font-style: normal;
-  font-weight: bold;
-  font-size: 30px;
-  line-height: 26px;
-  color: #000000;
-  margin-right: 30px;
-`;
-
 export const LeftBox = styled.div`
   margin-right: 50px;
 `;
