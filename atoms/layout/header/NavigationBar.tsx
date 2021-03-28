@@ -3,17 +3,8 @@ import { useState, MouseEvent } from 'react';
 import { Container } from '~/atoms/layout';
 import { SearchInput } from '~/atoms/field';
 import { SigninModal } from '~/molecules/signin';
-import { TempLogoWrapper, LeftBox, RightBox, RightContent, Wrapper } from './NavigationBar.styled';
-
-const TempLogo = () => {
-  return (
-    <TempLogoWrapper>
-      <Link href="/">
-        <a>Knit</a>
-      </Link>
-    </TempLogoWrapper>
-  );
-};
+import { LeftBox, RightBox, RightContent, Wrapper } from './NavigationBar.styled';
+import Mainlogo from '~/public/assets/mainlogo';
 
 const NavigationBar = () => {
   const [signinModalOpened, setSigninModalOpened] = useState(false);
@@ -27,8 +18,11 @@ const NavigationBar = () => {
     <Wrapper>
       <Container>
         <LeftBox>
-          <TempLogo />
-          전체 카테고리
+          <Link href="/">
+            <a>
+              <Mainlogo />
+            </a>
+          </Link>
         </LeftBox>
         <RightBox>
           <RightContent>
