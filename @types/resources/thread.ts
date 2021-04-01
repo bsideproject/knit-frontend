@@ -2,7 +2,7 @@ export interface Thread {
   /* 문서 id */
   id: 123;
   /* 문서 대표이미지 url (s3) */
-  thumbnailUrl: string;
+  thumbnailUrl?: string;
   /* 문서 표제 */
   title: string;
   /* 문서 부제 */

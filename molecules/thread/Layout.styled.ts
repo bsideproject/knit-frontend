@@ -3,6 +3,8 @@ import { css } from '@emotion/react';
 import { fitInResolution } from '~/styles/layout';
 import * as font from '~/styles/font';
 import { ThreadAction } from '~/@types/resources/thread';
+import { resolveProp } from '~/utils/styles';
+import { Block, BlockProps } from './Block';
 
 export const Container = styled.div`
   ${fitInResolution};
@@ -20,39 +22,79 @@ export const Header = styled.div`
 
 export const TaskList = styled.div<{ action?: ThreadAction | undefined }>`
   position: absolute;
-  ${({ action }) => {
-    if (action === ThreadAction.EDIT) {
-      return css`
-        top: 10px;
-        right: 30px;
-        /* height: 50px; */
-        z-index: 1;
-      `;
-    }
-    return css`
+
+  ${resolveProp('action', {
+    [ThreadAction.EDIT]: css`
+      top: 12px;
+      right: 32px;
+      z-index: 1;
+    `,
+    default: css`
       top: 0;
       right: 0;
       height: 100%;
-    `;
-  }}
+    `,
+  })}
 `;
 
-export const Title = styled.span`
-  margin-top: 40px;
-  display: block;
-
-  ${font.set(40, 'bold')}
+export const TitleBlock = styled(Block)<BlockProps>`
+  ${font.set(40, 'bold')};
   line-height: 50px;
+
+  ${resolveProp('editable', {
+    false: css`
+      margin-top: 41px;
+    `,
+    true: css`
+      margin-top: 20px;
+    `,
+  })}
 `;
 
-export const SubTitle = styled.span`
+export const SubTitleBlock = styled(Block)<BlockProps>`
   margin-top: 20px;
   display: block;
 
-  ${font.set(20)}
-  color: #888;
+  ${font.set(20, 'bold')}
+  color: #818189;
   line-height: 25px;
 `;
+
+// export const Title = styled.div<{ action: ThreadAction | undefined }>`
+//   display: block;
+
+//   ${font.set(40, 'bold')}
+//   line-height: 50px;
+
+//   ${resolveProp('action', {
+//     default: css`
+//       margin-top: 41px;
+//     `,
+//     [ThreadAction.EDIT]: css`
+//       margin-top: 20px;
+//       &:hover {
+//         background: #f3f2f5;
+//       }
+//     `,
+//   })}
+// `;
+
+// export const SubTitle = styled.div<{ action: ThreadAction | undefined }>`
+//   margin-top: 20px;
+//   display: block;
+
+//   ${font.set(20)}
+//   color: #888;
+//   line-height: 25px;
+
+//   ${resolveProp('action', {
+//     [ThreadAction.EDIT]: css`
+//       &:hover {
+//         background: #f3f2f5;
+//       }
+//     `,
+//   })}
+// `;
 
 export const MetaList = styled.table`
   margin-top: 40px;

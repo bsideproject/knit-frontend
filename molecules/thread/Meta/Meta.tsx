@@ -1,14 +1,18 @@
 import { FC, ReactNode } from 'react';
-import { Container, Label, Contents } from './Meta.styled';
+import { Container, Required, Label, Contents } from './Meta.styled';
 
 interface Props {
   label: ReactNode;
+  required?: boolean;
 }
 
-const Meta: FC<Props> = ({ label, children }) => {
+const Meta: FC<Props> = ({ label, required = false, children }) => {
   return (
     <Container>
-      <Label>{label}</Label>
+      <Label>
+        {required && <Required />}
+        {label}
+      </Label>
       <Contents>{children}</Contents>
     </Container>
   );
