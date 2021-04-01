@@ -25,6 +25,7 @@ export const Aligner = styled.div`
 
 export const RightSection = styled.div`
   position: absolute;
+  top: 0;
   right: 20px;
 
   height: 100%;
