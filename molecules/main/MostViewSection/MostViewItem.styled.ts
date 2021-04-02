@@ -1,6 +1,7 @@
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import * as font from '~/styles/font';
+import { resolveProp } from '~/utils/styles';
 
 export const Container = styled.div`
   padding: 20px 0 20px 24px;
@@ -49,21 +50,16 @@ export const Count = styled.span<{ type: 'view' | 'like' }>`
     margin-right: 10px;
   }
 
-  ${({ type }) => {
-    if (type === 'view') {
-      return css`
-        ::before {
-          content: ''; // view count icon
-        }
-      `;
-    }
-    if (type === 'like') {
-      return css`
-        ::before {
-          content: ''; // like count icon
-        }
-      `;
-    }
-    return css``;
-  }}
+  ${resolveProp('type', {
+    view: css`
+      ::before {
+        content: ''; // view count icon
+      }
+    `,
+    like: css`
+      ::before {
+        content: ''; // like count icon
+      }
+    `,
+  })}
 `;

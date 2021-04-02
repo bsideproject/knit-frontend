@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { CSSzIndex } from '~/styles/constants';
+import { CSSzIndex } from '~/@types/style';
 
 export const Container = styled.div`
   position: fixed;
