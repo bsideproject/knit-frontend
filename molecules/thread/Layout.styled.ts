@@ -60,42 +60,6 @@ export const SubTitleBlock = styled(Block)<BlockProps>`
   line-height: 25px;
 `;
 
-// export const Title = styled.div<{ action: ThreadAction | undefined }>`
-//   display: block;
-
-//   ${font.set(40, 'bold')}
-//   line-height: 50px;
-
-//   ${resolveProp('action', {
-//     default: css`
-//       margin-top: 41px;
-//     `,
-//     [ThreadAction.EDIT]: css`
-//       margin-top: 20px;
-//       &:hover {
-//         background: #f3f2f5;
-//       }
-//     `,
-//   })}
-// `;
-
-// export const SubTitle = styled.div<{ action: ThreadAction | undefined }>`
-//   margin-top: 20px;
-//   display: block;
-
-//   ${font.set(20)}
-//   color: #888;
-//   line-height: 25px;
-
-//   ${resolveProp('action', {
-//     [ThreadAction.EDIT]: css`
-//       &:hover {
-//         background: #f3f2f5;
-//       }
-//     `,
-//   })}
-// `;
-
 export const MetaList = styled.table`
   margin-top: 40px;
   border-collapse: collapse;

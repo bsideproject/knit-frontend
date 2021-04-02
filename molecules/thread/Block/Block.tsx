@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
-import { FC, useRef } from 'react';
-import { ContentEditableEvent } from 'react-contenteditable';
+import { FC, KeyboardEvent, useRef } from 'react';
+import ContentEditable, { ContentEditableEvent } from 'react-contenteditable';
 import { Container } from './Block.styled';
 import { BlockProps } from './types';
 
@@ -13,18 +13,18 @@ const Block: FC<BlockProps> = ({
   onChange,
   onKeyPressEnter,
 }) => {
-  const domRef = useRef();
+  const domRef = useRef<ContentEditable>();
 
   const handleChange: (event: ContentEditableEvent) => void = ({ target }) => {
     onChange(target.value ?? '');
   };
 
-  const handleKeyPress: (event: ContentEditableEvent) => void = (event) => {
-    const { key, shiftKey } = event as any;
+  const handleKeyPress: (event: ContentEditableEvent & KeyboardEvent) => void = (event) => {
+    const { key, shiftKey } = event;
 
     if (key === 'Enter') {
       if (!shiftKey) {
-        onKeyPressEnter((domRef.current as any).el.current);
+        onKeyPressEnter(domRef.current?.el.current);
       }
       if (!multiline) {
         event.preventDefault();
