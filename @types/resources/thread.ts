@@ -2,7 +2,7 @@ export interface Thread {
   /* 문서 id */
   id: 123;
   /* 문서 대표이미지 url (s3) */
-  thumbnailUrl: string;
+  thumbnailUrl?: string;
   /* 문서 표제 */
   title: string;
   /* 문서 부제 */
@@ -52,4 +52,8 @@ export interface CodeLine extends Line<LineType.CODE> {
 
 export interface DeviderLine extends Line<LineType.DEVIDER> {}
 
-export type CodeFormat = 'javascript' | 'json' | 'none';
+export type CodeFormat = 'javascript' | 'json' | void;
+
+export enum ThreadAction {
+  EDIT = 'edit',
+}
