@@ -1,6 +1,6 @@
 import { css } from '@emotion/react';
 
-const RESOLUTION_MAX_WIDTH = '900px';
+const RESOLUTION_MAX_WIDTH = '1280px';
 const ADMIN_RESOLUTION_MAX_WIDTH = '1600px';
 
 export const fitInResolution = css`

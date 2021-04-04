@@ -5,7 +5,10 @@ interface ContainerProps {
   className?: string;
 }
 
-const Container: FC<ContainerProps> = ({ children, className }) => {
+export const Container: FC<ContainerProps> = ({ children, className }) => {
   return <Wrapper className={className}>{children}</Wrapper>;
 };
-export default Container;
+
+export const AdminContainer: FC<ContainerProps> = ({ children, className }) => {
+  return <Wrapper className={className}>{children}</Wrapper>;
+};
