@@ -1,9 +1,9 @@
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
-import { fitInResolution } from '~/styles/layout';
+import { fitInResolutionOnMain } from '~/styles/layout';
 
 export const Contents = styled.div`
-  ${fitInResolution}
+  ${fitInResolutionOnMain}
   padding-top: 55px;
   padding-bottom: 55px;
 `;

@@ -1,8 +1,8 @@
 import styled from '@emotion/styled';
-import { fitInResolution } from '~/styles/layout';
+import { fitInResolutionOnMain } from '~/styles/layout';
 
 export const Wrapper = styled.div`
-  ${fitInResolution}
+  ${fitInResolutionOnMain}
   width: 100%;
   height: 100%;
   align-items: center;

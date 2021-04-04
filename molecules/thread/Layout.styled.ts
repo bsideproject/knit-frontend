@@ -1,13 +1,13 @@
 import styled from '@emotion/styled';
 import { css } from '@emotion/react';
-import { fitInResolution } from '~/styles/layout';
+import { fitInResolutionOnPage } from '~/styles/layout';
 import * as font from '~/styles/font';
 import { ThreadAction } from '~/@types/resources/thread';
 import { resolveProp } from '~/utils/styles';
 import { Block, BlockProps } from './Block';
 
 export const Container = styled.div`
-  ${fitInResolution};
+  ${fitInResolutionOnPage};
   position: relative;
 `;
 
