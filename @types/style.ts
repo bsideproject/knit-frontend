@@ -20,3 +20,8 @@ export enum Size {
   MIDDLE = 'middle',
   LARGE = 'large',
 }
+
+export enum CSSzIndex {
+  HEADER = 1,
+  MODAL,
+}

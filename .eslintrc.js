@@ -70,6 +70,7 @@ module.exports = {
         '@typescript-eslint/no-use-before-define': 'off',
         //Prefer usage of as const over literal type
         '@typescript-eslint/prefer-as-const': ['warn'],
+        '@typescript-eslint/no-shadow': 'warn',
         // Includes .prettierrc.js rules
         'prettier/prettier': ['error', {}, { usePrettierrc: true }],
         'no-nested-ternary': 'off',

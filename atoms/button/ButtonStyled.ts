@@ -17,6 +17,7 @@ const buttonSize = ({ size }: ButtonProps) => {
   switch (size) {
     case Size.XSMALL:
       cssSize = css`
+        padding: 0 13px;
         height: 26px;
         ${font.set(12)};
       `;
@@ -24,18 +25,21 @@ const buttonSize = ({ size }: ButtonProps) => {
 
     case Size.SMALL:
       cssSize = css`
+        padding: 0 16px;
         height: 32px;
         ${font.set(14)};
       `;
       break;
     case Size.MIDDLE:
       cssSize = css`
+        padding: 0 20px;
         height: 40px;
         ${font.set(16)};
       `;
       break;
     case Size.LARGE:
       cssSize = css`
+        padding: 0 24px;
         height: 48px;
         ${font.set(20)};
       `;
