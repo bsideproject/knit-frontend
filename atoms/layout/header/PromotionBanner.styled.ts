@@ -12,7 +12,7 @@ export const Container = styled.div`
 `;
 
 export const Aligner = styled.div`
-  ${layout.fitInResolution}
+  ${layout.fitInResolutionOnMain}
   position: relative;
 
   height: 100%;
