@@ -4,7 +4,6 @@ import { ThemeProvider } from '@emotion/react';
 import { wrapper } from './store';
 import { theme } from '~/styles';
 import { Layout, AdminLayout } from '~/atoms/layout';
-// import  from '~/atoms/layout/AdminLayout';
 
 const App: VFC<AppProps> = ({ Component, pageProps, router }) => {
   const { pathname } = router;
