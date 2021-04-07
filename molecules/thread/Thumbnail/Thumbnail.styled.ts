@@ -17,7 +17,7 @@ export const ImageChangeButton = styled.div`
   background: rgb(0, 0, 0, 0.5);
   border-radius: 8px;
 
-  ${animation.toastUp}
+  ${animation.toastUp(40)}
 
   ${font.set(20, 'bold')}
   color: white;

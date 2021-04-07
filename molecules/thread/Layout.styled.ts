@@ -20,7 +20,7 @@ export const Header = styled.div`
   align-items: center;
 `;
 
-export const TaskList = styled.div<{ action?: ThreadAction | undefined }>`
+export const Tasks = styled.div<{ action?: ThreadAction | undefined }>`
   position: absolute;
 
   ${resolveProp('action', {
@@ -60,8 +60,9 @@ export const SubTitleBlock = styled(Block)<BlockProps>`
   line-height: 25px;
 `;
 
-export const MetaList = styled.table`
+export const Metas = styled.table`
   margin-top: 40px;
+  width: 100%;
   border-collapse: collapse;
 `;
 
