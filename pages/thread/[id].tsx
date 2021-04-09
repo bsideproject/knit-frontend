@@ -12,8 +12,9 @@ import {
   Category,
   Tags,
 } from '~/molecules/thread';
-import { BlockElement } from '~/molecules/thread/Block';
+import { Block, BlockElement } from '~/molecules/thread/Block';
 import { getNextBlockElement } from '~/molecules/thread/Block/helpers';
+import { setCaretPos } from '~/utils/dom';
 
 const { Container, Header, Tasks, TitleBlock, SubTitleBlock, Metas, Devider, Contents } = Layout;
 
@@ -77,6 +78,7 @@ const ThreadPage: FC = () => {
     const nextBlockElement = getNextBlockElement(element);
     if (nextBlockElement) {
       nextBlockElement.focus();
+      setCaretPos(nextBlockElement, 1);
     }
   };
 
@@ -152,7 +154,9 @@ const ThreadPage: FC = () => {
         </tbody>
       </Metas>
       <Devider />
-      <Contents>본문</Contents>
+      <Contents>
+        <Block value="텍스트 블록" editable={isEditMode} />
+      </Contents>
     </Container>
   );
 };

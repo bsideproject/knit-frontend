@@ -6,7 +6,7 @@ import { BlockProps } from './types';
 
 const Block: FC<BlockProps> = ({
   className,
-  editable,
+  editable = false,
   multiline = true,
   placeholder,
   value,
@@ -16,7 +16,7 @@ const Block: FC<BlockProps> = ({
   const domRef = useRef<ContentEditable>();
 
   const handleChange = ({ target }: ContentEditableEvent) => {
-    onChange(target.value ?? '');
+    onChange?.(target.value ?? '');
   };
 
   const handleKeyPress = (event: ContentEditableEvent & KeyboardEvent) => {
