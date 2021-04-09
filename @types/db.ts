@@ -13,9 +13,9 @@ export interface IDebate {
   commentCount: number;
 }
 
-export interface IHashtag {
+export interface ITag {
   title: string;
-  url: string;
+  url?: string;
 }
 
 export interface IRecentlyModified {

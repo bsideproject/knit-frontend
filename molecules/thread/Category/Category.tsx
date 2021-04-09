@@ -1,9 +1,12 @@
 import { FC, ReactNode } from 'react';
 import { CategoryType } from '~/@types/resources/thread';
-import { Container, IconWrapper, Label } from './Category.styled';
+import { Container, IconWrapper, IconBorder, Label, IconContainer } from './Category.styled';
 
 interface Props {
   type: CategoryType;
+  isEditMode?: boolean;
+  selected?: boolean;
+  onClick?: (type: CategoryType) => void;
 }
 
 const label: Record<CategoryType, ReactNode> = {
@@ -24,10 +27,15 @@ const icon: Record<CategoryType, ReactNode> = {
   [CategoryType.ETC]: '🎸',
 };
 
-const Category: FC<Props> = ({ type }) => {
+const Category: FC<Props> = ({ type, isEditMode, selected, onClick }) => {
+  const handleClick = () => onClick?.(type);
+
   return (
     <Container>
-      <IconWrapper>{icon[type]}</IconWrapper>
+      <IconContainer isEditMode={isEditMode} selected={selected} onClick={handleClick}>
+        <IconBorder />
+        <IconWrapper>{icon[type]}</IconWrapper>
+      </IconContainer>
       <Label>{label[type]}</Label>
     </Container>
   );

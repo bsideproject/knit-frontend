@@ -1,8 +1,8 @@
-import { IDebate, IMostViewData, IHashtag, IRecentlyModified } from '~/@types/db';
+import { IDebate, IMostViewData, ITag, IRecentlyModified } from '~/@types/db';
 
 interface MockDataType {
   debate: ReadonlyArray<IDebate>;
-  searchBanner: ReadonlyArray<IHashtag>;
+  searchBanner: ReadonlyArray<ITag>;
   mostView: ReadonlyArray<IMostViewData>;
   recentlyModified: ReadonlyArray<IRecentlyModified>;
 }
