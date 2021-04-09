@@ -9,8 +9,8 @@ export interface Thread {
   subTitle?: string;
   /* 문서 직군 카테고리 리스트 (DEVELOP | DESIGN | PLANNING | MARKETING | DATA | ETC) */
   categories: ReadonlyArray<CategoryType>;
-  /* 문서 해시태그 리스트 */
-  hashtags: ReadonlyArray<string>;
+  /* 문서 태그 리스트 */
+  tags: ReadonlyArray<{ id: number; title: string }>;
   /* 문서 본문 */
   contents: ReadonlyArray<TextLine | ImageLine | CodeLine | DeviderLine>;
   /* 문서 작성 시간 */

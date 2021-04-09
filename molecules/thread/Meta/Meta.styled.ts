@@ -7,7 +7,7 @@ export const Label = styled.th`
   position: relative;
 
   padding-right: 60px;
-  max-width: 160px;
+  width: 80px;
   box-sizing: content-box;
 
   ${font.set(18)}
@@ -18,7 +18,7 @@ export const Label = styled.th`
 `;
 
 export const Contents = styled.td`
-  padding: 0;
+  padding: 0px;
   vertical-align: baseline;
 `;
 

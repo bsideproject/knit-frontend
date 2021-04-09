@@ -5,6 +5,7 @@ import { resolveProp } from '~/utils/styles';
 import { BlockProps } from './types';
 
 export const Container = styled(ContentEditable as any)<Omit<BlockProps, 'onChange'>>`
+  border-radius: 4px;
   outline: none;
 
   ${resolveProp('disabled', {

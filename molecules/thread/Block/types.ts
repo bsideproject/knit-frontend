@@ -5,7 +5,7 @@ export interface BlockProps {
   placeholder?: string;
   value?: string;
   onChange: (value: string) => void;
-  onKeyPressEnter: (element: HTMLDivElement) => void;
+  onKeyPressEnter?: (element: HTMLDivElement) => void;
 }
 
 export type BlockElement = HTMLDivElement;

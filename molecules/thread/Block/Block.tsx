@@ -15,16 +15,16 @@ const Block: FC<BlockProps> = ({
 }) => {
   const domRef = useRef<ContentEditable>();
 
-  const handleChange: (event: ContentEditableEvent) => void = ({ target }) => {
+  const handleChange = ({ target }: ContentEditableEvent) => {
     onChange(target.value ?? '');
   };
 
-  const handleKeyPress: (event: ContentEditableEvent & KeyboardEvent) => void = (event) => {
+  const handleKeyPress = (event: ContentEditableEvent & KeyboardEvent) => {
     const { key, shiftKey } = event;
 
     if (key === 'Enter') {
       if (!shiftKey) {
-        onKeyPressEnter(domRef.current?.el.current);
+        onKeyPressEnter?.(domRef.current?.el.current);
       }
       if (!multiline) {
         event.preventDefault();

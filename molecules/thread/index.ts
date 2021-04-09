@@ -4,4 +4,4 @@ export { default as Thumbnail } from './Thumbnail';
 export { default as CreatedDateTime } from './CreatedDateTime';
 export { default as Meta } from './Meta';
 export { default as Category } from './Category';
-export { default as Hashtag } from './Hashtag';
+export { default as Tags } from './Tags';
