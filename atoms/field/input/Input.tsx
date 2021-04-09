@@ -1,14 +1,31 @@
-import { VFC } from 'react';
+import { VFC, DetailedHTMLProps, InputHTMLAttributes } from 'react';
+import { UseFormReturn } from 'react-hook-form';
 import { InputStyled } from './Input.styled';
 
-export interface Props {
-  disabled?: boolean;
+export interface Props
+  extends DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement> {
   error?: boolean;
-  placeHolder?: string;
-  maxLength?: number;
-  className?: string;
+  name?: string;
+  methods?: UseFormReturn<any>;
 }
-const Input: VFC<Props> = ({ placeHolder = '', disabled, maxLength }) => {
-  return <InputStyled placeholder={placeHolder} disabled={disabled} maxLength={maxLength} />;
+const Input: VFC<Props> = ({
+  className,
+  placeholder = '',
+  disabled,
+  maxLength,
+  value,
+  name,
+  methods,
+}) => {
+  return (
+    <InputStyled
+      className={className}
+      placeholder={placeholder}
+      disabled={disabled}
+      maxLength={maxLength}
+      value={value}
+      {...methods?.register(name || '')}
+    />
+  );
 };
 export default Input;
