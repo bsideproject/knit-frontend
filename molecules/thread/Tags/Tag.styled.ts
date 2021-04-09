@@ -7,18 +7,18 @@ import { resolveProp } from '~/utils/styles';
 export const DeleteButton = styled(CloseButton)`
   position: absolute;
   top: 0px;
-  right: 10px;
-  height: 25px;
+  left: 10px;
+  height: 30px;
 
   display: inline-flex;
   justify-content: center;
   align-items: center;
-  background: #f7b8ce;
 
+  background: #f7b8ce;
   border-radius: 4px;
+
   transform: translate(0px);
   opacity: 0;
-
   z-index: -1;
 `;
 
@@ -29,25 +29,22 @@ export const Container = styled.div<{ editting?: boolean }>`
   & > ${Tag} {
     position: relative;
     margin: 0 10px 10px 0;
+    height: 30px;
     background: #efe8fa;
     cursor: pointer;
   }
 
   ${resolveProp('editting', {
     true: css`
-      & > ${Tag} {
-        cursor: text;
-      }
-
       &:hover {
         & > ${Tag} {
-          z-index: 1;
           background: #f7b8ce;
+          z-index: 1;
         }
         & > ${DeleteButton} {
-          z-index: 2;
-          transform: translate(15px);
+          transform: translate(-25px);
           opacity: 1;
+          z-index: 2;
         }
       }
     `,

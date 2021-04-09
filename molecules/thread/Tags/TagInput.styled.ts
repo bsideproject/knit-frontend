@@ -6,14 +6,12 @@ import * as animation from '~/styles/animation';
 export const Input = styled(ContentEditable as any)`
   margin: 0 10px 10px 0;
   padding: 4px 10px;
-  min-width: 40px;
-  height: 25px;
+  min-width: 60px;
 
   display: inline-block;
 
   background: #f7b8ce;
   border-radius: 4px;
-  /* box-shadow: 0px 0px 1px 1px #dccaf7; */
 
   ${font.set(14)}
   ${animation.toastUp(8)}

@@ -1,7 +1,7 @@
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import * as font from '~/styles/font';
-import { Hashtag as AtomHashtag } from '~/atoms/hashtag';
+import { Tag as AtomTag } from '~/atoms/tag';
 
 export const Container = styled.div`
   height: 223px;
@@ -50,7 +50,7 @@ export const Article = styled.article`
   }
 `;
 
-export const Hashtag = styled(AtomHashtag)`
+export const Hashtag = styled(AtomTag)`
   width: fit-content;
   border: 1px solid #e2e1eb;
   box-sizing: border-box;
@@ -59,6 +59,7 @@ export const Hashtag = styled(AtomHashtag)`
   color: #818189;
   margin: 3px;
 `;
+
 export const HashtagsContainer = styled.div`
   display: flex;
 `;
