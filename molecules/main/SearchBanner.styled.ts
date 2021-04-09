@@ -3,7 +3,7 @@ import * as font from '~/styles/font';
 
 import SearchInputAtom, { Props as SearchInputAtomProps } from '~/atoms/field/input/SearchInput';
 import { Input } from '~/atoms/field/input/SearchInput.styled';
-import { Tag as ATag } from '~/atoms/tag';
+import { Tag as TagAtom } from '~/atoms/tag';
 
 export const Container = styled.div`
   height: 280px;
@@ -45,7 +45,7 @@ export const TagsContainer = styled.div`
   margin-top: 12px;
 `;
 
-export const Tag = styled(ATag)`
+export const Tag = styled(TagAtom)`
   margin: 0 4px;
   color: rgba(0, 0, 0, 0.7);
   background: rgba(255, 255, 255, 0.3);
