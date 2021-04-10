@@ -10,10 +10,16 @@ interface Props {
 }
 
 const Tag: FC<Props> = ({ id, title, editting, onClickDelete }) => {
+  const handleClickDelete = () => {
+    if (editting) {
+      onClickDelete(id);
+    }
+  };
+
   return (
     <Container editting={editting}>
-      <TagAtom title={title} />
-      <DeleteButton sizePx={25} iconSizePx={10} onClick={() => onClickDelete(id)} />
+      <DeleteButton sizePx={25} iconSizePx={10} onClick={handleClickDelete} />
+      <TagAtom title={title} onClick={handleClickDelete} />
     </Container>
   );
 };

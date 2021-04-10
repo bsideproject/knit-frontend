@@ -12,8 +12,9 @@ import {
   Category,
   Tags,
 } from '~/molecules/thread';
-import { BlockElement } from '~/molecules/thread/Block';
+import { Block, BlockElement } from '~/molecules/thread/Block';
 import { getNextBlockElement } from '~/molecules/thread/Block/helpers';
+import { setCaretPos } from '~/utils/dom';
 
 const { Container, Header, Tasks, TitleBlock, SubTitleBlock, Metas, Devider, Contents } = Layout;
 
@@ -32,22 +33,22 @@ const ThreadPage: FC = () => {
     subTitle: '',
     categories: [CategoryType.DEVELOP],
     tags: [
-      { id: 1, title: '주제태그' },
-      { id: 2, title: '주제태그' },
-      { id: 3, title: '짧' },
-      { id: 4, title: '주제태그' },
-      { id: 5, title: '짧' },
-      { id: 6, title: '주제태그' },
-      { id: 7, title: '짧' },
-      { id: 8, title: '주제태그' },
-      { id: 9, title: '주제태그' },
-      { id: 10, title: '주제태그' },
-      { id: 11, title: '주제태그' },
-      { id: 13, title: '짧' },
-      { id: 14, title: '긴긴긴긴긴긴긴긴긴긴긴긴긴긴긴긴긴긴긴긴긴긴긴긴긴' },
-      { id: 15, title: '주제태그' },
-      { id: 16, title: '짧' },
-      { id: 17, title: '짧' },
+      // { id: 1, title: '주제태그' },
+      // { id: 2, title: '주제태그' },
+      // { id: 3, title: '짧' },
+      // { id: 4, title: '주제태그' },
+      // { id: 5, title: '짧' },
+      // { id: 6, title: '주제태그' },
+      // { id: 7, title: '짧' },
+      // { id: 8, title: '주제태그' },
+      // { id: 9, title: '주제태그' },
+      // { id: 10, title: '주제태그' },
+      // { id: 11, title: '주제태그' },
+      // { id: 13, title: '짧' },
+      // { id: 14, title: '긴긴긴긴긴긴긴긴긴긴긴긴긴긴긴긴긴긴긴긴긴긴긴긴긴' },
+      // { id: 15, title: '주제태그' },
+      // { id: 16, title: '짧' },
+      // { id: 17, title: '짧' },
     ] as Thread['tags'],
     contents: [
       {
@@ -77,6 +78,7 @@ const ThreadPage: FC = () => {
     const nextBlockElement = getNextBlockElement(element);
     if (nextBlockElement) {
       nextBlockElement.focus();
+      setCaretPos(nextBlockElement, 1);
     }
   };
 
@@ -152,7 +154,9 @@ const ThreadPage: FC = () => {
         </tbody>
       </Metas>
       <Devider />
-      <Contents>본문</Contents>
+      <Contents>
+        <Block value="텍스트 블록" editable={isEditMode} />
+      </Contents>
     </Container>
   );
 };

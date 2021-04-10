@@ -4,6 +4,7 @@ import TagInput from './TagInput';
 import Tag from './Tag';
 import { Container } from './Tags.styled';
 import { Thread } from '~/@types/resources/thread';
+import EmptyTag from './EmptyTag';
 
 interface Props {
   isEditMode: boolean;
@@ -57,7 +58,7 @@ const Tags: FC<Props> = ({ isEditMode, tags, onChange }) => {
       {tags.map(({ id, title }) => (
         <Tag key={id} id={id} title={title} editting={editting} onClickDelete={handleClickDelete} />
       ))}
-      {editting && (
+      {editting ? (
         <TagInput
           ref={inputRef}
           value={inputValue.current}
@@ -65,7 +66,9 @@ const Tags: FC<Props> = ({ isEditMode, tags, onChange }) => {
           onCancel={handleCancel}
           onSubmit={handleSubmitInput}
         />
-      )}
+      ) : tags.length === 0 ? (
+        <EmptyTag />
+      ) : null}
     </Container>
   );
 };

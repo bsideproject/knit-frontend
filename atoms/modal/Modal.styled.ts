@@ -14,7 +14,7 @@ export const Container = styled.div`
   left: 0;
 
   background-color: rgba(0, 0, 0, 0.4);
-  z-index: ${CSSzIndex.MODAL};
+  z-index: ${CSSzIndex.GLOBAL_MODAL};
 `;
 
 export interface AlignerProps {

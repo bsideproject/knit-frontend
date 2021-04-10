@@ -5,6 +5,7 @@ import * as font from '~/styles/font';
 import { ThreadAction } from '~/@types/resources/thread';
 import { resolveProp } from '~/utils/styles';
 import { Block, BlockProps } from './Block';
+import { CSSzIndex } from '~/@types/style';
 
 export const Container = styled.div`
   ${fitInResolutionOnPage};
@@ -27,7 +28,7 @@ export const Tasks = styled.div<{ action?: ThreadAction | undefined }>`
     [ThreadAction.EDIT]: css`
       top: 12px;
       right: 32px;
-      z-index: 1;
+      z-index: ${CSSzIndex.THREAD_PAGE_TASKS};
     `,
     default: css`
       top: 0;
@@ -52,7 +53,7 @@ export const TitleBlock = styled(Block)<BlockProps>`
 `;
 
 export const SubTitleBlock = styled(Block)<BlockProps>`
-  margin-top: 20px;
+  margin-top: 10px;
   display: block;
 
   ${font.set(20, 'bold')}
@@ -74,6 +75,7 @@ export const Devider = styled.hr`
 
 export const Contents = styled.div`
   margin-top: 40px;
-  padding-left: 20px;
-  padding-right: 20px;
+
+  min-height: 240px;
+  cursor: text;
 `;
