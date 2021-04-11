@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router';
-import { FC, useState } from 'react';
+import { FC, MouseEventHandler, useState } from 'react';
 import { Color } from '~/@types';
 import { CategoryType, LineType, Thread, ThreadAction } from '~/@types/resources/thread';
 import {
@@ -93,10 +93,18 @@ const ThreadPage: FC = () => {
     setThread({ ...thread, categories: nextCategories });
   };
 
+  // mock data
   const [block, setBlock] = useState('');
 
+  const handleClickCapture: MouseEventHandler<HTMLElement> = (event) => {
+    // 문서 편집 중에는 모든 링크 동작하지 않도록 처리
+    if (isEditMode && (event.target as HTMLElement).tagName === 'A') {
+      event.preventDefault();
+    }
+  };
+
   return (
-    <Container>
+    <Container onClickCapture={handleClickCapture}>
       {isEditMode ? (
         <Tasks action={ThreadAction.EDIT}>
           <ButtonTask onClick={() => router.push(`/thread/${id}`)}>취소</ButtonTask>
