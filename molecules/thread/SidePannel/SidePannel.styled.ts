@@ -12,6 +12,7 @@ export const Container = styled.div`
   box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.12);
   border-radius: 4px;
 
+  transition: 0.16s ease-out;
   cursor: pointer;
 `;
 
