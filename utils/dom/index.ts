@@ -41,7 +41,11 @@ export const setCaretPos = (
   // for contentedit field
   if (target && target.contentEditable) {
     target.focus();
-    document.getSelection()!.collapse(target, pos);
+    try {
+      document.getSelection()?.collapse(target, pos);
+    } catch (error) {
+      console.error(error);
+    }
   }
 };
 
