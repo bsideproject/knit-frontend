@@ -51,6 +51,8 @@ module.exports = {
         'react/jsx-one-expression-per-line': 'off',
         // allow prop spreading
         'react/jsx-props-no-spreading': 'off',
+
+        'react/no-array-index-key': 'warn',
         // allow not exist default props
         'react/require-default-props': 'off',
         // This rule is not compatible with Next.js's <Link /> components

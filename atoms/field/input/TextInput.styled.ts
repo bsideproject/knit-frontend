@@ -1,6 +1,5 @@
 import styled from '@emotion/styled';
 import { css, Theme } from '@emotion/react';
-import * as font from '~/styles/font';
 
 import { Props as InputProps } from './Input';
 
@@ -42,12 +41,9 @@ const colorStyles = ({ theme, error, disabled }: TextInputProps & { theme: Theme
 
 export const Wrapper = styled.div`
   & > input {
-    padding: 7px;
     border: 0px;
     outline: none;
     box-sizing: border-box;
-
-    ${font.set(14)} //Todo fix fontSize
     ${colorStyles}
   }
 `;

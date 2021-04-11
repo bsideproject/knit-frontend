@@ -3,7 +3,7 @@ import * as font from '~/styles/font';
 
 import SearchInputAtom, { Props as SearchInputAtomProps } from '~/atoms/field/input/SearchInput';
 import { Input } from '~/atoms/field/input/SearchInput.styled';
-import { Hashtag } from '~/atoms/hashtag';
+import { Tag as TagAtom } from '~/atoms/tag';
 
 export const Container = styled.div`
   height: 280px;
@@ -41,10 +41,13 @@ export const SearchInput = styled(SearchInputAtom)<SearchInputAtomProps>`
   }
 `;
 
-export const HashtagsContainer = styled.div`
+export const TagsContainer = styled.div`
   margin-top: 12px;
+`;
 
-  & > ${Hashtag} {
-    margin: 0 4px;
-  }
+export const Tag = styled(TagAtom)`
+  margin: 0 4px;
+  color: rgba(0, 0, 0, 0.7);
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 15px;
 `;

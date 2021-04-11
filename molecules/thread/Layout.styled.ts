@@ -1,13 +1,14 @@
 import styled from '@emotion/styled';
 import { css } from '@emotion/react';
-import { fitInResolution } from '~/styles/layout';
+import { fitInResolutionOnPage } from '~/styles/layout';
 import * as font from '~/styles/font';
 import { ThreadAction } from '~/@types/resources/thread';
 import { resolveProp } from '~/utils/styles';
 import { Block, BlockProps } from './Block';
+import { CSSzIndex } from '~/@types/style';
 
 export const Container = styled.div`
-  ${fitInResolution};
+  ${fitInResolutionOnPage};
   position: relative;
 `;
 
@@ -20,14 +21,14 @@ export const Header = styled.div`
   align-items: center;
 `;
 
-export const TaskList = styled.div<{ action?: ThreadAction | undefined }>`
+export const Tasks = styled.div<{ action?: ThreadAction | undefined }>`
   position: absolute;
 
   ${resolveProp('action', {
     [ThreadAction.EDIT]: css`
       top: 12px;
       right: 32px;
-      z-index: 1;
+      z-index: ${CSSzIndex.THREAD_PAGE_TASKS};
     `,
     default: css`
       top: 0;
@@ -52,7 +53,7 @@ export const TitleBlock = styled(Block)<BlockProps>`
 `;
 
 export const SubTitleBlock = styled(Block)<BlockProps>`
-  margin-top: 20px;
+  margin-top: 10px;
   display: block;
 
   ${font.set(20, 'bold')}
@@ -60,8 +61,9 @@ export const SubTitleBlock = styled(Block)<BlockProps>`
   line-height: 25px;
 `;
 
-export const MetaList = styled.table`
+export const Metas = styled.table`
   margin-top: 40px;
+  width: 100%;
   border-collapse: collapse;
 `;
 
@@ -73,6 +75,7 @@ export const Devider = styled.hr`
 
 export const Contents = styled.div`
   margin-top: 40px;
-  padding-left: 20px;
-  padding-right: 20px;
+
+  min-height: 240px;
+  cursor: text;
 `;

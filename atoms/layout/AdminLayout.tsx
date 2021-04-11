@@ -95,7 +95,6 @@ const AdminLayout: FC = ({ children }) => {
   const [collapsed, isCollapsed] = useState(false);
   const [selectedMenu, setSelectedMenu] = useState('users');
   const [title, setTitle] = useState(getMenuLabel(selectedMenu));
-
   const router = useRouter();
 
   const selectMenu = (menu: string) => {

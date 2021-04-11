@@ -8,16 +8,16 @@ export const wriggle = css`
   `} 0.5s ease;
 `;
 
-export const toastUp = css`
+export const toastUp = (biasPx: number) => css`
   animation: ${keyframes`
     0% {
       opacity: 0;
-      transform: translate(0, 40px);
+      transform: translate(0, ${biasPx}px);
     }
     75% {
-      transform: translate(0, -10px);
+      transform: translate(0, -${biasPx / 4}px);
     }
-    to {
+    100% {
       opacity: 1;
       transform: translate(0, 0);
     }

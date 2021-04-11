@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router';
 import { FC, useState } from 'react';
 import { Color } from '~/@types';
-import { CategoryType, LineType, ThreadAction } from '~/@types/resources/thread';
+import { CategoryType, LineType, Thread, ThreadAction } from '~/@types/resources/thread';
 import {
   Layout,
   CreatedDateTime,
@@ -10,21 +10,13 @@ import {
   Thumbnail,
   Meta,
   Category,
-  Hashtag,
+  Tags,
 } from '~/molecules/thread';
-import { BlockElement } from '~/molecules/thread/Block';
+import { Block, BlockElement } from '~/molecules/thread/Block';
 import { getNextBlockElement } from '~/molecules/thread/Block/helpers';
+import { setCaretPos } from '~/utils/dom';
 
-const {
-  Container,
-  Header,
-  TaskList,
-  TitleBlock,
-  SubTitleBlock,
-  MetaList,
-  Devider,
-  Contents,
-} = Layout;
+const { Container, Header, Tasks, TitleBlock, SubTitleBlock, Metas, Devider, Contents } = Layout;
 
 const ThreadPage: FC = () => {
   const router = useRouter();
@@ -40,7 +32,24 @@ const ThreadPage: FC = () => {
     title: '비사이드 협업 잘하는 방법',
     subTitle: '',
     categories: [CategoryType.DEVELOP],
-    hashtags: [],
+    tags: [
+      // { id: 1, title: '주제태그' },
+      // { id: 2, title: '주제태그' },
+      // { id: 3, title: '짧' },
+      // { id: 4, title: '주제태그' },
+      // { id: 5, title: '짧' },
+      // { id: 6, title: '주제태그' },
+      // { id: 7, title: '짧' },
+      // { id: 8, title: '주제태그' },
+      // { id: 9, title: '주제태그' },
+      // { id: 10, title: '주제태그' },
+      // { id: 11, title: '주제태그' },
+      // { id: 13, title: '짧' },
+      // { id: 14, title: '긴긴긴긴긴긴긴긴긴긴긴긴긴긴긴긴긴긴긴긴긴긴긴긴긴' },
+      // { id: 15, title: '주제태그' },
+      // { id: 16, title: '짧' },
+      // { id: 17, title: '짧' },
+    ] as Thread['tags'],
     contents: [
       {
         type: LineType.TEXT,
@@ -69,24 +78,34 @@ const ThreadPage: FC = () => {
     const nextBlockElement = getNextBlockElement(element);
     if (nextBlockElement) {
       nextBlockElement.focus();
+      setCaretPos(nextBlockElement, 1);
     }
+  };
+
+  const handleClickCategory = (type: CategoryType) => {
+    const { categories } = thread;
+    const nextCategories = categories.includes(type)
+      ? categories.filter((categoryType) => categoryType !== type)
+      : categories.concat(type);
+
+    setThread({ ...thread, categories: nextCategories });
   };
 
   return (
     <Container>
       {isEditMode ? (
-        <TaskList action={ThreadAction.EDIT}>
+        <Tasks action={ThreadAction.EDIT}>
           <ButtonTask onClick={() => router.push(`/thread/${id}`)}>취소</ButtonTask>
           <ButtonTask color={Color.PRIMARY}>등록</ButtonTask>
-        </TaskList>
+        </Tasks>
       ) : (
         <Header>
           <CreatedDateTime dateTime={thread.createdDateTime} />
-          <TaskList>
+          <Tasks>
             <LinkTask href={`/thread/${id}?action=${ThreadAction.EDIT}`}>편집</LinkTask>
             <LinkTask href="/#">토론</LinkTask>
             <LinkTask href="/#">히스토리</LinkTask>
-          </TaskList>
+          </Tasks>
         </Header>
       )}
       <Thumbnail url={thread.thumbnailUrl} editable={isEditMode} onChange={handleChangeThumbnail} />
@@ -103,27 +122,41 @@ const ThreadPage: FC = () => {
         multiline={false}
         placeholder="Subtitle"
         value={thread.subTitle}
-        onChange={() => {}}
+        onChange={(subTitle) => setThread((thread) => ({ ...thread, subTitle }))}
         onKeyPressEnter={handleKeyPressEnterBlock}
       />
-      <MetaList>
+      <Metas>
         <tbody>
-          <Meta label="직군" required>
-            {thread.categories.map((categoryType) => (
-              <Category key={categoryType} type={categoryType} />
-            ))}
+          <Meta label="직군" required={isEditMode}>
+            {isEditMode
+              ? Object.values(CategoryType).map((categoryType) => {
+                  return (
+                    <Category
+                      key={categoryType}
+                      type={categoryType}
+                      isEditMode
+                      selected={thread.categories.includes(categoryType)}
+                      onClick={handleClickCategory}
+                    />
+                  );
+                })
+              : Object.values(CategoryType)
+                  .filter((categoryType) => thread.categories.includes(categoryType))
+                  .map((categoryType) => <Category key={categoryType} type={categoryType} />)}
           </Meta>
-          {thread.hashtags.length > 0 && (
-            <Meta label="주제태그" required>
-              {thread.hashtags.map((hashtag) => (
-                <Hashtag key={hashtag} url="/#" title={hashtag} />
-              ))}
-            </Meta>
-          )}
+          <Meta label="주제태그" required={isEditMode}>
+            <Tags
+              isEditMode={isEditMode}
+              tags={thread.tags}
+              onChange={(tags) => setThread((thread) => ({ ...thread, tags }))}
+            />
+          </Meta>
         </tbody>
-      </MetaList>
+      </Metas>
       <Devider />
-      <Contents>본문</Contents>
+      <Contents>
+        <Block value="텍스트 블록" editable={isEditMode} />
+      </Contents>
     </Container>
   );
 };

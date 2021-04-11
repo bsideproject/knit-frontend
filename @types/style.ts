@@ -22,6 +22,7 @@ export enum Size {
 }
 
 export enum CSSzIndex {
-  HEADER = 1,
-  MODAL,
+  THREAD_PAGE_TASKS = 1,
+  GLOBAL_HEADER,
+  GLOBAL_MODAL,
 }

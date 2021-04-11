@@ -1,18 +1,23 @@
-import { Hashtag } from '~/atoms/hashtag';
+import { useRouter } from 'next/router';
 import mockData from './_data';
-import { Container, HashtagsContainer, Headline, SearchInput } from './SearchBanner.styled';
+import { Container, TagsContainer, Tag, Headline, SearchInput } from './SearchBanner.styled';
 
 const SearchBanner = () => {
+  const router = useRouter();
+
+  const onSubmit = (value: string) => {
+    router.push(`/search/${value}`);
+  };
   return (
     <Container>
       <Headline>IT의 모든것 Knit</Headline>
-      <SearchInput placeholder="아이폰12 디자인 가이드" onSubmit={() => alert('search')} />
+      <SearchInput placeholder="아이폰12 디자인 가이드" onSubmit={onSubmit} />
 
-      <HashtagsContainer>
+      <TagsContainer>
         {mockData.searchBanner.map(({ url, title }) => (
-          <Hashtag key={url} url={url} title={title} colorMode="dark" />
+          <Tag key={url} url={url} title={title} />
         ))}
-      </HashtagsContainer>
+      </TagsContainer>
     </Container>
   );
 };
