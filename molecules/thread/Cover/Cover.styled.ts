@@ -55,8 +55,8 @@ export const ImageWrapper = styled.div<{ editable: boolean }>`
   })}
 `;
 
-export const TaskButton = styled.button<{ hasThumbnail: boolean }>`
-  ${resolveProp('hasThumbnail', {
+export const TaskButton = styled.button<{ hasCover: boolean }>`
+  ${resolveProp('hasCover', {
     true: css`
       margin-top: 10px;
     `,

@@ -10,25 +10,22 @@ const Block: FC<BlockProps> = ({
   multiline = true,
   placeholder,
   value,
-  onChange,
+  onChange = () => {},
   onKeyPressEnter,
 }) => {
   const domRef = useRef<ContentEditable>();
 
   const handleChange = ({ target }: ContentEditableEvent) => {
-    onChange?.(target.value ?? '');
+    onChange(target.value ?? '');
   };
 
   const handleKeyPress = (event: ContentEditableEvent & KeyboardEvent) => {
     const { key, shiftKey } = event;
 
     if (key === 'Enter') {
-      if (!shiftKey) {
-        onKeyPressEnter?.(domRef.current?.el.current);
-      }
-      if (!multiline) {
-        event.preventDefault();
-      }
+      if (multiline && shiftKey) return;
+      event.preventDefault();
+      onKeyPressEnter?.(domRef.current?.el.current);
     }
   };
 

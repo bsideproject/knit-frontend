@@ -38,7 +38,7 @@ const Tags: FC<Props> = ({ isEditMode, tags, onChange }) => {
 
   const handleSubmitInput = () => {
     if (!inputValue.current) return;
-    onChange(tagsRef.current.concat({ id: Date.now(), title: inputValue.current }));
+    onChange(tagsRef.current.concat({ id: Date.now(), value: inputValue.current }));
     inputValue.current = '';
   };
 
@@ -55,8 +55,8 @@ const Tags: FC<Props> = ({ isEditMode, tags, onChange }) => {
 
   return (
     <Container ref={containerRef} isEditMode={isEditMode} onClick={handleClickContainer}>
-      {tags.map(({ id, title }) => (
-        <Tag key={id} id={id} title={title} editting={editting} onClickDelete={handleClickDelete} />
+      {tags.map(({ id, value }) => (
+        <Tag key={id} id={id} title={value} editting={editting} onClickDelete={handleClickDelete} />
       ))}
       {editting ? (
         <TagInput

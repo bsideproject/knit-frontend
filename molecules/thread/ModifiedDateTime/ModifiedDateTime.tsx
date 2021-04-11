@@ -1,15 +1,15 @@
 import { FC } from 'react';
 import { DateTime } from 'luxon';
 import { Thread } from '~/@types/resources/thread';
-import { Container } from './CreatedDateTime.styled';
+import { Container } from './ModifiedDateTime.styled';
 
 interface Props {
-  dateTime: Thread['createdDateTime'];
+  dateTime: Thread['modifiedDateTime'];
 }
 
-const CreatedDateTime: FC<Props> = ({ dateTime }) => {
+const ModifiedDateTime: FC<Props> = ({ dateTime }) => {
   const formattedDateTime = DateTime.fromMillis(dateTime).toFormat('yyyy.LL.dd HH:mm');
   return <Container>{formattedDateTime} 작성된 문서</Container>;
 };
 
-export default CreatedDateTime;
+export default ModifiedDateTime;
