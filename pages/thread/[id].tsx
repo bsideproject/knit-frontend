@@ -1,19 +1,21 @@
 import { useRouter } from 'next/router';
-import { FC, useState } from 'react';
+import { FC, MouseEventHandler, useState } from 'react';
 import { Color } from '~/@types';
 import { CategoryType, LineType, Thread, ThreadAction } from '~/@types/resources/thread';
 import {
   Layout,
-  CreatedDateTime,
+  ModifiedDateTime,
   ButtonTask,
   LinkTask,
-  Thumbnail,
+  Cover,
   Meta,
   Category,
   Tags,
 } from '~/molecules/thread';
 import { Block, BlockElement } from '~/molecules/thread/Block';
 import { getNextBlockElement } from '~/molecules/thread/Block/helpers';
+import { SidePannel } from '~/molecules/thread/SidePannel';
+// import { InlinePannel } from '~/molecules/thread/InlinePannel';
 import { setCaretPos } from '~/utils/dom';
 
 const { Container, Header, Tasks, TitleBlock, SubTitleBlock, Metas, Devider, Contents } = Layout;
@@ -24,10 +26,10 @@ const ThreadPage: FC = () => {
   const isEditMode = action === ThreadAction.EDIT;
 
   // mock data
-  const [thread, setThread] = useState({
+  const [thread, setThread] = useState<Thread>({
     id: 123,
-    // thumbnailUrl: null,
-    thumbnailUrl:
+    thumbnailUrl: '',
+    coverUrl:
       'https://img1.daumcdn.net/thumb/R720x0.q80/?scode=mtistory2&fname=http%3A%2F%2Fcfile29.uf.tistory.com%2Fimage%2F99B87D3359AF7F3821B671',
     title: '비사이드 협업 잘하는 방법',
     subTitle: '',
@@ -67,10 +69,10 @@ const ThreadPage: FC = () => {
       },
       { type: LineType.DEVIDER },
     ],
-    createdDateTime: Date.now(),
+    modifiedDateTime: Date.now(),
   });
 
-  const handleChangeThumbnail = (thumbnailUrl: string | null) => {
+  const handleChangeCover = (thumbnailUrl: string | null) => {
     console.log(thumbnailUrl);
   };
 
@@ -91,8 +93,18 @@ const ThreadPage: FC = () => {
     setThread({ ...thread, categories: nextCategories });
   };
 
+  // mock data
+  const [block, setBlock] = useState('');
+
+  const handleClickCapture: MouseEventHandler<HTMLElement> = (event) => {
+    // 문서 편집 중에는 모든 링크 동작하지 않도록 처리
+    if (isEditMode && (event.target as HTMLElement).tagName === 'A') {
+      event.preventDefault();
+    }
+  };
+
   return (
-    <Container>
+    <Container onClickCapture={handleClickCapture}>
       {isEditMode ? (
         <Tasks action={ThreadAction.EDIT}>
           <ButtonTask onClick={() => router.push(`/thread/${id}`)}>취소</ButtonTask>
@@ -100,7 +112,7 @@ const ThreadPage: FC = () => {
         </Tasks>
       ) : (
         <Header>
-          <CreatedDateTime dateTime={thread.createdDateTime} />
+          <ModifiedDateTime dateTime={thread.modifiedDateTime} />
           <Tasks>
             <LinkTask href={`/thread/${id}?action=${ThreadAction.EDIT}`}>편집</LinkTask>
             <LinkTask href="/#">토론</LinkTask>
@@ -108,7 +120,7 @@ const ThreadPage: FC = () => {
           </Tasks>
         </Header>
       )}
-      <Thumbnail url={thread.thumbnailUrl} editable={isEditMode} onChange={handleChangeThumbnail} />
+      <Cover url={thread.coverUrl} editable={isEditMode} onChange={handleChangeCover} />
       <TitleBlock
         editable={isEditMode}
         multiline={false}
@@ -155,7 +167,9 @@ const ThreadPage: FC = () => {
       </Metas>
       <Devider />
       <Contents>
-        <Block value="텍스트 블록" editable={isEditMode} />
+        <SidePannel />
+        {/* <InlinePannel /> */}
+        <Block value={block} editable={isEditMode} onChange={setBlock} />
       </Contents>
     </Container>
   );

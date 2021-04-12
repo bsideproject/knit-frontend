@@ -11,9 +11,9 @@ const generateId = () => {
   return id;
 };
 
-const useComponentId = () => {
+const useComponentID = () => {
   const [componentId] = useState(() => `component-id-${generateId()}`);
   return componentId;
 };
 
-export default useComponentId;
+export default useComponentID;

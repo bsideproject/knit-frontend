@@ -74,8 +74,10 @@ export const Devider = styled.hr`
 `;
 
 export const Contents = styled.div`
-  margin-top: 40px;
+  position: relative;
+  margin-top: 30px;
+  padding-right: 70px;
 
-  min-height: 240px;
+  min-height: 400px;
   cursor: text;
 `;
