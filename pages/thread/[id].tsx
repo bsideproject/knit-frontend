@@ -30,27 +30,13 @@ const ThreadPage: FC = () => {
     id: 123,
     thumbnailUrl: '',
     coverUrl:
-      'https://img1.daumcdn.net/thumb/R720x0.q80/?scode=mtistory2&fname=http%3A%2F%2Fcfile29.uf.tistory.com%2Fimage%2F99B87D3359AF7F3821B671',
-    title: '비사이드 협업 잘하는 방법',
+      'https://storage.googleapis.com/twg-content/original_images/2560x1152_Google_MarketingPlatform.png',
+    title: 'Google Marketing Platform으로 데이터 분석하기',
     subTitle: '',
-    categories: [CategoryType.DEVELOP],
+    categories: [CategoryType.MARKETING, CategoryType.DATA],
     tags: [
-      // { id: 1, title: '주제태그' },
-      // { id: 2, title: '주제태그' },
-      // { id: 3, title: '짧' },
-      // { id: 4, title: '주제태그' },
-      // { id: 5, title: '짧' },
-      // { id: 6, title: '주제태그' },
-      // { id: 7, title: '짧' },
-      // { id: 8, title: '주제태그' },
-      // { id: 9, title: '주제태그' },
-      // { id: 10, title: '주제태그' },
-      // { id: 11, title: '주제태그' },
-      // { id: 13, title: '짧' },
-      // { id: 14, title: '긴긴긴긴긴긴긴긴긴긴긴긴긴긴긴긴긴긴긴긴긴긴긴긴긴' },
-      // { id: 15, title: '주제태그' },
-      // { id: 16, title: '짧' },
-      // { id: 17, title: '짧' },
+      { id: 1, value: '퍼포먼스 마케팅' },
+      { id: 2, value: 'GA' },
     ] as Thread['tags'],
     contents: [
       {
@@ -129,14 +115,16 @@ const ThreadPage: FC = () => {
         onChange={(title) => setThread((thread) => ({ ...thread, title }))}
         onKeyPressEnter={handleKeyPressEnterBlock}
       />
-      <SubTitleBlock
-        editable={isEditMode}
-        multiline={false}
-        placeholder="Subtitle"
-        value={thread.subTitle}
-        onChange={(subTitle) => setThread((thread) => ({ ...thread, subTitle }))}
-        onKeyPressEnter={handleKeyPressEnterBlock}
-      />
+      {(isEditMode || thread.subTitle) && (
+        <SubTitleBlock
+          editable={isEditMode}
+          multiline={false}
+          placeholder="Subtitle"
+          value={thread.subTitle}
+          onChange={(subTitle) => setThread((thread) => ({ ...thread, subTitle }))}
+          onKeyPressEnter={handleKeyPressEnterBlock}
+        />
+      )}
       <Metas>
         <tbody>
           <Meta label="직군" required={isEditMode}>
@@ -166,8 +154,8 @@ const ThreadPage: FC = () => {
         </tbody>
       </Metas>
       <Devider />
-      <Contents>
-        <SidePannel />
+      <Contents isEditMode={isEditMode}>
+        {isEditMode && <SidePannel />}
         {/* <InlinePannel /> */}
         <Block value={block} editable={isEditMode} onChange={setBlock} />
       </Contents>

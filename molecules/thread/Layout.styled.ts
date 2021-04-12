@@ -73,10 +73,14 @@ export const Devider = styled.hr`
   border-bottom: 1px solid #eee;
 `;
 
-export const Contents = styled.div`
+export const Contents = styled.div<{ isEditMode: boolean }>`
   position: relative;
+  ${resolveProp('isEditMode', {
+    true: css`
+      padding-right: 70px;
+    `,
+  })}
   margin-top: 30px;
-  padding-right: 70px;
 
   min-height: 400px;
   cursor: text;
