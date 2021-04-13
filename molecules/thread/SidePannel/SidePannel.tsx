@@ -8,6 +8,7 @@ import {
   CodeIcon,
   LinkIcon,
   QuoteIcon,
+  GridIcon,
 } from '~/public/assets/icon';
 import { Container, IconContainer } from './SidePannel.styled';
 
@@ -47,6 +48,9 @@ const SidePannel: FC = () => {
       </IconContainer>
       <IconContainer>
         <QuoteIcon />
+      </IconContainer>
+      <IconContainer>
+        <GridIcon />
       </IconContainer>
     </Container>
   );
