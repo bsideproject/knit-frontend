@@ -1,7 +1,8 @@
 import { useRouter } from 'next/router';
 import { FC, MouseEventHandler, useState } from 'react';
+import { ContentEditableEvent } from 'react-contenteditable';
 import { Color } from '~/@types';
-import { CategoryType, LineType, Thread, ThreadAction } from '~/@types/resources/thread';
+import { CategoryType, ContentType, Thread, ThreadAction } from '~/@types/resources/thread';
 import {
   Layout,
   ModifiedDateTime,
@@ -11,14 +12,11 @@ import {
   Meta,
   Category,
   Tags,
+  Contents,
 } from '~/molecules/thread';
-import { Block, BlockElement } from '~/molecules/thread/Block';
 import { getNextBlockElement } from '~/molecules/thread/Block/helpers';
-import { SidePannel } from '~/molecules/thread/SidePannel';
-// import { InlinePannel } from '~/molecules/thread/InlinePannel';
-import { setCaretPos } from '~/utils/dom';
 
-const { Container, Header, Tasks, TitleBlock, SubTitleBlock, Metas, Devider, Contents } = Layout;
+const { Container, Header, Tasks, TitleBlock, SubTitleBlock, Metas, Devider } = Layout;
 
 const ThreadPage: FC = () => {
   const router = useRouter();
@@ -39,21 +37,23 @@ const ThreadPage: FC = () => {
       { id: 2, value: 'GA' },
     ] as Thread['tags'],
     contents: [
+      { id: 1618332036132, type: ContentType.TEXT, value: '0. Google Marketing Platform이란?' },
       {
-        type: LineType.TEXT,
-        value:
-          '동일생산과정 또는 관련된 생산과정에서 다수의 노동자가 계획적으로 협력하는 노동형태이다.',
+        id: 1618332046812,
+        type: ContentType.TEXT,
+        value: `구글에서 제공하는 마케팅 분석 도구의 모음으로, Google 계정을 통해 가입할 수 있다.
+각각 성격이 다른데, 서로 연결해서 시너지를 낼 수 있는 플랫폼임
+가장 유명한 Google Analytics, Google Ads와 Google Data Studio, Google Tag Manager, Google Optimize가 있다.`,
       },
+      { id: 1618332046925, type: ContentType.TEXT, value: '1. 가입하고 연결하기' },
       {
-        type: LineType.IMAGE,
-        value: 'https://inline-image.url',
+        id: 1618332038574,
+        type: ContentType.TEXT,
+        value: `웹 사이트를 분석하기 위해서는 각각의 플랫폼을 가입하고, 고유의 추적 ID를 연동시켜야 한다.
+웹트래픽만을 분석하려면 Google Analytics와 Google Tag Manager를 연동, (간단하게 보려면 Google Analytics만 셋팅해도됨) 광고 실적까지 연동하려면 Google Ads까지 연동하면 된다.
+그리고 단순 광고 실적이 아니라 A/B 테스트를 통한 실적을 확인하고 싶다면 Google Optimize를 추가로 연동할 수 있다.
+그리고! 이 데이터들을 한판에 보고싶다고 하면 Google Data Studio까지 연동하면됨"`,
       },
-      {
-        type: LineType.CODE,
-        format: 'javascript',
-        value: "function example() { console.log('example') };",
-      },
-      { type: LineType.DEVIDER },
     ],
     modifiedDateTime: Date.now(),
   });
@@ -62,11 +62,15 @@ const ThreadPage: FC = () => {
     console.log(thumbnailUrl);
   };
 
-  const handleKeyPressEnterBlock = (element: BlockElement) => {
-    const nextBlockElement = getNextBlockElement(element);
-    if (nextBlockElement) {
-      nextBlockElement.focus();
-      setCaretPos(nextBlockElement, 1);
+  const handleKeyPress = (event: ContentEditableEvent & globalThis.KeyboardEvent) => {
+    const { key, shiftKey, target } = event;
+
+    if (key === 'Enter') {
+      if (shiftKey) return;
+      event.preventDefault();
+
+      const nextBlockElement = getNextBlockElement(target as any);
+      if (nextBlockElement) nextBlockElement.focus();
     }
   };
 
@@ -79,10 +83,7 @@ const ThreadPage: FC = () => {
     setThread({ ...thread, categories: nextCategories });
   };
 
-  // mock data
-  const [block, setBlock] = useState('');
-
-  const handleClickCapture: MouseEventHandler<HTMLElement> = (event) => {
+  const handleClickCaptureContainer: MouseEventHandler<HTMLElement> = (event) => {
     // 문서 편집 중에는 모든 링크 동작하지 않도록 처리
     if (isEditMode && (event.target as HTMLElement).tagName === 'A') {
       event.preventDefault();
@@ -90,7 +91,7 @@ const ThreadPage: FC = () => {
   };
 
   return (
-    <Container onClickCapture={handleClickCapture}>
+    <Container onClickCapture={handleClickCaptureContainer}>
       {isEditMode ? (
         <Tasks action={ThreadAction.EDIT}>
           <ButtonTask onClick={() => router.push(`/thread/${id}`)}>취소</ButtonTask>
@@ -109,20 +110,18 @@ const ThreadPage: FC = () => {
       <Cover url={thread.coverUrl} editable={isEditMode} onChange={handleChangeCover} />
       <TitleBlock
         editable={isEditMode}
-        multiline={false}
         placeholder="어떤 글을 쓰실건가요?"
         value={thread.title}
-        onChange={(title) => setThread((thread) => ({ ...thread, title }))}
-        onKeyPressEnter={handleKeyPressEnterBlock}
+        onChange={({ target }) => setThread({ ...thread, title: target.value })}
+        onKeyPress={handleKeyPress}
       />
       {(isEditMode || thread.subTitle) && (
         <SubTitleBlock
           editable={isEditMode}
-          multiline={false}
           placeholder="Subtitle"
           value={thread.subTitle}
-          onChange={(subTitle) => setThread((thread) => ({ ...thread, subTitle }))}
-          onKeyPressEnter={handleKeyPressEnterBlock}
+          onChange={({ target }) => setThread({ ...thread, subTitle: target.value })}
+          onKeyPress={handleKeyPress}
         />
       )}
       <Metas>
@@ -154,11 +153,11 @@ const ThreadPage: FC = () => {
         </tbody>
       </Metas>
       <Devider />
-      <Contents isEditMode={isEditMode}>
-        {isEditMode && <SidePannel />}
-        {/* <InlinePannel /> */}
-        <Block value={block} editable={isEditMode} onChange={setBlock} />
-      </Contents>
+      <Contents
+        isEditMode={isEditMode}
+        contents={thread.contents}
+        onChangeContents={(contents) => setThread((thread) => ({ ...thread, contents }))}
+      />
     </Container>
   );
 };

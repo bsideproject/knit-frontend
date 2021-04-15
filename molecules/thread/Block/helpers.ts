@@ -1,3 +1,4 @@
+import { useEffect, useRef } from 'react';
 import { BlockElement } from './types';
 
 /**
@@ -14,4 +15,14 @@ export const getNextBlockElement = (currentBlockElement: BlockElement) => {
   });
   if (currentIndex === -1 || blockElements.length === currentIndex + 1) return null;
   return blockElements[currentIndex + 1] as BlockElement;
+};
+
+export const useWatchRef = <T = any>(payload: T) => {
+  const ref = useRef<T>(payload);
+
+  useEffect(() => {
+    ref.current = payload;
+  }, [payload]);
+
+  return ref;
 };

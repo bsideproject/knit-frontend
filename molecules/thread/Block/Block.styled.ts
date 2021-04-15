@@ -9,6 +9,8 @@ export const Container = styled(ContentEditable as any)<Omit<BlockProps, 'onChan
   padding: 10px;
 
   ${font.set(16)}
+  white-space: pre-wrap;
+  word-break: break-word;
   border-radius: 4px;
 
   outline: none;
@@ -22,6 +24,7 @@ export const Container = styled(ContentEditable as any)<Omit<BlockProps, 'onChan
         position: relative;
         top: 2px;
         color: #e2e1eb;
+        font-weight: bold;
         cursor: text;
         pointer-events: none;
       }
