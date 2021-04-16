@@ -1,32 +1,72 @@
 import styled from '@emotion/styled';
-import { FC, KeyboardEvent, useRef } from 'react';
+import { FC, useEffect, useRef } from 'react';
 import ContentEditable, { ContentEditableEvent } from 'react-contenteditable';
+import { setCaretPos } from '~/utils/dom';
+import { useWatchRef } from './helpers';
 import { Container } from './Block.styled';
-import { BlockProps } from './types';
+import { BlockProps, FocusType } from './types';
 
 const Block: FC<BlockProps> = ({
   className,
   editable = false,
-  multiline = true,
   placeholder,
   value,
+  focusInfo,
+  onFocus = () => {},
+  onBlur = () => {},
   onChange = () => {},
-  onKeyPressEnter,
+  onKeyPress = () => {},
+  onKeyDown = () => {},
 }) => {
+  const valueRef = useWatchRef<BlockProps['value']>(value);
+  const onFocusRef = useWatchRef<BlockProps['onFocus']>(onFocus);
+  const onBlurRef = useWatchRef<BlockProps['onBlur']>(onBlur);
+  const onChangeRef = useWatchRef<BlockProps['onChange']>(onChange);
+  const onKeyPressRef = useWatchRef<BlockProps['onKeyPress']>(onKeyPress);
+  const onKeyDownRef = useWatchRef<BlockProps['onKeyDown']>(onKeyDown);
+
   const domRef = useRef<ContentEditable>();
 
-  const handleChange = ({ target }: ContentEditableEvent) => {
-    onChange(target.value ?? '');
+  useEffect(() => {
+    if (!focusInfo) return;
+    const { focusType } = focusInfo;
+
+    if (focusType === FocusType.PASSIVE) return;
+
+    const element = domRef.current?.el.current;
+    if (!element) return;
+
+    if (focusType === FocusType.FIRST_CARET) {
+      setCaretPos(element, 0);
+      return;
+    }
+    if (focusType === FocusType.LAST_CARET) {
+      setCaretPos(element, valueRef.current?.length ?? 0);
+      return;
+    }
+    if (focusType === FocusType.DESIGNATE_CARET) {
+      setCaretPos(element, (focusInfo as { focusCaretPos: number }).focusCaretPos);
+    }
+  }, [focusInfo]);
+
+  const handleFocus = () => {
+    onFocusRef.current?.();
+  };
+
+  const handleBlur = () => {
+    onBlurRef.current?.();
+  };
+
+  const handleChange = (event: ContentEditableEvent) => {
+    onChangeRef.current?.(event);
   };
 
   const handleKeyPress = (event: ContentEditableEvent & KeyboardEvent) => {
-    const { key, shiftKey } = event;
+    onKeyPressRef.current?.(event);
+  };
 
-    if (key === 'Enter') {
-      if (multiline && shiftKey) return;
-      event.preventDefault();
-      onKeyPressEnter?.(domRef.current?.el.current);
-    }
+  const handleKeyDown = (event: ContentEditableEvent & KeyboardEvent) => {
+    onKeyDownRef.current?.(event);
   };
 
   return (
@@ -40,8 +80,11 @@ const Block: FC<BlockProps> = ({
       placeholder={placeholder}
       disabled={!editable}
       html={value ?? ''}
+      onFocus={handleFocus}
+      onBlur={handleBlur}
       onChange={handleChange}
       onKeyPress={handleKeyPress}
+      onKeyDown={handleKeyDown}
     />
   );
 };

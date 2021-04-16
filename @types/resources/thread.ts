@@ -14,7 +14,7 @@ export interface Thread {
   /* 문서 태그 리스트 */
   tags: ReadonlyArray<{ id: number; value: string }>;
   /* 문서 본문 */
-  contents: ReadonlyArray<TextLine | ImageLine | CodeLine | DeviderLine>;
+  contents: ReadonlyArray<TextContent | ImageContent | CodeContent | DeviderContent>;
   /* 문서 작성 시간 */
   modifiedDateTime: number;
 }
@@ -28,31 +28,32 @@ export enum CategoryType {
   ETC = 'ETC',
 }
 
-export enum LineType {
+export enum ContentType {
   TEXT = 'TEXT',
   IMAGE = 'IMAGE',
   CODE = 'CODE',
   DEVIDER = 'DEVIDER',
 }
 
-interface Line<T extends keyof typeof LineType> {
+interface Content<T extends keyof typeof ContentType> {
+  id: number;
   type: T;
 }
 
-export interface TextLine extends Line<LineType.TEXT> {
+export interface TextContent extends Content<ContentType.TEXT> {
   value: string;
 }
 
-export interface ImageLine extends Line<LineType.IMAGE> {
+export interface ImageContent extends Content<ContentType.IMAGE> {
   value: string;
 }
 
-export interface CodeLine extends Line<LineType.CODE> {
+export interface CodeContent extends Content<ContentType.CODE> {
   value: string;
   format: CodeFormat;
 }
 
-export interface DeviderLine extends Line<LineType.DEVIDER> {}
+export interface DeviderContent extends Content<ContentType.DEVIDER> {}
 
 export type CodeFormat = 'javascript' | 'json' | void;
 

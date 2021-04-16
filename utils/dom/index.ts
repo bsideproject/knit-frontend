@@ -7,15 +7,13 @@
  */
 import { useEffect, useRef } from 'react';
 
-export const getCaretPos = (
-  target: HTMLDivElement | HTMLInputElement | HTMLTextAreaElement
-): number | null => {
+export const getCaretPos = (target: any): number | null => {
   // for texterea/input element
   if (target instanceof HTMLInputElement || target instanceof HTMLTextAreaElement) {
     return target.selectionStart;
   }
   // for contentedit field
-  if (target && target.contentEditable) {
+  if (target instanceof HTMLDivElement && target.contentEditable) {
     target.focus();
     const _range = document.getSelection()!.getRangeAt(0);
     const range = _range.cloneRange();
@@ -41,10 +39,15 @@ export const setCaretPos = (
   // for contentedit field
   if (target && target.contentEditable) {
     target.focus();
-    try {
-      document.getSelection()?.collapse(target, pos);
-    } catch (error) {
-      console.error(error);
+    const textNode = target.childNodes[0];
+    if (textNode) {
+      const selection = window.getSelection();
+      if (!selection) return;
+      const range = document.createRange();
+      range.setStart(textNode, pos);
+      range.collapse(true);
+      selection.removeAllRanges();
+      selection.addRange(range);
     }
   }
 };
