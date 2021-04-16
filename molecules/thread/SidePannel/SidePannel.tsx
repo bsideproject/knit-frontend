@@ -1,4 +1,4 @@
-import { FC, useEffect, useRef } from 'react';
+import { FC, memo, useEffect, useRef } from 'react';
 import _ from 'lodash';
 import {
   ImageIcon,
@@ -56,4 +56,4 @@ const SidePannel: FC = () => {
   );
 };
 
-export default SidePannel;
+export default memo<FC>(SidePannel);

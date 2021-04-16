@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { FC, useEffect, useRef } from 'react';
+import { FC, memo, useEffect, useRef } from 'react';
 import ContentEditable, { ContentEditableEvent } from 'react-contenteditable';
 import { setCaretPos } from '~/utils/dom';
 import { useWatchRef } from './helpers';
@@ -89,4 +89,4 @@ const Block: FC<BlockProps> = ({
   );
 };
 
-export default styled(Block)``;
+export default styled(memo<FC<BlockProps>>(Block))``;

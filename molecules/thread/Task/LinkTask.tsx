@@ -1,4 +1,4 @@
-import { FC, ReactNode } from 'react';
+import { FC, memo, ReactNode } from 'react';
 import Link from 'next/link';
 import { Anchor } from './LinkTask.styled';
 
@@ -15,4 +15,4 @@ const Task: FC<Props> = ({ href, children }) => {
   );
 };
 
-export default Task;
+export default memo<FC<Props>>(Task);

@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
 import { css } from '@emotion/react';
+import { memo } from 'react';
 import { fitInResolutionOnPage } from '~/styles/layout';
 import * as font from '~/styles/font';
 import { ThreadAction } from '~/@types/resources/thread';
@@ -38,7 +39,7 @@ export const Tasks = styled.div<{ action?: ThreadAction | undefined }>`
   })}
 `;
 
-export const TitleBlock = styled(Block)<BlockProps>`
+export const TitleBlock = styled(memo(Block))<BlockProps>`
   ${font.set(40, 'bold')};
   line-height: 50px;
 
@@ -52,7 +53,7 @@ export const TitleBlock = styled(Block)<BlockProps>`
   })}
 `;
 
-export const SubTitleBlock = styled(Block)<BlockProps>`
+export const SubTitleBlock = styled(memo(Block))<BlockProps>`
   margin-top: 10px;
   display: block;
 

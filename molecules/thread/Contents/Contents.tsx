@@ -1,4 +1,4 @@
-import { FC, MouseEventHandler, useState } from 'react';
+import { FC, memo, MouseEventHandler, useState } from 'react';
 import { ContentEditableEvent } from 'react-contenteditable';
 import { ContentType, TextContent, Thread } from '~/@types/resources/thread';
 import { Block } from '../Block';
@@ -197,4 +197,4 @@ const Contents: FC<Props> = ({ isEditMode, contents, onChangeContents }) => {
   );
 };
 
-export default Contents;
+export default memo<FC<Props>>(Contents);

@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, memo } from 'react';
 import { Container, DeleteButton } from './Tag.styled';
 import { Tag as TagAtom } from '~/atoms/tag';
 
@@ -11,9 +11,7 @@ interface Props {
 
 const Tag: FC<Props> = ({ id, title, editting, onClickDelete }) => {
   const handleClickDelete = () => {
-    if (editting) {
-      onClickDelete(id);
-    }
+    if (editting) onClickDelete(id);
   };
 
   return (
@@ -24,4 +22,4 @@ const Tag: FC<Props> = ({ id, title, editting, onClickDelete }) => {
   );
 };
 
-export default Tag;
+export default memo<FC<Props>>(Tag);

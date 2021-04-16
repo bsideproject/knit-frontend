@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router';
-import { FC, MouseEventHandler, useState } from 'react';
+import { FC, MouseEventHandler, useCallback, useState } from 'react';
 import { ContentEditableEvent } from 'react-contenteditable';
 import { Color } from '~/@types';
 import { CategoryType, ContentType, Thread, ThreadAction } from '~/@types/resources/thread';
@@ -58,6 +58,8 @@ const ThreadPage: FC = () => {
     modifiedDateTime: Date.now(),
   });
 
+  const handleClickCancelEdit = useCallback(() => router.push(`/thread/${id}`), []);
+
   const handleChangeCover = (thumbnailUrl: string | null) => {
     console.log(thumbnailUrl);
   };
@@ -94,7 +96,7 @@ const ThreadPage: FC = () => {
     <Container onClickCapture={handleClickCaptureContainer}>
       {isEditMode ? (
         <Tasks action={ThreadAction.EDIT}>
-          <ButtonTask onClick={() => router.push(`/thread/${id}`)}>취소</ButtonTask>
+          <ButtonTask onClick={handleClickCancelEdit}>취소</ButtonTask>
           <ButtonTask color={Color.PRIMARY}>등록</ButtonTask>
         </Tasks>
       ) : (
