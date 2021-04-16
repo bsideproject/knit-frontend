@@ -61,11 +61,11 @@ const Block: FC<BlockProps> = ({
     onChangeRef.current?.(event);
   };
 
-  const handleKeyPress = (event: ContentEditableEvent & globalThis.KeyboardEvent) => {
+  const handleKeyPress = (event: ContentEditableEvent & KeyboardEvent) => {
     onKeyPressRef.current?.(event);
   };
 
-  const handleKeyDown = (event: ContentEditableEvent & globalThis.KeyboardEvent) => {
+  const handleKeyDown = (event: ContentEditableEvent & KeyboardEvent) => {
     onKeyDownRef.current?.(event);
   };
 

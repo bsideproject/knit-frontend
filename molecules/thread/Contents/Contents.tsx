@@ -54,7 +54,7 @@ const Contents: FC<Props> = ({ isEditMode, contents, onChangeContents }) => {
   };
 
   const createKeyPressHandler = (index: number) => (
-    event: ContentEditableEvent & globalThis.KeyboardEvent
+    event: ContentEditableEvent & KeyboardEvent
   ) => {
     const { key, shiftKey, target } = event;
 

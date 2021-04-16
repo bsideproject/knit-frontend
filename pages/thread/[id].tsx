@@ -62,7 +62,7 @@ const ThreadPage: FC = () => {
     console.log(thumbnailUrl);
   };
 
-  const handleKeyPress = (event: ContentEditableEvent & globalThis.KeyboardEvent) => {
+  const handleKeyPress = (event: ContentEditableEvent & KeyboardEvent) => {
     const { key, shiftKey, target } = event;
 
     if (key === 'Enter') {

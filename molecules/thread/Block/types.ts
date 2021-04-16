@@ -9,8 +9,8 @@ export interface BlockProps {
   onFocus?: () => void;
   onBlur?: () => void;
   onChange?: (event: ContentEditableEvent) => void;
-  onKeyPress?: (event: ContentEditableEvent & globalThis.KeyboardEvent) => void;
-  onKeyDown?: (event: ContentEditableEvent & globalThis.KeyboardEvent) => void;
+  onKeyPress?: (event: ContentEditableEvent & KeyboardEvent) => void;
+  onKeyDown?: (event: ContentEditableEvent & KeyboardEvent) => void;
 }
 
 export type BlockElement = HTMLDivElement;
