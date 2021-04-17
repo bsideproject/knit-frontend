@@ -16,16 +16,20 @@ const InlinePannel: FC<Props> = ({ baseElement }) => {
 
   useEffect(() => {
     const handleSelectionChange = () => {
-      const pixel = getCaretPixel();
-      const container = baseElement?.getBoundingClientRect();
-      if (!pixel || !container) {
+      try {
+        const pixel = getCaretPixel();
+        const container = baseElement?.getBoundingClientRect();
+        if (!pixel || !container) {
+          setCaretPixel(null);
+          return;
+        }
+        setCaretPixel({
+          top: pixel.top - container.top,
+          left: pixel.left - container.left,
+        });
+      } catch {
         setCaretPixel(null);
-        return;
       }
-      setCaretPixel({
-        top: pixel.top - container.top,
-        left: pixel.left - container.left,
-      });
     };
     document.addEventListener('selectionchange', handleSelectionChange);
     return () => document.removeEventListener('selectionchange', handleSelectionChange);
