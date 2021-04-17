@@ -1,4 +1,4 @@
-import { FC, useEffect, useRef, useState } from 'react';
+import { FC, memo, useEffect, useMemo, useRef, useState } from 'react';
 import { setCaretPos, useOnClickOutside } from '~/utils/dom';
 import TagInput from './TagInput';
 import Tag from './Tag';
@@ -47,9 +47,9 @@ const Tags: FC<Props> = ({ isEditMode, tags, onChange }) => {
     inputValue.current = '';
   };
 
-  const handleClickDelete = (id: number) => {
-    onChange(tags.filter((tag) => tag.id !== id));
-  };
+  const handleClickDelete = useMemo(() => {
+    return (id: number) => onChange(tags.filter((tag) => tag.id !== id));
+  }, [tags, onChange]);
 
   const containerRef = useOnClickOutside<HTMLDivElement>(handleCancel);
 
@@ -73,4 +73,4 @@ const Tags: FC<Props> = ({ isEditMode, tags, onChange }) => {
   );
 };
 
-export default Tags;
+export default memo<FC<Props>>(Tags);

@@ -1,4 +1,4 @@
-import { FC, ReactNode } from 'react';
+import { FC, memo, ReactNode } from 'react';
 import { CategoryType } from '~/@types/resources/thread';
 import { Container, IconWrapper, IconBorder, Label, IconContainer } from './Category.styled';
 
@@ -41,4 +41,4 @@ const Category: FC<Props> = ({ type, isEditMode, selected, onClick }) => {
   );
 };
 
-export default Category;
+export default memo<FC<Props>>(Category);

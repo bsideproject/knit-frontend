@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import Link from 'next/link';
-import { AnchorHTMLAttributes, DetailedHTMLProps, VFC } from 'react';
+import { AnchorHTMLAttributes, DetailedHTMLProps, memo, VFC } from 'react';
 import { ITag } from '~/@types';
 import { Anchor } from './Tag.styled';
 
@@ -30,4 +30,4 @@ const Tag: VFC<TagProps> = ({ url, title, className, onClick, ...restProps }) =>
     </Anchor>
   );
 };
-export default styled(Tag)``;
+export default styled(memo(Tag))``;

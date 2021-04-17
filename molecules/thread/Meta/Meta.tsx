@@ -1,4 +1,4 @@
-import { FC, ReactNode } from 'react';
+import { FC, memo, ReactNode } from 'react';
 import { Container, Required, Label, Contents } from './Meta.styled';
 
 interface Props {
@@ -18,4 +18,4 @@ const Meta: FC<Props> = ({ label, required = false, children }) => {
   );
 };
 
-export default Meta;
+export default memo<FC<Props>>(Meta);
