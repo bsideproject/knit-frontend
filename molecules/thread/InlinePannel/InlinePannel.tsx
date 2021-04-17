@@ -1,8 +1,42 @@
-import { FC } from 'react';
+import { FC, memo, MouseEventHandler, useEffect, useState } from 'react';
+import { getCaretPixel } from '~/utils/dom';
 import { Container } from './InlinePannel.styled';
 
-const InlinePannel: FC = () => {
-  return <Container top={0} left={0} />;
+type CaretPixel = {
+  top: number;
+  left: number;
 };
 
-export default InlinePannel;
+interface Props {
+  baseElement: HTMLDivElement | null;
+}
+
+const InlinePannel: FC<Props> = ({ baseElement }) => {
+  const [caretPixel, setCaretPixel] = useState<CaretPixel | null>(null);
+
+  useEffect(() => {
+    const handleSelectionChange = () => {
+      const pixel = getCaretPixel();
+      const container = baseElement?.getBoundingClientRect();
+      if (!pixel || !container) {
+        setCaretPixel(null);
+        return;
+      }
+      setCaretPixel({
+        top: pixel.top - container.top,
+        left: pixel.left - container.left,
+      });
+    };
+    document.addEventListener('selectionchange', handleSelectionChange);
+    return () => document.removeEventListener('selectionchange', handleSelectionChange);
+  }, []);
+
+  const handleMouseDown: MouseEventHandler = (event) => {
+    event.preventDefault();
+  };
+
+  if (!caretPixel) return null;
+  return <Container top={caretPixel.top} left={caretPixel.left} onMouseDown={handleMouseDown} />;
+};
+
+export default memo(InlinePannel);

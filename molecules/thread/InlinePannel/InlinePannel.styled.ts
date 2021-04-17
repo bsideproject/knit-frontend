@@ -3,7 +3,7 @@ import styled from '@emotion/styled';
 export const Container = styled.div<{ top: number; left: number }>`
   position: absolute;
   top: ${({ top }) => `${top - 40}px`};
-  left: ${({ left }) => `${left}px`};
+  left: ${({ left }) => `${left - 20}px`};
 
   width: 355px;
   height: 32px;
