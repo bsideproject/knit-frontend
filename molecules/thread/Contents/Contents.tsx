@@ -1,12 +1,13 @@
-import { FC, memo, MouseEventHandler, useState } from 'react';
+import { FC, useState, memo, useRef, MouseEventHandler } from 'react';
 import { ContentEditableEvent } from 'react-contenteditable';
 import { ContentType, TextContent, Thread } from '~/@types/resources/thread';
+import { getCaretNumber } from '~/utils/dom';
 import { Block } from '../Block';
 import { createTextContent } from './helpers';
 import { SidePannel } from '../SidePannel';
 import { Container } from './Contents.styled';
 import { FocusInfo, FocusType } from '../Block/types';
-import { getCaretPos } from '~/utils/dom';
+import { InlinePannel } from '../InlinePannel';
 
 interface Props {
   isEditMode: boolean;
@@ -63,14 +64,14 @@ const Contents: FC<Props> = ({ isEditMode, contents, onChangeContents }) => {
       event.preventDefault();
 
       // 다음 위치에 text content를 생성한 뒤 focus
-      const caretPos = getCaretPos(target);
+      const caretNum = getCaretNumber(target);
       const currOrigContent = contents[index] as TextContent;
       const currContent = {
         ...currOrigContent,
-        ...(caretPos !== null ? { value: currOrigContent.value.slice(0, caretPos) } : null),
+        ...(caretNum !== null ? { value: currOrigContent.value.slice(0, caretNum) } : null),
       };
       const nextContent = createTextContent(
-        caretPos !== null ? currOrigContent.value.slice(caretPos) : ''
+        caretNum !== null ? currOrigContent.value.slice(caretNum) : ''
       );
       onChangeContents([
         ...contents.slice(0, index),
@@ -94,16 +95,16 @@ const Contents: FC<Props> = ({ isEditMode, contents, onChangeContents }) => {
       // content가 1개인 경우 pass
       if (contents.length === 1) return;
 
-      const caretPos = getCaretPos(target);
+      const caretNum = getCaretNumber(target);
       // caret이 첫번째 위치가 아닌 경우 pass
-      if (caretPos !== 0) return;
+      if (caretNum !== 0) return;
 
       // content 제거 및 이전 or 다음 content focus
       const currOrigContent = contents[index] as TextContent;
       const prevOrigContent = contents[index - 1] as TextContent;
       const prevContent = {
         ...prevOrigContent,
-        ...(caretPos !== null
+        ...(caretNum !== null
           ? { value: `${prevOrigContent.value}${currOrigContent.value}` }
           : null),
       };
@@ -138,10 +139,10 @@ const Contents: FC<Props> = ({ isEditMode, contents, onChangeContents }) => {
       // 첫번째 content인 경우 pass
       if (index === 0) return;
 
-      const caretPos = getCaretPos(target);
+      const caretNum = getCaretNumber(target);
 
       // caret이 첫번째 위치가 아닌 경우 pass
-      if (caretPos !== 0 && !metaKey) return;
+      if (caretNum !== 0 && !metaKey) return;
 
       event.preventDefault();
       setFocusInfo({
@@ -155,11 +156,11 @@ const Contents: FC<Props> = ({ isEditMode, contents, onChangeContents }) => {
       // 마지막 content인 경우 pass
       if (index === contents.length - 1) return;
 
-      const caretPos = getCaretPos(target);
+      const caretNum = getCaretNumber(target);
       const content = contents[index] as TextContent;
 
       // caret이 마지막 위치가 아닌 경우 pass
-      if (caretPos !== content.value.length && !metaKey) return;
+      if (caretNum !== content.value.length && !metaKey) return;
 
       event.preventDefault();
       setFocusInfo({
@@ -169,10 +170,12 @@ const Contents: FC<Props> = ({ isEditMode, contents, onChangeContents }) => {
     }
   };
 
+  const containerRef = useRef<HTMLDivElement>(null);
+
   return (
-    <Container isEditMode={isEditMode} onClick={handleClickEmptySpace}>
+    <Container isEditMode={isEditMode} onClick={handleClickEmptySpace} ref={containerRef}>
       {isEditMode && <SidePannel />}
-      {/* {isEditMode && <InlinePannel />} */}
+      {isEditMode && <InlinePannel baseElement={containerRef.current} />}
       {contents.map((content, index) => {
         switch (content.type) {
           case ContentType.TEXT:

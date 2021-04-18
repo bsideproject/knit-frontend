@@ -1,13 +1,29 @@
 /* eslint-disable no-underscore-dangle */
 /* eslint-disable @typescript-eslint/naming-convention */
 
+import { useEffect, useRef } from 'react';
+
+/**
+ * get caret pixel position
+ */
+export const getCaretPixel = (): DOMRect | null => {
+  const selection = document.getSelection();
+  if (!selection) return null;
+
+  const { startOffset, endOffset, startContainer } = selection.getRangeAt(0);
+  if (startOffset === endOffset) return null;
+
+  const range = document.createRange();
+  range.setStart(startContainer, startOffset);
+  range.setEnd(startContainer, startOffset + 1);
+  return range.getBoundingClientRect();
+};
+
 /**
  * get caret position
  * @returns {number}
  */
-import { useEffect, useRef } from 'react';
-
-export const getCaretPos = (target: any): number | null => {
+export const getCaretNumber = (target: any): number | null => {
   // for texterea/input element
   if (target instanceof HTMLInputElement || target instanceof HTMLTextAreaElement) {
     return target.selectionStart;
