@@ -1,22 +1,22 @@
 import { useRouter } from 'next/router';
-import { FC, useState } from 'react';
+import { FC, MouseEventHandler, useCallback, useState } from 'react';
+import { ContentEditableEvent } from 'react-contenteditable';
 import { Color } from '~/@types';
-import { CategoryType, LineType, Thread, ThreadAction } from '~/@types/resources/thread';
+import { CategoryType, ContentType, Thread, ThreadAction } from '~/@types/resources/thread';
 import {
   Layout,
-  CreatedDateTime,
+  ModifiedDateTime,
   ButtonTask,
   LinkTask,
-  Thumbnail,
+  Cover,
   Meta,
   Category,
   Tags,
+  Contents,
 } from '~/molecules/thread';
-import { Block, BlockElement } from '~/molecules/thread/Block';
 import { getNextBlockElement } from '~/molecules/thread/Block/helpers';
-import { setCaretPos } from '~/utils/dom';
 
-const { Container, Header, Tasks, TitleBlock, SubTitleBlock, Metas, Devider, Contents } = Layout;
+const { Container, Header, Tasks, TitleBlock, SubTitleBlock, Metas, Devider } = Layout;
 
 const ThreadPage: FC = () => {
   const router = useRouter();
@@ -24,61 +24,55 @@ const ThreadPage: FC = () => {
   const isEditMode = action === ThreadAction.EDIT;
 
   // mock data
-  const [thread, setThread] = useState({
+  const [thread, setThread] = useState<Thread>({
     id: 123,
-    // thumbnailUrl: null,
-    thumbnailUrl:
-      'https://img1.daumcdn.net/thumb/R720x0.q80/?scode=mtistory2&fname=http%3A%2F%2Fcfile29.uf.tistory.com%2Fimage%2F99B87D3359AF7F3821B671',
-    title: '비사이드 협업 잘하는 방법',
+    thumbnailUrl: '',
+    coverUrl:
+      'https://storage.googleapis.com/twg-content/original_images/2560x1152_Google_MarketingPlatform.png',
+    title: 'Google Marketing Platform으로 데이터 분석하기',
     subTitle: '',
-    categories: [CategoryType.DEVELOP],
+    categories: [CategoryType.MARKETING, CategoryType.DATA],
     tags: [
-      // { id: 1, title: '주제태그' },
-      // { id: 2, title: '주제태그' },
-      // { id: 3, title: '짧' },
-      // { id: 4, title: '주제태그' },
-      // { id: 5, title: '짧' },
-      // { id: 6, title: '주제태그' },
-      // { id: 7, title: '짧' },
-      // { id: 8, title: '주제태그' },
-      // { id: 9, title: '주제태그' },
-      // { id: 10, title: '주제태그' },
-      // { id: 11, title: '주제태그' },
-      // { id: 13, title: '짧' },
-      // { id: 14, title: '긴긴긴긴긴긴긴긴긴긴긴긴긴긴긴긴긴긴긴긴긴긴긴긴긴' },
-      // { id: 15, title: '주제태그' },
-      // { id: 16, title: '짧' },
-      // { id: 17, title: '짧' },
+      { id: 1, value: '퍼포먼스 마케팅' },
+      { id: 2, value: 'GA' },
     ] as Thread['tags'],
     contents: [
+      { id: 1618332036132, type: ContentType.TEXT, value: '0. Google Marketing Platform이란?' },
       {
-        type: LineType.TEXT,
-        value:
-          '동일생산과정 또는 관련된 생산과정에서 다수의 노동자가 계획적으로 협력하는 노동형태이다.',
+        id: 1618332046812,
+        type: ContentType.TEXT,
+        value: `구글에서 제공하는 마케팅 분석 도구의 모음으로, Google 계정을 통해 가입할 수 있다.
+각각 성격이 다른데, 서로 연결해서 시너지를 낼 수 있는 플랫폼임
+가장 유명한 Google Analytics, Google Ads와 Google Data Studio, Google Tag Manager, Google Optimize가 있다.`,
       },
+      { id: 1618332046925, type: ContentType.TEXT, value: '1. 가입하고 연결하기' },
       {
-        type: LineType.IMAGE,
-        value: 'https://inline-image.url',
+        id: 1618332038574,
+        type: ContentType.TEXT,
+        value: `웹 사이트를 분석하기 위해서는 각각의 플랫폼을 가입하고, 고유의 추적 ID를 연동시켜야 한다.
+웹트래픽만을 분석하려면 Google Analytics와 Google Tag Manager를 연동, (간단하게 보려면 Google Analytics만 셋팅해도됨) 광고 실적까지 연동하려면 Google Ads까지 연동하면 된다.
+그리고 단순 광고 실적이 아니라 A/B 테스트를 통한 실적을 확인하고 싶다면 Google Optimize를 추가로 연동할 수 있다.
+그리고! 이 데이터들을 한판에 보고싶다고 하면 Google Data Studio까지 연동하면됨"`,
       },
-      {
-        type: LineType.CODE,
-        format: 'javascript',
-        value: "function example() { console.log('example') };",
-      },
-      { type: LineType.DEVIDER },
     ],
-    createdDateTime: Date.now(),
+    modifiedDateTime: Date.now(),
   });
 
-  const handleChangeThumbnail = (thumbnailUrl: string | null) => {
+  const handleClickCancelEdit = useCallback(() => router.push(`/thread/${id}`), []);
+
+  const handleChangeCover = (thumbnailUrl: string | null) => {
     console.log(thumbnailUrl);
   };
 
-  const handleKeyPressEnterBlock = (element: BlockElement) => {
-    const nextBlockElement = getNextBlockElement(element);
-    if (nextBlockElement) {
-      nextBlockElement.focus();
-      setCaretPos(nextBlockElement, 1);
+  const handleKeyPress = (event: ContentEditableEvent & KeyboardEvent) => {
+    const { key, shiftKey, target } = event;
+
+    if (key === 'Enter') {
+      if (shiftKey) return;
+      event.preventDefault();
+
+      const nextBlockElement = getNextBlockElement(target as any);
+      if (nextBlockElement) nextBlockElement.focus();
     }
   };
 
@@ -91,16 +85,23 @@ const ThreadPage: FC = () => {
     setThread({ ...thread, categories: nextCategories });
   };
 
+  const handleClickCaptureContainer: MouseEventHandler<HTMLElement> = (event) => {
+    // 문서 편집 중에는 모든 링크 동작하지 않도록 처리
+    if (isEditMode && (event.target as HTMLElement).tagName === 'A') {
+      event.preventDefault();
+    }
+  };
+
   return (
-    <Container>
+    <Container onClickCapture={handleClickCaptureContainer}>
       {isEditMode ? (
         <Tasks action={ThreadAction.EDIT}>
-          <ButtonTask onClick={() => router.push(`/thread/${id}`)}>취소</ButtonTask>
+          <ButtonTask onClick={handleClickCancelEdit}>취소</ButtonTask>
           <ButtonTask color={Color.PRIMARY}>등록</ButtonTask>
         </Tasks>
       ) : (
         <Header>
-          <CreatedDateTime dateTime={thread.createdDateTime} />
+          <ModifiedDateTime dateTime={thread.modifiedDateTime} />
           <Tasks>
             <LinkTask href={`/thread/${id}?action=${ThreadAction.EDIT}`}>편집</LinkTask>
             <LinkTask href="/#">토론</LinkTask>
@@ -108,23 +109,23 @@ const ThreadPage: FC = () => {
           </Tasks>
         </Header>
       )}
-      <Thumbnail url={thread.thumbnailUrl} editable={isEditMode} onChange={handleChangeThumbnail} />
+      <Cover url={thread.coverUrl} editable={isEditMode} onChange={handleChangeCover} />
       <TitleBlock
         editable={isEditMode}
-        multiline={false}
         placeholder="어떤 글을 쓰실건가요?"
         value={thread.title}
-        onChange={(title) => setThread((thread) => ({ ...thread, title }))}
-        onKeyPressEnter={handleKeyPressEnterBlock}
+        onChange={({ target }) => setThread({ ...thread, title: target.value })}
+        onKeyPress={handleKeyPress}
       />
-      <SubTitleBlock
-        editable={isEditMode}
-        multiline={false}
-        placeholder="Subtitle"
-        value={thread.subTitle}
-        onChange={(subTitle) => setThread((thread) => ({ ...thread, subTitle }))}
-        onKeyPressEnter={handleKeyPressEnterBlock}
-      />
+      {(isEditMode || thread.subTitle) && (
+        <SubTitleBlock
+          editable={isEditMode}
+          placeholder="Subtitle"
+          value={thread.subTitle}
+          onChange={({ target }) => setThread({ ...thread, subTitle: target.value })}
+          onKeyPress={handleKeyPress}
+        />
+      )}
       <Metas>
         <tbody>
           <Meta label="직군" required={isEditMode}>
@@ -154,9 +155,11 @@ const ThreadPage: FC = () => {
         </tbody>
       </Metas>
       <Devider />
-      <Contents>
-        <Block value="텍스트 블록" editable={isEditMode} />
-      </Contents>
+      <Contents
+        isEditMode={isEditMode}
+        contents={thread.contents}
+        onChangeContents={(contents) => setThread((thread) => ({ ...thread, contents }))}
+      />
     </Container>
   );
 };

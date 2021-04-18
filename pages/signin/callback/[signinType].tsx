@@ -8,7 +8,7 @@ const SigninCallback: FC = () => {
   const { signinType } = router.query;
 
   useEffect(() => {
-    // router.query가 초기화가 안된 경우 skip
+    // router.query가 초기화가 안된 경우 pass
     if (!signinType) return;
 
     if (signinType === SigninType.NAVER) {

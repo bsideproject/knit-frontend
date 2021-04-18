@@ -1,4 +1,4 @@
-import { FC, useEffect, useRef, useState } from 'react';
+import { FC, memo, useEffect, useMemo, useRef, useState } from 'react';
 import { setCaretPos, useOnClickOutside } from '~/utils/dom';
 import TagInput from './TagInput';
 import Tag from './Tag';
@@ -38,7 +38,7 @@ const Tags: FC<Props> = ({ isEditMode, tags, onChange }) => {
 
   const handleSubmitInput = () => {
     if (!inputValue.current) return;
-    onChange(tagsRef.current.concat({ id: Date.now(), title: inputValue.current }));
+    onChange(tagsRef.current.concat({ id: Date.now(), value: inputValue.current }));
     inputValue.current = '';
   };
 
@@ -47,16 +47,16 @@ const Tags: FC<Props> = ({ isEditMode, tags, onChange }) => {
     inputValue.current = '';
   };
 
-  const handleClickDelete = (id: number) => {
-    onChange(tags.filter((tag) => tag.id !== id));
-  };
+  const handleClickDelete = useMemo(() => {
+    return (id: number) => onChange(tags.filter((tag) => tag.id !== id));
+  }, [tags, onChange]);
 
   const containerRef = useOnClickOutside<HTMLDivElement>(handleCancel);
 
   return (
     <Container ref={containerRef} isEditMode={isEditMode} onClick={handleClickContainer}>
-      {tags.map(({ id, title }) => (
-        <Tag key={id} id={id} title={title} editting={editting} onClickDelete={handleClickDelete} />
+      {tags.map(({ id, value }) => (
+        <Tag key={id} id={id} title={value} editting={editting} onClickDelete={handleClickDelete} />
       ))}
       {editting ? (
         <TagInput
@@ -73,4 +73,4 @@ const Tags: FC<Props> = ({ isEditMode, tags, onChange }) => {
   );
 };
 
-export default Tags;
+export default memo<FC<Props>>(Tags);

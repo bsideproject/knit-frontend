@@ -1,9 +1,9 @@
-import { FC } from 'react';
+import { FC, memo } from 'react';
 import { promptFileSelector } from '~/utils/file';
-import { Container, Image, ImageChangeButton, ImageWrapper, TaskButton } from './Thumbnail.styled';
-import { ThumbnailProps } from './types';
+import { Container, Image, ImageChangeButton, ImageWrapper, TaskButton } from './Cover.styled';
+import { CoverProps } from './types';
 
-const Thumbnail: FC<ThumbnailProps> = ({ url, editable, onChange }) => {
+const Cover: FC<CoverProps> = ({ url, editable, onChange }) => {
   const handleClickImage = async () => {
     if (!editable) return;
 
@@ -41,7 +41,7 @@ const Thumbnail: FC<ThumbnailProps> = ({ url, editable, onChange }) => {
         <ImageChangeButton>Change Cover</ImageChangeButton>
       </ImageWrapper>
       {editable && (
-        <TaskButton onClick={handleClickTaskButton} hasThumbnail={!!url}>
+        <TaskButton onClick={handleClickTaskButton} hasCover={!!url}>
           {url ? '- remove cover' : '+ add cover'}
         </TaskButton>
       )}
@@ -49,4 +49,4 @@ const Thumbnail: FC<ThumbnailProps> = ({ url, editable, onChange }) => {
   );
 };
 
-export default Thumbnail;
+export default memo<FC<CoverProps>>(Cover);
