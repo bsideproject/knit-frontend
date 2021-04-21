@@ -55,7 +55,16 @@ export interface CodeContent extends Content<ContentType.CODE> {
   format: CodeFormat;
 }
 
-export interface DeviderContent extends Content<ContentType.DEVIDER> {}
+export enum DeviderType {
+  NORMAL,
+  DASHED,
+  SOLID,
+  DOUBLE,
+  SHORT,
+}
+export interface DeviderContent extends Content<ContentType.DEVIDER> {
+  deviderType: DeviderType;
+}
 
 export type CodeFormat = 'javascript' | 'json' | void;
 

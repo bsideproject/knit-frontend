@@ -1,6 +1,6 @@
 import { FC, useState, memo, useRef, MouseEventHandler, KeyboardEventHandler } from 'react';
 import { ContentEditableEvent } from 'react-contenteditable';
-import { ContentType, Thread } from '~/@types/resources/thread';
+import { ContentType, DeviderType, Thread } from '~/@types/resources/thread';
 import { getCaretNumber } from '~/utils/dom';
 import { TextBlock } from '../Block';
 import { createTextContent } from './helpers';
@@ -9,6 +9,7 @@ import { Container } from './Contents.styled';
 import { FocusInfo, FocusType } from '../Block/types';
 import { InlinePannel } from '../InlinePannel';
 import ImageBlock from '../Block/ImageBlock';
+import DeviderBlock from '../Block/DeviderBlock';
 
 interface Props {
   isEditMode: boolean;
@@ -22,7 +23,7 @@ const Contents: FC<Props> = ({ isEditMode, contents, onChangeContents }) => {
   const handleClickEmptySpace: MouseEventHandler = (event) => {
     if (event.target !== event.currentTarget) return;
 
-    // contents가 하나도 없는 경우 text content를 생성한 뒤 focus
+    // block이 하나도 없는 경우 text block을 생성한 뒤 focus
     if (contents.length === 0) {
       const content = createTextContent();
       onChangeContents([content]);
@@ -32,7 +33,7 @@ const Contents: FC<Props> = ({ isEditMode, contents, onChangeContents }) => {
       });
       return;
     }
-    // 마지막 content에 focus
+    // 마지막 block에 focus
     setFocusInfo({
       contentId: contents[contents.length - 1].id,
       focusType: FocusType.LAST_CARET,
@@ -64,7 +65,7 @@ const Contents: FC<Props> = ({ isEditMode, contents, onChangeContents }) => {
       if (shiftKey) return;
       event.preventDefault();
 
-      // 다음 위치에 text content를 생성한 뒤 focus
+      // 다음 위치에 text block을 생성한 뒤 focus
       const caretNum = getCaretNumber(target);
       let currContent;
       let nextContent;
@@ -96,7 +97,7 @@ const Contents: FC<Props> = ({ isEditMode, contents, onChangeContents }) => {
     const content = contents[index];
 
     if (key === 'Backspace') {
-      // 첫번째 content이거나 전체 contents가 1개인 경우 pass
+      // 첫번째 block이거나 전체 block 개수가 1개인 경우 pass
       if (index === 0 || contents.length === 1) return;
 
       const prevContent = contents[index - 1];
@@ -144,9 +145,9 @@ const Contents: FC<Props> = ({ isEditMode, contents, onChangeContents }) => {
     }
 
     if (key === 'Tab') {
-      // 첫번째 content & back tab인 경우 pass
+      // 첫번째 block & back tab인 경우 pass
       if (index === 0 && shiftKey) return;
-      // 마지막 content인 경우 pass
+      // 마지막 block인 경우 pass
       if (index === contents.length - 1) return;
 
       event.preventDefault();
@@ -157,7 +158,7 @@ const Contents: FC<Props> = ({ isEditMode, contents, onChangeContents }) => {
     }
 
     if (key === 'ArrowUp') {
-      // 첫번째 content인 경우 pass
+      // 첫번째 block인 경우 pass
       if (index === 0) return;
 
       if (content.type === ContentType.TEXT) {
@@ -175,7 +176,7 @@ const Contents: FC<Props> = ({ isEditMode, contents, onChangeContents }) => {
     }
 
     if (key === 'ArrowDown') {
-      // 마지막 content인 경우 pass
+      // 마지막 block인 경우 pass
       if (index === contents.length - 1) return;
 
       if (content.type === ContentType.TEXT) {
@@ -192,10 +193,19 @@ const Contents: FC<Props> = ({ isEditMode, contents, onChangeContents }) => {
     }
   };
 
-  const createChangeRepresentHandler = (id: number) => () => {
+  const createChangeRepresentImageHandler = (id: number) => () => {
     const updatedContents = contents.map((content) => {
       if (content.type !== ContentType.IMAGE) return content;
       return { ...content, represent: content.id === id };
+    });
+    onChangeContents(updatedContents);
+  };
+
+  const createChangeDeviderHandler = (id: number) => (deviderType: DeviderType) => {
+    const updatedContents = contents.map((content) => {
+      if (content.type !== ContentType.DEVIDER) return content;
+      if (content.id !== id) return content;
+      return { ...content, deviderType };
     });
     onChangeContents(updatedContents);
   };
@@ -205,7 +215,7 @@ const Contents: FC<Props> = ({ isEditMode, contents, onChangeContents }) => {
       const { emoji } = createdContent;
 
       try {
-        // text content에 focus되어 있는 상태로 이모티콘 추가한 경우 현재 커서위치에 이모티콘 입력
+        // text block에 focus되어 있는 상태로 이모티콘 추가한 경우 현재 caret 위치에 이모티콘 입력
         if (!focusInfo) throw new Error();
 
         const index = contents.findIndex(({ id }) => id === focusInfo.contentId);
@@ -234,7 +244,7 @@ const Contents: FC<Props> = ({ isEditMode, contents, onChangeContents }) => {
           focusCaretPos: caretPosNum + emoji.length,
         });
       } catch {
-        // text content에 focus되어 있지 않은 경우 새 text content 생성 및 이모티콘 입력
+        // text block에 focus되어 있지 않은 경우 새 text block 생성 및 이모티콘 입력
         const content = createTextContent(emoji);
         onChangeContents(contents.concat(content));
         setFocusInfo({
@@ -242,7 +252,35 @@ const Contents: FC<Props> = ({ isEditMode, contents, onChangeContents }) => {
           focusType: FocusType.LAST_CARET,
         });
       }
+      return;
     }
+
+    if (createdContent.type === ContentType.DEVIDER) {
+      try {
+        // focus 된 block이 있는 경우 다음 위치에 devider block 추가
+        if (!focusInfo) throw new Error();
+
+        const index = contents.findIndex(({ id }) => id === focusInfo.contentId);
+        if (index === -1) throw new Error();
+
+        onChangeContents([
+          ...contents.slice(0, index + 1),
+          createdContent,
+          ...contents.slice(index + 1),
+        ]);
+      } catch {
+        // focus 된 block이 없는 경우 마지막 위치에 devider block 추가
+        onChangeContents(contents.concat(createdContent));
+      } finally {
+        setFocusInfo({
+          contentId: createdContent.id,
+          focusType: FocusType.LAST_CARET,
+        });
+      }
+      return;
+    }
+
+    console.log('keep return statement');
   };
 
   const containerRef = useRef<HTMLDivElement>(null);
@@ -279,7 +317,21 @@ const Contents: FC<Props> = ({ isEditMode, contents, onChangeContents }) => {
                 onKeyDown={createKeyDownHandler(index)}
                 onKeyPress={createKeyPressHandler(index)}
                 represent={content.represent}
-                onChangeRepresent={createChangeRepresentHandler(content.id)}
+                onChangeRepresent={createChangeRepresentImageHandler(content.id)}
+              />
+            );
+          case ContentType.DEVIDER:
+            return (
+              <DeviderBlock
+                key={content.id}
+                type={content.deviderType}
+                editable={isEditMode}
+                focusInfo={content.id === focusInfo?.contentId ? focusInfo : null}
+                onBlur={handleBlur}
+                onFocus={createFocusHandler(content.id)}
+                onKeyDown={createKeyDownHandler(index)}
+                onKeyPress={createKeyPressHandler(index)}
+                onChange={createChangeDeviderHandler(content.id)}
               />
             );
           default:

@@ -89,7 +89,7 @@ export const setCaretPos = (
  * @returns element ref
  */
 export const useOnClickOutside = <T extends HTMLElement>(
-  callback: (event: MouseEvent) => void,
+  callback?: (event: MouseEvent) => void,
   deps: any[] = []
 ) => {
   const elemRef = useRef<T>(null);
@@ -102,9 +102,9 @@ export const useOnClickOutside = <T extends HTMLElement>(
       callback(event);
     }
 
-    document.body.addEventListener('mousedown', handleClickBody);
+    document.addEventListener('click', handleClickBody);
     return () => {
-      document.body.removeEventListener('mousedown', handleClickBody);
+      document.removeEventListener('click', handleClickBody);
     };
   }, deps);
 
