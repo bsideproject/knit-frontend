@@ -1,2 +1,3 @@
-export { default as Block } from './Block';
-export type { BlockProps, BlockElement } from './types';
+export * from './types';
+export { default as TextBlock } from './TextBlock';
+export { default as ImageBlock } from './ImageBlock';

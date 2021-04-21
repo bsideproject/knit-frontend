@@ -31,7 +31,17 @@ export const getCaretNumber = (target: any): number | null => {
   // for contentedit field
   if (target instanceof HTMLDivElement && target.contentEditable) {
     target.focus();
-    const _range = document.getSelection()!.getRangeAt(0);
+
+    const selection = document.getSelection();
+    if (!selection) return null;
+
+    let _range;
+    try {
+      _range = selection.getRangeAt(0);
+    } catch {
+      return null;
+    }
+
     const range = _range.cloneRange();
     range.selectNodeContents(target);
     range.setEnd(_range.endContainer, _range.endOffset);
@@ -76,7 +86,7 @@ export const setCaretPos = (
  */
 export const useOnClickOutside = <T extends HTMLElement>(
   callback: (event: MouseEvent) => void,
-  deps = []
+  deps: any[] = []
 ) => {
   const elemRef = useRef<T>(null);
 
