@@ -5,7 +5,7 @@ import { getCaretNumber } from '~/utils/dom';
 import { TextBlock } from '../Block';
 import { createTextContent } from './helpers';
 import { SidePannel, CreatedContent } from '../SidePannel';
-import { Container } from './Contents.styled';
+import { Container, BlockWrapper } from './Contents.styled';
 import { FocusInfo, FocusType } from '../Block/types';
 import { InlinePannel } from '../InlinePannel';
 import ImageBlock from '../Block/ImageBlock';
@@ -293,46 +293,52 @@ const Contents: FC<Props> = ({ isEditMode, contents, onChangeContents }) => {
         switch (content.type) {
           case ContentType.TEXT:
             return (
-              <TextBlock
-                key={content.id}
-                editable={isEditMode}
-                value={content.value}
-                focusInfo={content.id === focusInfo?.contentId ? focusInfo : null}
-                onBlur={handleBlur}
-                onFocus={createFocusHandler(content.id)}
-                onKeyDown={createKeyDownHandler(index)}
-                onKeyPress={createKeyPressHandler(index)}
-                onChange={createChangeHandler(index)}
-              />
+              <BlockWrapper>
+                <TextBlock
+                  key={content.id}
+                  editable={isEditMode}
+                  value={content.value}
+                  focusInfo={content.id === focusInfo?.contentId ? focusInfo : null}
+                  onBlur={handleBlur}
+                  onFocus={createFocusHandler(content.id)}
+                  onKeyDown={createKeyDownHandler(index)}
+                  onKeyPress={createKeyPressHandler(index)}
+                  onChange={createChangeHandler(index)}
+                />
+              </BlockWrapper>
             );
           case ContentType.IMAGE:
             return (
-              <ImageBlock
-                key={content.id}
-                editable={isEditMode}
-                url={content.url}
-                focusInfo={content.id === focusInfo?.contentId ? focusInfo : null}
-                onBlur={handleBlur}
-                onFocus={createFocusHandler(content.id)}
-                onKeyDown={createKeyDownHandler(index)}
-                onKeyPress={createKeyPressHandler(index)}
-                represent={content.represent}
-                onChangeRepresent={createChangeRepresentImageHandler(content.id)}
-              />
+              <BlockWrapper>
+                <ImageBlock
+                  key={content.id}
+                  editable={isEditMode}
+                  url={content.url}
+                  focusInfo={content.id === focusInfo?.contentId ? focusInfo : null}
+                  onBlur={handleBlur}
+                  onFocus={createFocusHandler(content.id)}
+                  onKeyDown={createKeyDownHandler(index)}
+                  onKeyPress={createKeyPressHandler(index)}
+                  represent={content.represent}
+                  onChangeRepresent={createChangeRepresentImageHandler(content.id)}
+                />
+              </BlockWrapper>
             );
           case ContentType.DEVIDER:
             return (
-              <DeviderBlock
-                key={content.id}
-                type={content.deviderType}
-                editable={isEditMode}
-                focusInfo={content.id === focusInfo?.contentId ? focusInfo : null}
-                onBlur={handleBlur}
-                onFocus={createFocusHandler(content.id)}
-                onKeyDown={createKeyDownHandler(index)}
-                onKeyPress={createKeyPressHandler(index)}
-                onChange={createChangeDeviderHandler(content.id)}
-              />
+              <BlockWrapper>
+                <DeviderBlock
+                  key={content.id}
+                  type={content.deviderType}
+                  editable={isEditMode}
+                  focusInfo={content.id === focusInfo?.contentId ? focusInfo : null}
+                  onBlur={handleBlur}
+                  onFocus={createFocusHandler(content.id)}
+                  onKeyDown={createKeyDownHandler(index)}
+                  onKeyPress={createKeyPressHandler(index)}
+                  onChange={createChangeDeviderHandler(content.id)}
+                />
+              </BlockWrapper>
             );
           default:
             return null;

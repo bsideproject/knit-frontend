@@ -1,8 +1,6 @@
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import { resolveProp } from '~/utils/styles';
-import { TextBlock, ImageBlock } from '../Block';
-import DeviderBlock from '../Block/DeviderBlock';
 
 export const Container = styled.div<{ isEditMode: boolean }>`
   position: relative;
@@ -16,8 +14,8 @@ export const Container = styled.div<{ isEditMode: boolean }>`
 
   min-height: 400px;
   cursor: text;
+`;
 
-  & > ${TextBlock}, & > ${ImageBlock}, & > ${DeviderBlock} {
-    margin-bottom: 10px;
-  }
+export const BlockWrapper = styled.div`
+  padding-bottom: 10px;
 `;
