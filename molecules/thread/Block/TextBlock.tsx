@@ -1,12 +1,12 @@
 import styled from '@emotion/styled';
-import { FC, memo, useEffect, useRef } from 'react';
+import { FC, KeyboardEventHandler, memo, useEffect, useRef } from 'react';
 import ContentEditable, { ContentEditableEvent } from 'react-contenteditable';
 import { setCaretPos } from '~/utils/dom';
 import { useWatchRef } from './helpers';
-import { Container } from './Block.styled';
-import { BlockProps, FocusType } from './types';
+import { Container } from './TextBlock.styled';
+import { TextBlockProps, FocusType } from './types';
 
-const Block: FC<BlockProps> = ({
+const TextBlock: FC<TextBlockProps> = ({
   className,
   editable = false,
   placeholder,
@@ -18,12 +18,12 @@ const Block: FC<BlockProps> = ({
   onKeyPress = () => {},
   onKeyDown = () => {},
 }) => {
-  const valueRef = useWatchRef<BlockProps['value']>(value);
-  const onFocusRef = useWatchRef<BlockProps['onFocus']>(onFocus);
-  const onBlurRef = useWatchRef<BlockProps['onBlur']>(onBlur);
-  const onChangeRef = useWatchRef<BlockProps['onChange']>(onChange);
-  const onKeyPressRef = useWatchRef<BlockProps['onKeyPress']>(onKeyPress);
-  const onKeyDownRef = useWatchRef<BlockProps['onKeyDown']>(onKeyDown);
+  const valueRef = useWatchRef<TextBlockProps['value']>(value);
+  const onFocusRef = useWatchRef<TextBlockProps['onFocus']>(onFocus);
+  const onBlurRef = useWatchRef<TextBlockProps['onBlur']>(onBlur);
+  const onChangeRef = useWatchRef<TextBlockProps['onChange']>(onChange);
+  const onKeyPressRef = useWatchRef<TextBlockProps['onKeyPress']>(onKeyPress);
+  const onKeyDownRef = useWatchRef<TextBlockProps['onKeyDown']>(onKeyDown);
 
   const domRef = useRef<ContentEditable>();
 
@@ -61,21 +61,21 @@ const Block: FC<BlockProps> = ({
     onChangeRef.current?.(event);
   };
 
-  const handleKeyPress = (event: ContentEditableEvent & KeyboardEvent) => {
+  const handleKeyPress: KeyboardEventHandler = (event) => {
     onKeyPressRef.current?.(event);
   };
 
-  const handleKeyDown = (event: ContentEditableEvent & KeyboardEvent) => {
+  const handleKeyDown: KeyboardEventHandler = (event) => {
     onKeyDownRef.current?.(event);
   };
 
   return (
     <Container
       ref={domRef}
+      data-block="true"
       spellCheck="false"
       autoCapitalize="off"
       autoCorrect="off"
-      data-block="true"
       className={className}
       placeholder={placeholder}
       disabled={!editable}
@@ -89,4 +89,4 @@ const Block: FC<BlockProps> = ({
   );
 };
 
-export default styled(memo<FC<BlockProps>>(Block))``;
+export default styled(memo<FC<TextBlockProps>>(TextBlock))``;

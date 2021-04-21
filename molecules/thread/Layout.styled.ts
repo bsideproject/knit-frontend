@@ -5,7 +5,7 @@ import { fitInResolutionOnPage } from '~/styles/layout';
 import * as font from '~/styles/font';
 import { ThreadAction } from '~/@types/resources/thread';
 import { resolveProp } from '~/utils/styles';
-import { Block, BlockProps } from './Block';
+import { TextBlock, TextBlockProps } from './Block';
 import { CSSzIndex } from '~/@types/style';
 
 export const Container = styled.div`
@@ -39,7 +39,7 @@ export const Tasks = styled.div<{ action?: ThreadAction | undefined }>`
   })}
 `;
 
-export const TitleBlock = styled(memo(Block))<BlockProps>`
+export const TitleBlock = styled(memo(TextBlock))<TextBlockProps>`
   ${font.set(40, 'bold')};
   line-height: 50px;
 
@@ -53,7 +53,7 @@ export const TitleBlock = styled(memo(Block))<BlockProps>`
   })}
 `;
 
-export const SubTitleBlock = styled(memo(Block))<BlockProps>`
+export const SubTitleBlock = styled(memo(TextBlock))<TextBlockProps>`
   margin-top: 10px;
   display: block;
 
