@@ -1,16 +1,25 @@
+import { KeyboardEventHandler } from 'react';
 import { ContentEditableEvent } from 'react-contenteditable';
 
 export interface BlockProps {
-  editable?: boolean;
   className?: string;
+  editable: boolean;
+  focusInfo?: FocusInfo | null;
+  onBlur?: () => void;
+  onFocus?: () => void;
+  onKeyPress?: KeyboardEventHandler;
+  onKeyDown?: KeyboardEventHandler;
+}
+
+export interface TextBlockProps extends BlockProps {
   placeholder?: string;
   value?: string;
-  focusInfo?: FocusInfo;
-  onFocus?: () => void;
-  onBlur?: () => void;
   onChange?: (event: ContentEditableEvent) => void;
-  onKeyPress?: (event: ContentEditableEvent & KeyboardEvent) => void;
-  onKeyDown?: (event: ContentEditableEvent & KeyboardEvent) => void;
+}
+export interface ImageBlockProps extends BlockProps {
+  url: string;
+  represent: boolean;
+  onChangeRepresent: () => void;
 }
 
 export type BlockElement = HTMLDivElement;
