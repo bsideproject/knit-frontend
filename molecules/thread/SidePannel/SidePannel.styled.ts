@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import { CSSzIndex } from '~/@types/style';
 
 export const Container = styled.div`
   position: absolute;
@@ -14,6 +15,7 @@ export const Container = styled.div`
 
   transition: 0.16s ease-out;
   cursor: pointer;
+  z-index: ${CSSzIndex.THREAD_SIDE_PANNEL};
 `;
 
 export const IconContainer = styled.div`

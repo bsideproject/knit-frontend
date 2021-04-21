@@ -1,4 +1,4 @@
-import { FC, memo, useEffect, useRef } from 'react';
+import { FC, memo, useEffect, useRef, useState } from 'react';
 import _ from 'lodash';
 import {
   ImageIcon,
@@ -11,9 +11,18 @@ import {
   GridIcon,
 } from '~/public/assets/icon';
 import { Container, IconContainer } from './SidePannel.styled';
+import { promptFileSelector } from '~/utils/file';
+import EmojiPicker, { Emoji } from './EmojiPicker';
+import { ContentType } from '~/@types/resources/thread';
+import { CreatedContent } from './types';
 
-const SidePannel: FC = () => {
+interface Props {
+  onContentCreated: (createdContent: CreatedContent) => void;
+}
+
+const SidePannel: FC<Props> = ({ onContentCreated }) => {
   const ref = useRef<HTMLDivElement>(null);
+  const [emojiOpened, setEmojiOpened] = useState(false);
 
   useEffect(() => {
     const handleScroll = _.throttle(() => {
@@ -26,16 +35,37 @@ const SidePannel: FC = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  const handleClickImageIcon = async () => {
+    const file = await promptFileSelector();
+    console.log(file);
+  };
+
+  const handleClickSmileIcon = () => {
+    if (emojiOpened) return;
+    setEmojiOpened(true);
+  };
+
+  const handleSelectEmoji = (emoji: Emoji) => {
+    setEmojiOpened(false);
+    onContentCreated({
+      type: ContentType.EMOJI,
+      emoji: emoji.emoji,
+    });
+  };
+
   return (
-    <Container ref={ref}>
-      <IconContainer>
+    <Container ref={ref} onMouseDown={(event) => event.preventDefault()}>
+      <IconContainer onClick={handleClickImageIcon}>
         <ImageIcon />
       </IconContainer>
       <IconContainer>
         <VideoIcon />
       </IconContainer>
-      <IconContainer>
+      <IconContainer onClick={handleClickSmileIcon}>
         <SmileIcon />
+        {emojiOpened && (
+          <EmojiPicker onSelect={handleSelectEmoji} onClickOutside={() => setEmojiOpened(false)} />
+        )}
       </IconContainer>
       <IconContainer>
         <LineIcon />
@@ -56,4 +86,4 @@ const SidePannel: FC = () => {
   );
 };
 
-export default memo<FC>(SidePannel);
+export default memo<FC<Props>>(SidePannel);

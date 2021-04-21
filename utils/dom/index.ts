@@ -23,7 +23,7 @@ export const getCaretPixel = (): DOMRect | null => {
  * get caret position
  * @returns {number}
  */
-export const getCaretNumber = (target: any): number | null => {
+export const getCaretNumber = (target?: any): number | null => {
   // for texterea/input element
   if (target instanceof HTMLInputElement || target instanceof HTMLTextAreaElement) {
     return target.selectionStart;
@@ -47,7 +47,11 @@ export const getCaretNumber = (target: any): number | null => {
     range.setEnd(_range.endContainer, _range.endOffset);
     return range.toString().length;
   }
-  return null;
+  try {
+    return document.getSelection()?.getRangeAt(0)?.endOffset ?? null;
+  } catch {
+    return null;
+  }
 };
 
 /**
