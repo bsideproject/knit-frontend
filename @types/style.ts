@@ -23,6 +23,7 @@ export enum Size {
 
 export enum CSSzIndex {
   THREAD_PAGE_TASKS = 1,
+  THREAD_SIDE_PANNEL,
   GLOBAL_HEADER,
   GLOBAL_MODAL,
 }

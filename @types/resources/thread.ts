@@ -33,9 +33,10 @@ export enum ContentType {
   IMAGE = 'IMAGE',
   CODE = 'CODE',
   DEVIDER = 'DEVIDER',
+  EMOJI = 'EMOJI',
 }
 
-interface Content<T extends keyof typeof ContentType> {
+export interface Content<T extends ContentType> {
   id: number;
   type: T;
 }

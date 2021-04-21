@@ -4,7 +4,7 @@ import { ContentType, Thread } from '~/@types/resources/thread';
 import { getCaretNumber } from '~/utils/dom';
 import { TextBlock } from '../Block';
 import { createTextContent } from './helpers';
-import { SidePannel } from '../SidePannel';
+import { SidePannel, CreatedContent } from '../SidePannel';
 import { Container } from './Contents.styled';
 import { FocusInfo, FocusType } from '../Block/types';
 import { InlinePannel } from '../InlinePannel';
@@ -200,11 +200,56 @@ const Contents: FC<Props> = ({ isEditMode, contents, onChangeContents }) => {
     onChangeContents(updatedContents);
   };
 
+  const handleContentCreated = (createdContent: CreatedContent) => {
+    if (createdContent.type === ContentType.EMOJI) {
+      const { emoji } = createdContent;
+
+      try {
+        // text content에 focus되어 있는 상태로 이모티콘 추가한 경우 현재 커서위치에 이모티콘 입력
+        if (!focusInfo) throw new Error();
+
+        const index = contents.findIndex(({ id }) => id === focusInfo.contentId);
+        if (index === -1) throw new Error();
+
+        const focusedContent = contents[index];
+        if (focusedContent.type !== ContentType.TEXT) throw new Error();
+
+        const caretPosNum = getCaretNumber();
+        if (caretPosNum === null) throw new Error();
+
+        const { value } = focusedContent;
+        const updatedContent = {
+          ...focusedContent,
+          value: `${value.slice(0, caretPosNum)}${emoji}${value.slice(caretPosNum)}`,
+        };
+
+        onChangeContents([
+          ...contents.slice(0, index),
+          updatedContent,
+          ...contents.slice(index + 1),
+        ]);
+        setFocusInfo({
+          contentId: updatedContent.id,
+          focusType: FocusType.DESIGNATE_CARET,
+          focusCaretPos: caretPosNum + emoji.length,
+        });
+      } catch {
+        // text content에 focus되어 있지 않은 경우 새 text content 생성 및 이모티콘 입력
+        const content = createTextContent(emoji);
+        onChangeContents(contents.concat(content));
+        setFocusInfo({
+          contentId: content.id,
+          focusType: FocusType.LAST_CARET,
+        });
+      }
+    }
+  };
+
   const containerRef = useRef<HTMLDivElement>(null);
 
   return (
     <Container isEditMode={isEditMode} onClick={handleClickEmptySpace} ref={containerRef}>
-      {isEditMode && <SidePannel />}
+      {isEditMode && <SidePannel onContentCreated={handleContentCreated} />}
       {isEditMode && <InlinePannel baseElement={containerRef.current} />}
       {contents.map((content, index) => {
         switch (content.type) {
