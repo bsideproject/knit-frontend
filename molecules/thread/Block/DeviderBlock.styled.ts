@@ -37,7 +37,7 @@ export const Container = styled.div<{ editable: boolean }>`
 
   & > ${DeviderPicker} {
     right: calc(50% - 60px);
-    top: 40px;
+    top: -160px;
   }
 `;
 
