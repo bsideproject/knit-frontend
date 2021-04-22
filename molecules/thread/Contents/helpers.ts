@@ -1,6 +1,10 @@
-import { ContentType, TextContent } from '~/@types/resources/thread';
+import { ContentType, DividerContent, DividerType, TextContent } from '~/@types/resources/thread';
+import { generateUuid } from '~/utils/id';
 
-// mock
 export const createTextContent = (value = ''): TextContent => {
-  return { id: Date.now(), type: ContentType.TEXT, value };
+  return { id: generateUuid(), type: ContentType.TEXT, value };
+};
+
+export const createDividerContent = (deviderType: DividerType): DividerContent => {
+  return { id: generateUuid(), type: ContentType.DEVIDER, deviderType };
 };

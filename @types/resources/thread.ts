@@ -14,7 +14,7 @@ export interface Thread {
   /* 문서 태그 리스트 */
   tags: ReadonlyArray<{ id: number; value: string }>;
   /* 문서 본문 */
-  contents: ReadonlyArray<TextContent | ImageContent | CodeContent | DeviderContent>;
+  contents: ReadonlyArray<TextContent | ImageContent | CodeContent | DividerContent>;
   /* 문서 작성 시간 */
   modifiedDateTime: number;
 }
@@ -55,7 +55,16 @@ export interface CodeContent extends Content<ContentType.CODE> {
   format: CodeFormat;
 }
 
-export interface DeviderContent extends Content<ContentType.DEVIDER> {}
+export enum DividerType {
+  NORMAL,
+  DASHED,
+  SOLID,
+  DOUBLE,
+  SHORT,
+}
+export interface DividerContent extends Content<ContentType.DEVIDER> {
+  deviderType: DividerType;
+}
 
 export type CodeFormat = 'javascript' | 'json' | void;
 
