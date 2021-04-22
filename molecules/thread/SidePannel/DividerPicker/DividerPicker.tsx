@@ -1,7 +1,7 @@
 import { FC, memo } from 'react';
 import styled from '@emotion/styled';
 import { useOnClickOutside } from '~/utils/dom';
-import { DeviderType } from '~/@types/resources/thread';
+import { DividerType } from '~/@types/resources/thread';
 import {
   Container,
   OptionWrapper,
@@ -10,35 +10,35 @@ import {
   NormalLine,
   ShortLine,
   SolidLine,
-} from './DeviderPicker.styled';
+} from './DividerPicker.styled';
 
 interface Props {
-  onSelect: (deviderType: DeviderType) => void;
+  onSelect: (deviderType: DividerType) => void;
   onClickOutside?: () => void;
   className?: string;
 }
-const DeviderPicker: FC<Props> = ({ onSelect, onClickOutside, className }) => {
+const DividerPicker: FC<Props> = ({ onSelect, onClickOutside, className }) => {
   const elemRef = useOnClickOutside<HTMLDivElement>(onClickOutside);
 
   return (
     <Container ref={elemRef} onClick={(event) => event.stopPropagation()} className={className}>
-      <OptionWrapper onClick={() => onSelect(DeviderType.NORMAL)}>
+      <OptionWrapper onClick={() => onSelect(DividerType.NORMAL)}>
         <NormalLine />
       </OptionWrapper>
-      <OptionWrapper onClick={() => onSelect(DeviderType.DASHED)}>
+      <OptionWrapper onClick={() => onSelect(DividerType.DASHED)}>
         <DashedLine />
       </OptionWrapper>
-      <OptionWrapper onClick={() => onSelect(DeviderType.SOLID)}>
+      <OptionWrapper onClick={() => onSelect(DividerType.SOLID)}>
         <SolidLine />
       </OptionWrapper>
-      <OptionWrapper onClick={() => onSelect(DeviderType.DOUBLE)}>
+      <OptionWrapper onClick={() => onSelect(DividerType.DOUBLE)}>
         <DoubleLine />
       </OptionWrapper>
-      <OptionWrapper onClick={() => onSelect(DeviderType.SHORT)}>
+      <OptionWrapper onClick={() => onSelect(DividerType.SHORT)}>
         <ShortLine />
       </OptionWrapper>
     </Container>
   );
 };
 
-export default styled(memo(DeviderPicker))``;
+export default styled(memo(DividerPicker))``;

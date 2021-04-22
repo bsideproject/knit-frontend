@@ -1,6 +1,6 @@
 import { FC, FormEventHandler, KeyboardEventHandler, memo, useEffect, useRef } from 'react';
 import styled from '@emotion/styled';
-import { DeviderBlockProps, FocusType } from './types';
+import { DividerBlockProps, FocusType } from './types';
 import {
   Container,
   DashedLine,
@@ -8,12 +8,12 @@ import {
   NormalLine,
   ShortLine,
   SolidLine,
-} from './DeviderBlock.styled';
+} from './DividerBlock.styled';
 import { setCaretPos } from '~/utils/dom';
-import { DeviderType } from '~/@types/resources/thread';
-import DeviderPicker from '../SidePannel/DeviderPicker';
+import { DividerType } from '~/@types/resources/thread';
+import DividerPicker from '../SidePannel/DividerPicker';
 
-const DeviderBlock: FC<DeviderBlockProps> = ({
+const DividerBlock: FC<DividerBlockProps> = ({
   type,
   editable,
   focusInfo,
@@ -66,20 +66,20 @@ const DeviderBlock: FC<DeviderBlockProps> = ({
       onKeyPress={handleKeyPress}
       className={className}
     >
-      {type === DeviderType.NORMAL ? (
+      {type === DividerType.NORMAL ? (
         <NormalLine />
-      ) : type === DeviderType.DASHED ? (
+      ) : type === DividerType.DASHED ? (
         <DashedLine />
-      ) : type === DeviderType.SOLID ? (
+      ) : type === DividerType.SOLID ? (
         <SolidLine />
-      ) : type === DeviderType.DOUBLE ? (
+      ) : type === DividerType.DOUBLE ? (
         <DoubleLine />
       ) : (
         <ShortLine />
       )}
-      {focusInfo && <DeviderPicker onSelect={onChange} />}
+      {focusInfo && <DividerPicker onSelect={onChange} />}
     </Container>
   );
 };
 
-export default styled(memo(DeviderBlock))``;
+export default styled(memo(DividerBlock))``;

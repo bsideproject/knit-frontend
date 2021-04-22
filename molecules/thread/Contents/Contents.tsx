@@ -1,6 +1,6 @@
 import { FC, useState, memo, useRef, MouseEventHandler, KeyboardEventHandler } from 'react';
 import { ContentEditableEvent } from 'react-contenteditable';
-import { ContentType, DeviderType, Thread } from '~/@types/resources/thread';
+import { ContentType, DividerType, Thread } from '~/@types/resources/thread';
 import { getCaretNumber } from '~/utils/dom';
 import { TextBlock } from '../Block';
 import { createTextContent } from './helpers';
@@ -9,7 +9,7 @@ import { Container, BlockWrapper } from './Contents.styled';
 import { FocusInfo, FocusType } from '../Block/types';
 import { InlinePannel } from '../InlinePannel';
 import ImageBlock from '../Block/ImageBlock';
-import DeviderBlock from '../Block/DeviderBlock';
+import DividerBlock from '../Block/DividerBlock';
 
 interface Props {
   isEditMode: boolean;
@@ -201,7 +201,7 @@ const Contents: FC<Props> = ({ isEditMode, contents, onChangeContents }) => {
     onChangeContents(updatedContents);
   };
 
-  const createChangeDeviderHandler = (id: number) => (deviderType: DeviderType) => {
+  const createChangeDividerHandler = (id: number) => (deviderType: DividerType) => {
     const updatedContents = contents.map((content) => {
       if (content.type !== ContentType.DEVIDER) return content;
       if (content.id !== id) return content;
@@ -327,7 +327,7 @@ const Contents: FC<Props> = ({ isEditMode, contents, onChangeContents }) => {
           case ContentType.DEVIDER:
             return (
               <BlockWrapper>
-                <DeviderBlock
+                <DividerBlock
                   key={content.id}
                   type={content.deviderType}
                   editable={isEditMode}
@@ -336,7 +336,7 @@ const Contents: FC<Props> = ({ isEditMode, contents, onChangeContents }) => {
                   onFocus={createFocusHandler(content.id)}
                   onKeyDown={createKeyDownHandler(index)}
                   onKeyPress={createKeyPressHandler(index)}
-                  onChange={createChangeDeviderHandler(content.id)}
+                  onChange={createChangeDividerHandler(content.id)}
                 />
               </BlockWrapper>
             );

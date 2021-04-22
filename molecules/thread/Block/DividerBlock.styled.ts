@@ -1,7 +1,7 @@
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import { resolveProp } from '~/utils/styles';
-import DeviderPicker from '../SidePannel/DeviderPicker';
+import DividerPicker from '../SidePannel/DividerPicker';
 
 export const Container = styled.div<{ editable: boolean }>`
   position: relative;
@@ -35,7 +35,7 @@ export const Container = styled.div<{ editable: boolean }>`
     `,
   })}
 
-  & > ${DeviderPicker} {
+  & > ${DividerPicker} {
     right: calc(50% - 60px);
     top: -160px;
   }

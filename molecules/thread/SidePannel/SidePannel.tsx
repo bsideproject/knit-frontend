@@ -12,11 +12,11 @@ import {
 } from '~/public/assets/icon';
 import { Container, IconContainer } from './SidePannel.styled';
 import { promptFileSelector } from '~/utils/file';
-import { ContentType, DeviderType } from '~/@types/resources/thread';
+import { ContentType, DividerType } from '~/@types/resources/thread';
 import { CreatedContent } from './types';
 import EmojiPicker, { Emoji } from './EmojiPicker';
-import DeviderPicker from './DeviderPicker';
-import { createDeviderContent } from '../Contents/helpers';
+import DividerPicker from './DividerPicker';
+import { createDividerContent } from '../Contents/helpers';
 
 interface Props {
   onContentCreated: (createdContent: CreatedContent) => void;
@@ -25,7 +25,7 @@ interface Props {
 const SidePannel: FC<Props> = ({ onContentCreated }) => {
   const ref = useRef<HTMLDivElement>(null);
   const [emojiPickerOpened, setEmojiPickerOpened] = useState(false);
-  const [deviderPickerOpened, setDeviderPickerOpened] = useState(false);
+  const [deviderPickerOpened, setDividerPickerOpened] = useState(false);
 
   useEffect(() => {
     const handleScroll = _.throttle(() => {
@@ -51,9 +51,9 @@ const SidePannel: FC<Props> = ({ onContentCreated }) => {
     });
   };
 
-  const handleSelectDevider = (deviderType: DeviderType) => {
-    setDeviderPickerOpened(false);
-    onContentCreated(createDeviderContent(deviderType));
+  const handleSelectDivider = (deviderType: DividerType) => {
+    setDividerPickerOpened(false);
+    onContentCreated(createDividerContent(deviderType));
   };
 
   return (
@@ -73,12 +73,12 @@ const SidePannel: FC<Props> = ({ onContentCreated }) => {
           />
         )}
       </IconContainer>
-      <IconContainer onClick={() => setDeviderPickerOpened(true)}>
+      <IconContainer onClick={() => setDividerPickerOpened(true)}>
         <LineIcon />
         {deviderPickerOpened && (
-          <DeviderPicker
-            onSelect={handleSelectDevider}
-            onClickOutside={() => setDeviderPickerOpened(false)}
+          <DividerPicker
+            onSelect={handleSelectDivider}
+            onClickOutside={() => setDividerPickerOpened(false)}
           />
         )}
       </IconContainer>
