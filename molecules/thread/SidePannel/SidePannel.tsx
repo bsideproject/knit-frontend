@@ -12,9 +12,11 @@ import {
 } from '~/public/assets/icon';
 import { Container, IconContainer } from './SidePannel.styled';
 import { promptFileSelector } from '~/utils/file';
-import EmojiPicker, { Emoji } from './EmojiPicker';
-import { ContentType } from '~/@types/resources/thread';
+import { ContentType, DividerType } from '~/@types/resources/thread';
 import { CreatedContent } from './types';
+import EmojiPicker, { Emoji } from './EmojiPicker';
+import DividerPicker from './DividerPicker';
+import { createDividerContent } from '../Contents/helpers';
 
 interface Props {
   onContentCreated: (createdContent: CreatedContent) => void;
@@ -22,7 +24,8 @@ interface Props {
 
 const SidePannel: FC<Props> = ({ onContentCreated }) => {
   const ref = useRef<HTMLDivElement>(null);
-  const [emojiOpened, setEmojiOpened] = useState(false);
+  const [emojiPickerOpened, setEmojiPickerOpened] = useState(false);
+  const [deviderPickerOpened, setDividerPickerOpened] = useState(false);
 
   useEffect(() => {
     const handleScroll = _.throttle(() => {
@@ -40,17 +43,17 @@ const SidePannel: FC<Props> = ({ onContentCreated }) => {
     console.log(file);
   };
 
-  const handleClickSmileIcon = () => {
-    if (emojiOpened) return;
-    setEmojiOpened(true);
-  };
-
   const handleSelectEmoji = (emoji: Emoji) => {
-    setEmojiOpened(false);
+    setEmojiPickerOpened(false);
     onContentCreated({
       type: ContentType.EMOJI,
       emoji: emoji.emoji,
     });
+  };
+
+  const handleSelectDivider = (deviderType: DividerType) => {
+    setDividerPickerOpened(false);
+    onContentCreated(createDividerContent(deviderType));
   };
 
   return (
@@ -61,14 +64,23 @@ const SidePannel: FC<Props> = ({ onContentCreated }) => {
       <IconContainer>
         <VideoIcon />
       </IconContainer>
-      <IconContainer onClick={handleClickSmileIcon}>
+      <IconContainer onClick={() => setEmojiPickerOpened(true)}>
         <SmileIcon />
-        {emojiOpened && (
-          <EmojiPicker onSelect={handleSelectEmoji} onClickOutside={() => setEmojiOpened(false)} />
+        {emojiPickerOpened && (
+          <EmojiPicker
+            onSelect={handleSelectEmoji}
+            onClickOutside={() => setEmojiPickerOpened(false)}
+          />
         )}
       </IconContainer>
-      <IconContainer>
+      <IconContainer onClick={() => setDividerPickerOpened(true)}>
         <LineIcon />
+        {deviderPickerOpened && (
+          <DividerPicker
+            onSelect={handleSelectDivider}
+            onClickOutside={() => setDividerPickerOpened(false)}
+          />
+        )}
       </IconContainer>
       <IconContainer>
         <CodeIcon />

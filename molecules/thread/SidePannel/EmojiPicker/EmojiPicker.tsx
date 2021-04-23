@@ -1,6 +1,7 @@
 import dynamic from 'next/dynamic';
 import { FC, memo, useEffect } from 'react';
 import type { IEmojiData } from 'emoji-picker-react';
+import { Container } from './EmojiPicker.styled';
 
 export type Emoji = IEmojiData;
 
@@ -22,16 +23,9 @@ const EmojiPicker: FC<Props> = ({ onSelect, onClickOutside }) => {
   }, []);
 
   return (
-    <Picker
-      native
-      disableSearchBar
-      onEmojiClick={(event, emoji) => onSelect(emoji)}
-      pickerStyle={{
-        position: 'absolute',
-        right: '50px',
-        top: '0px',
-      }}
-    />
+    <Container onClick={(event) => event.stopPropagation()}>
+      <Picker native disableSearchBar onEmojiClick={(event, emoji) => onSelect(emoji)} />
+    </Container>
   );
 };
 

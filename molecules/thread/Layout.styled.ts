@@ -68,7 +68,7 @@ export const Metas = styled.table`
   border-collapse: collapse;
 `;
 
-export const Devider = styled.hr`
+export const Divider = styled.hr`
   margin-top: 20px;
   border: none;
   border-bottom: 1px solid #eee;

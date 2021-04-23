@@ -1,5 +1,6 @@
 import { KeyboardEventHandler } from 'react';
 import { ContentEditableEvent } from 'react-contenteditable';
+import { DividerType } from '~/@types/resources/thread';
 
 export interface BlockProps {
   className?: string;
@@ -20,6 +21,11 @@ export interface ImageBlockProps extends BlockProps {
   url: string;
   represent: boolean;
   onChangeRepresent: () => void;
+}
+
+export interface DividerBlockProps extends BlockProps {
+  type: DividerType;
+  onChange: (deviderType: DividerType) => void;
 }
 
 export type BlockElement = HTMLDivElement;

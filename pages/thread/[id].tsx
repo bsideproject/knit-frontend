@@ -16,7 +16,7 @@ import {
 import { getNextBlockElement } from '~/molecules/thread/Block/helpers';
 import threadMockData from '~/molecules/thread/_data';
 
-const { Container, Header, Tasks, TitleBlock, SubTitleBlock, Metas, Devider } = Layout;
+const { Container, Header, Tasks, TitleBlock, SubTitleBlock, Metas, Divider } = Layout;
 
 const ThreadPage: FC = () => {
   const router = useRouter();
@@ -122,7 +122,7 @@ const ThreadPage: FC = () => {
           </Meta>
         </tbody>
       </Metas>
-      <Devider />
+      <Divider />
       <Contents
         isEditMode={isEditMode}
         contents={thread.contents}
