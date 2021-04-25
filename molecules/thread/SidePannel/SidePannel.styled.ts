@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import { CSSzIndex } from '~/@types/style';
 
 export const Container = styled.div`
   position: absolute;
@@ -6,7 +7,7 @@ export const Container = styled.div`
   right: 0;
 
   width: 40px;
-  height: 280px;
+  height: 320px;
 
   background: white;
   box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.12);
@@ -14,6 +15,7 @@ export const Container = styled.div`
 
   transition: 0.16s ease-out;
   cursor: pointer;
+  z-index: ${CSSzIndex.THREAD_SIDE_PANNEL};
 `;
 
 export const IconContainer = styled.div`
@@ -31,7 +33,7 @@ export const IconContainer = styled.div`
   & > * {
     fill: #505055;
   }
-  & line[data-stroke] {
+  & *[data-stroke] {
     stroke: #505055;
   }
 
@@ -39,7 +41,7 @@ export const IconContainer = styled.div`
     & > * {
       fill: #5c16cb;
     }
-    & line[data-stroke] {
+    & *[data-stroke] {
       stroke: #5c16cb;
     }
   }

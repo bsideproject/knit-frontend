@@ -1,26 +1,23 @@
 import { VFC } from 'react';
 import styled from '@emotion/styled';
-import { useComponentID } from '~/utils/id';
 
 export interface CodeIconProps {
   className?: string;
 }
 const CodeIcon: VFC<CodeIconProps> = ({ className }) => {
-  const id = useComponentID();
-
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
       width="27"
       height="19"
-      className={className}
       viewBox="0 0 23 19"
       fill="none"
+      className={className}
     >
       <rect width="25" height="19" fill="#E5E5E5" />
-      <g clipPath={`url(#clip${id})`}>
+      <g clipPath="url(#clip_code)">
         <rect width="1280" height="1020" transform="translate(-1058 -803)" fill="white" />
-        <g filter={`url(#filter${id}_d)`}>
+        <g filter="url(#filter_code_d)">
           <rect
             x="32"
             y="-174"
@@ -45,7 +42,7 @@ const CodeIcon: VFC<CodeIconProps> = ({ className }) => {
       </g>
       <defs>
         <filter
-          id={`filter${id}_d`}
+          id="filter_code_d"
           x="-23"
           y="-189"
           width="70"
@@ -65,7 +62,7 @@ const CodeIcon: VFC<CodeIconProps> = ({ className }) => {
           <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow" />
           <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow" result="shape" />
         </filter>
-        <clipPath id={`clip${id}`}>
+        <clipPath id="clip_code">
           <rect width="1280" height="1020" fill="white" transform="translate(-1058 -803)" />
         </clipPath>
       </defs>

@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, memo } from 'react';
 import { Color, Size } from '~/@types';
 import { ButtonProps } from '~/atoms/button/ButtonStyled';
 import { StyledButton } from './ButtonTask.styled';
@@ -13,4 +13,4 @@ const ButtonTask: FC<Props> = ({ children, ...restProps }) => {
   );
 };
 
-export default ButtonTask;
+export default memo<FC<Props>>(ButtonTask);

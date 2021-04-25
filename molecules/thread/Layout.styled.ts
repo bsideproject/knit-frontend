@@ -1,10 +1,11 @@
 import styled from '@emotion/styled';
 import { css } from '@emotion/react';
+import { memo } from 'react';
 import { fitInResolutionOnPage } from '~/styles/layout';
 import * as font from '~/styles/font';
 import { ThreadAction } from '~/@types/resources/thread';
 import { resolveProp } from '~/utils/styles';
-import { Block, BlockProps } from './Block';
+import { TextBlock, TextBlockProps } from './Block';
 import { CSSzIndex } from '~/@types/style';
 
 export const Container = styled.div`
@@ -38,7 +39,7 @@ export const Tasks = styled.div<{ action?: ThreadAction | undefined }>`
   })}
 `;
 
-export const TitleBlock = styled(Block)<BlockProps>`
+export const TitleBlock = styled(memo(TextBlock))<TextBlockProps>`
   ${font.set(40, 'bold')};
   line-height: 50px;
 
@@ -52,7 +53,7 @@ export const TitleBlock = styled(Block)<BlockProps>`
   })}
 `;
 
-export const SubTitleBlock = styled(Block)<BlockProps>`
+export const SubTitleBlock = styled(memo(TextBlock))<TextBlockProps>`
   margin-top: 10px;
   display: block;
 
@@ -67,17 +68,8 @@ export const Metas = styled.table`
   border-collapse: collapse;
 `;
 
-export const Devider = styled.hr`
+export const Divider = styled.hr`
   margin-top: 20px;
   border: none;
   border-bottom: 1px solid #eee;
-`;
-
-export const Contents = styled.div`
-  position: relative;
-  margin-top: 30px;
-  padding-right: 70px;
-
-  min-height: 400px;
-  cursor: text;
 `;

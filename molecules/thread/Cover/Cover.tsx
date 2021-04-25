@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, memo } from 'react';
 import { promptFileSelector } from '~/utils/file';
 import { Container, Image, ImageChangeButton, ImageWrapper, TaskButton } from './Cover.styled';
 import { CoverProps } from './types';
@@ -49,4 +49,4 @@ const Cover: FC<CoverProps> = ({ url, editable, onChange }) => {
   );
 };
 
-export default Cover;
+export default memo<FC<CoverProps>>(Cover);

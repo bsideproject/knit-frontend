@@ -1,4 +1,4 @@
-import { FC, useEffect, useRef } from 'react';
+import { FC, memo, useEffect, useRef, useState } from 'react';
 import _ from 'lodash';
 import {
   ImageIcon,
@@ -8,11 +8,24 @@ import {
   CodeIcon,
   LinkIcon,
   QuoteIcon,
+  GridIcon,
 } from '~/public/assets/icon';
 import { Container, IconContainer } from './SidePannel.styled';
+import { promptFileSelector } from '~/utils/file';
+import { ContentType, DividerType } from '~/@types/resources/thread';
+import { CreatedContent } from './types';
+import EmojiPicker, { Emoji } from './EmojiPicker';
+import DividerPicker from './DividerPicker';
+import { createDividerContent } from '../Contents/helpers';
 
-const SidePannel: FC = () => {
+interface Props {
+  onContentCreated: (createdContent: CreatedContent) => void;
+}
+
+const SidePannel: FC<Props> = ({ onContentCreated }) => {
   const ref = useRef<HTMLDivElement>(null);
+  const [emojiPickerOpened, setEmojiPickerOpened] = useState(false);
+  const [deviderPickerOpened, setDividerPickerOpened] = useState(false);
 
   useEffect(() => {
     const handleScroll = _.throttle(() => {
@@ -25,19 +38,49 @@ const SidePannel: FC = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  const handleClickImageIcon = async () => {
+    const file = await promptFileSelector();
+    console.log(file);
+  };
+
+  const handleSelectEmoji = (emoji: Emoji) => {
+    setEmojiPickerOpened(false);
+    onContentCreated({
+      type: ContentType.EMOJI,
+      emoji: emoji.emoji,
+    });
+  };
+
+  const handleSelectDivider = (deviderType: DividerType) => {
+    setDividerPickerOpened(false);
+    onContentCreated(createDividerContent(deviderType));
+  };
+
   return (
-    <Container ref={ref}>
-      <IconContainer>
+    <Container ref={ref} onMouseDown={(event) => event.preventDefault()}>
+      <IconContainer onClick={handleClickImageIcon}>
         <ImageIcon />
       </IconContainer>
       <IconContainer>
         <VideoIcon />
       </IconContainer>
-      <IconContainer>
+      <IconContainer onClick={() => setEmojiPickerOpened(true)}>
         <SmileIcon />
+        {emojiPickerOpened && (
+          <EmojiPicker
+            onSelect={handleSelectEmoji}
+            onClickOutside={() => setEmojiPickerOpened(false)}
+          />
+        )}
       </IconContainer>
-      <IconContainer>
+      <IconContainer onClick={() => setDividerPickerOpened(true)}>
         <LineIcon />
+        {deviderPickerOpened && (
+          <DividerPicker
+            onSelect={handleSelectDivider}
+            onClickOutside={() => setDividerPickerOpened(false)}
+          />
+        )}
       </IconContainer>
       <IconContainer>
         <CodeIcon />
@@ -48,8 +91,11 @@ const SidePannel: FC = () => {
       <IconContainer>
         <QuoteIcon />
       </IconContainer>
+      <IconContainer>
+        <GridIcon />
+      </IconContainer>
     </Container>
   );
 };
 
-export default SidePannel;
+export default memo<FC<Props>>(SidePannel);

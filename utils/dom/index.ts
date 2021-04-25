@@ -1,29 +1,57 @@
 /* eslint-disable no-underscore-dangle */
 /* eslint-disable @typescript-eslint/naming-convention */
 
+import { useEffect, useRef } from 'react';
+
+/**
+ * get caret pixel position
+ */
+export const getCaretPixel = (): DOMRect | null => {
+  const selection = document.getSelection();
+  if (!selection) return null;
+
+  const { startOffset, endOffset, startContainer } = selection.getRangeAt(0);
+  if (startOffset === endOffset) return null;
+
+  const range = document.createRange();
+  range.setStart(startContainer, startOffset);
+  range.setEnd(startContainer, startOffset + 1);
+  return range.getBoundingClientRect();
+};
+
 /**
  * get caret position
  * @returns {number}
  */
-import { useEffect, useRef } from 'react';
-
-export const getCaretPos = (
-  target: HTMLDivElement | HTMLInputElement | HTMLTextAreaElement
-): number | null => {
+export const getCaretNumber = (target?: any): number | null => {
   // for texterea/input element
   if (target instanceof HTMLInputElement || target instanceof HTMLTextAreaElement) {
     return target.selectionStart;
   }
   // for contentedit field
-  if (target && target.contentEditable) {
+  if (target instanceof HTMLDivElement && target.contentEditable) {
     target.focus();
-    const _range = document.getSelection()!.getRangeAt(0);
+
+    const selection = document.getSelection();
+    if (!selection) return null;
+
+    let _range;
+    try {
+      _range = selection.getRangeAt(0);
+    } catch {
+      return null;
+    }
+
     const range = _range.cloneRange();
     range.selectNodeContents(target);
     range.setEnd(_range.endContainer, _range.endOffset);
     return range.toString().length;
   }
-  return null;
+  try {
+    return document.getSelection()?.getRangeAt(0)?.endOffset ?? null;
+  } catch {
+    return null;
+  }
 };
 
 /**
@@ -41,10 +69,15 @@ export const setCaretPos = (
   // for contentedit field
   if (target && target.contentEditable) {
     target.focus();
-    try {
-      document.getSelection()?.collapse(target, pos);
-    } catch (error) {
-      console.error(error);
+    const textNode = target.childNodes[0];
+    if (textNode) {
+      const selection = window.getSelection();
+      if (!selection) return;
+      const range = document.createRange();
+      range.setStart(textNode, pos);
+      range.collapse(true);
+      selection.removeAllRanges();
+      selection.addRange(range);
     }
   }
 };
@@ -56,8 +89,8 @@ export const setCaretPos = (
  * @returns element ref
  */
 export const useOnClickOutside = <T extends HTMLElement>(
-  callback: (event: MouseEvent) => void,
-  deps = []
+  callback?: (event: MouseEvent) => void,
+  deps: any[] = []
 ) => {
   const elemRef = useRef<T>(null);
 
@@ -69,9 +102,9 @@ export const useOnClickOutside = <T extends HTMLElement>(
       callback(event);
     }
 
-    document.body.addEventListener('mousedown', handleClickBody);
+    document.addEventListener('click', handleClickBody);
     return () => {
-      document.body.removeEventListener('mousedown', handleClickBody);
+      document.removeEventListener('click', handleClickBody);
     };
   }, deps);
 
