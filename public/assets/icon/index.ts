@@ -10,4 +10,3 @@ export { default as LinkIcon } from './LinkIcon';
 export { default as QuoteIcon } from './QuoteIcon';
 export { default as ArrowBottom } from './ArrowBottom';
 export { default as GridIcon } from './GridIcon';
-//
