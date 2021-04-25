@@ -53,7 +53,6 @@ const buttonSize = ({ size }: ButtonProps) => {
 
 const colorStyles = ({ theme, color, disabled }: ButtonProps & { theme: Theme }) => {
   const background = theme.palette[color];
-
   switch (color) {
     case Color.PRIMARY:
       if (disabled) {
@@ -107,6 +106,29 @@ const colorStyles = ({ theme, color, disabled }: ButtonProps & { theme: Theme })
         background: ${background};
         color: ${theme.palette.primary};
       `;
+
+    case Color.DANGER:
+      if (disabled) {
+        return css`
+          background: ${background};
+          color: #a09db1;
+        `;
+      }
+      return css`
+        background: ${background};
+        color: ${theme.palette.white};
+        background: #ff0000;
+        border-radius: 8px;
+        &:hover {
+          background: #ff2f2f;
+          border-radius: 8px;
+        }
+        &:active {
+          background: #c90202;
+          border-radius: 8px;
+        }
+      `;
+
     default:
       return null;
   }

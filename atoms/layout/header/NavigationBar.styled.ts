@@ -28,6 +28,10 @@ export const RightBox = styled.div`
 `;
 
 export const RightContent = styled.div`
-  width: 400px;
+  width: 450px;
   justify-content: space-around;
+`;
+
+export const AtagStyled = styled.a`
+  margin-left: 10px;
 `;

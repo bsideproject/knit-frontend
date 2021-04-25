@@ -1,12 +1,16 @@
 import { VFC, DetailedHTMLProps, InputHTMLAttributes } from 'react';
-import { UseFormReturn } from 'react-hook-form';
+import { UseFormReturn, RegisterOptions } from 'react-hook-form';
 import { InputStyled } from './Input.styled';
 
 export interface Props
-  extends DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement> {
+  extends Omit<
+    DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>,
+    'pattern'
+  > {
   error?: boolean;
   name?: string;
   methods?: UseFormReturn<any>;
+  pattern?: RegExp;
 }
 const Input: VFC<Props> = ({
   className,
@@ -16,7 +20,18 @@ const Input: VFC<Props> = ({
   value,
   name,
   methods,
+  pattern,
+  required,
 }) => {
+  const rules: RegisterOptions = {};
+  if (required) {
+    rules.required = '내용을 입력해주세요.';
+  }
+
+  if (pattern) {
+    rules.pattern = { value: pattern, message: '형식이 일치하지 않습니다.' };
+  }
+
   return (
     <InputStyled
       className={className}
@@ -24,7 +39,7 @@ const Input: VFC<Props> = ({
       disabled={disabled}
       maxLength={maxLength}
       value={value}
-      {...methods?.register(name || '')}
+      {...methods?.register(name || '', { ...rules })}
     />
   );
 };

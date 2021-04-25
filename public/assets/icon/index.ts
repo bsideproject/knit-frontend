@@ -8,3 +8,4 @@ export { default as LineIcon } from './LineIcon';
 export { default as CodeIcon } from './CodeIcon';
 export { default as LinkIcon } from './LinkIcon';
 export { default as QuoteIcon } from './QuoteIcon';
+export { default as ArrowBottom } from './ArrowBottom';

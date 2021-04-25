@@ -4,7 +4,7 @@ import { useRouter } from 'next/router';
 import { Container } from '~/atoms/layout';
 import { SearchInput } from '~/atoms/field';
 import { SigninModal } from '~/molecules/signin';
-import { LeftBox, RightBox, RightContent, Wrapper } from './NavigationBar.styled';
+import { LeftBox, RightBox, RightContent, Wrapper, AtagStyled } from './NavigationBar.styled';
 import Mainlogo from '~/public/assets/mainlogo';
 
 const NavigationBar = () => {
@@ -38,6 +38,9 @@ const NavigationBar = () => {
             <a href="#" onClick={handleClickSignin}>
               시작하기
             </a>
+            <Link href="/mypage">
+              <AtagStyled>마이페이지</AtagStyled>
+            </Link>
             {signinModalOpened && <SigninModal onClickClose={() => setSigninModalOpened(false)} />}
           </RightContent>
         </RightBox>

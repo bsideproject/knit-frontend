@@ -1,5 +1,5 @@
 import Head from 'next/head';
-import React, { useState, FC } from 'react';
+import React, { useState, FC, useEffect } from 'react';
 import styled from '@emotion/styled';
 import { useRouter } from 'next/router';
 import { Menu } from 'antd';
@@ -96,6 +96,14 @@ const AdminLayout: FC = ({ children }) => {
   const [selectedMenu, setSelectedMenu] = useState('users');
   const [title, setTitle] = useState(getMenuLabel(selectedMenu));
   const router = useRouter();
+
+  const { subMenu } = router.query;
+
+  useEffect(() => {
+    if (typeof subMenu === 'string') {
+      setSelectedMenu(subMenu);
+    }
+  }, [subMenu]);
 
   const selectMenu = (menu: string) => {
     setSelectedMenu(menu);
