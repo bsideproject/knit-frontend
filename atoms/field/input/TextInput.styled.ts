@@ -1,9 +1,6 @@
 import styled from '@emotion/styled';
 import { css, Theme } from '@emotion/react';
-
-import { Props as InputProps } from './Input';
-
-export interface TextInputProps extends InputProps {}
+import { TextInputProps } from './TextInput';
 
 const colorStyles = ({ theme, error, disabled }: TextInputProps & { theme: Theme }) => {
   if (disabled) {
@@ -19,31 +16,43 @@ const colorStyles = ({ theme, error, disabled }: TextInputProps & { theme: Theme
 
   if (error) {
     return css`
-      border-bottom: 1px solid ${theme.palette.danger};
+      background-color: ${theme.palette.danger};
     `;
   }
 
-  // Todo filled state check when typing
-
   return css`
-    border-bottom: 1px solid #a09db1;
-    &:hover {
-      border-bottom: 1px solid #818189;
-    }
-    &:focus,
-    &:active {
-      caret-color: ${theme.palette.primary};
-      border-bottom: 1px solid ${theme.palette.primary};
-      box-sizing: border-box;
-    }
+    background-color: ${theme.palette.primary};
   `;
 };
 
-export const Wrapper = styled.div`
+export const BorderLine = styled.div`
+  height: 0px;
+  width: 0px;
+  left: 0px;
+  display: inline-block;
+  transition: 0.3s width ease-in-out;
+  position: absolute;
+  top: 24px;
+  ${colorStyles}
+`;
+
+export const Wrapper = styled.div<TextInputProps>`
+  width: 100%;
+  position: relative;
+
   & > input {
-    border: 0px;
     outline: none;
     box-sizing: border-box;
-    ${colorStyles}
+    border-bottom: 1px solid ${({ error, theme }) => (error ? theme.palette.danger : `#a09db1`)};
+
+    &:active,
+    &:focus {
+      border-bottom: 1px solid #a09db1;
+
+      & + div {
+        width: 100%;
+        height: 2px;
+      }
+    }
   }
 `;

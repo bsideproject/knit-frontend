@@ -76,6 +76,7 @@ module.exports = {
         // Includes .prettierrc.js rules
         'prettier/prettier': ['error', {}, { usePrettierrc: true }],
         'no-nested-ternary': 'off',
+        'import/no-cycle': 'off', // 추가해야할 코드
       },
     },
   ],

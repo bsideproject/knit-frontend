@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios, { AxiosResponse } from 'axios';
 
 const instance = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_URL,
@@ -8,12 +8,12 @@ const instance = axios.create({
   },
 });
 
-// const defaultResponseHandler = (res: AxiosResponse) => {
-//   return res;
-// };
+const defaultResponseHandler = (res: AxiosResponse) => {
+  return res.data;
+};
 // const defaultErrorHandler = (err: AxiosError) => {
 //   return Promise.reject(err);
 // };
-// instance.interceptors.response.use(defaultResponseHandler, defaultErrorHandler);
+instance.interceptors.response.use(defaultResponseHandler);
 
 export default instance;
