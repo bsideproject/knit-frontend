@@ -1,6 +1,11 @@
-import { Wrapper, TextInputProps } from './TextInput.styled';
-import Input from './Input';
+import { Wrapper, BorderLine } from './TextInput.styled';
+import Input, { Props as InputProps } from './Input';
+import { Description } from '~/atoms/description';
+import { Error } from '~/atoms/error';
 
+export interface TextInputProps extends InputProps {
+  description?: string;
+}
 const TextInput = ({
   placeholder,
   className,
@@ -10,17 +15,40 @@ const TextInput = ({
   value,
   name,
   methods,
+  description,
+  pattern,
+  required,
 }: TextInputProps) => {
+  let errorMessage;
+
+  if (methods && name) {
+    const {
+      formState: { errors },
+    } = methods;
+
+    if (errors[name]) {
+      error = true;
+      errorMessage = errors[name].message;
+    }
+  }
   return (
-    <Wrapper className={className} disabled={disabled} error={error} maxLength={maxLength}>
+    <Wrapper className={className} error={error}>
       <Input
         methods={methods}
+        required={required}
         placeholder={placeholder}
         disabled={disabled}
         maxLength={maxLength}
         value={value}
         name={name}
+        pattern={pattern}
       />
+      <BorderLine disabled={disabled} error={error} />
+      {error ? (
+        <Error>{errorMessage}</Error>
+      ) : (
+        description && <Description>{description}</Description>
+      )}
     </Wrapper>
   );
 };
