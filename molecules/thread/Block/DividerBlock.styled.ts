@@ -1,7 +1,7 @@
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import { resolveProp } from '~/utils/styles';
-import DividerPicker from '../SidePannel/DividerPicker';
+import DividerPicker from '../SidePanel/DividerPicker';
 
 export const Container = styled.div<{ editable: boolean }>`
   position: relative;

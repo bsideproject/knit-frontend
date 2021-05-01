@@ -19,6 +19,17 @@ export interface Thread {
   modifiedDateTime: number;
 }
 
+export enum DesignCommandType {
+  HEADING = 'HEADING',
+  BOLD = 'BOLD',
+  ITALIC = 'ITALIC',
+  LINETHROUGH = 'LINETHROUGH',
+  UNDERLINE = 'UNDERLINE',
+  FONTCOLOR = 'FONTCOLOR',
+  ALIGNTEXT = 'ALIGNTEXT',
+  URL = 'URL',
+}
+
 export enum CategoryType {
   DEVELOP = 'DEVELOP',
   DESIGN = 'DESIGN',

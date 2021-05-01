@@ -23,7 +23,12 @@ export enum Size {
 
 export enum CSSzIndex {
   THREAD_PAGE_TASKS = 1,
-  THREAD_SIDE_PANNEL,
+  THREAD_SIDE_PANEL,
+  THREAD_INLINE_PANEL,
   GLOBAL_HEADER,
   GLOBAL_MODAL,
+}
+
+export enum InlinePanel {
+  BOTTOM = '45px',
 }

@@ -19,3 +19,19 @@ export const promptFileSelector = async () => {
     input.click();
   });
 };
+export const getBase64 = (file: Blob) => {
+  return new Promise<string | Blob>((resolve, reject) => {
+    const reader = new FileReader();
+
+    reader.readAsDataURL(file);
+    reader.onload = () => {
+      if (reader.result && !(reader?.result instanceof ArrayBuffer)) {
+        resolve(reader.result);
+      }
+    };
+    reader.onerror = (error) => {
+      console.log('Error: ', error);
+      reject(error);
+    };
+  });
+};
