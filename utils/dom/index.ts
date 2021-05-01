@@ -73,6 +73,7 @@ export const setCaretPos = (
     if (textNode) {
       const selection = window.getSelection();
       if (!selection) return;
+
       const range = document.createRange();
       range.setStart(textNode, pos);
       range.collapse(true);
@@ -93,7 +94,6 @@ export const useOnClickOutside = <T extends HTMLElement>(
   deps: any[] = []
 ) => {
   const elemRef = useRef<T>(null);
-
   useEffect(() => {
     function handleClickBody(event: MouseEvent) {
       if (!callback || !elemRef.current) return;
@@ -109,4 +109,16 @@ export const useOnClickOutside = <T extends HTMLElement>(
   }, deps);
 
   return elemRef;
+};
+
+export const getDragPostition = () => {
+  const range = document?.getSelection()?.getRangeAt(0);
+
+  if (range) {
+    return {
+      startOffset: range.startOffset,
+      endOffset: range.endOffset,
+    };
+  }
+  return null;
 };

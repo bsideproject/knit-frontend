@@ -11,6 +11,12 @@ import { CSSzIndex } from '~/@types/style';
 export const Container = styled.div`
   ${fitInResolutionOnPage};
   position: relative;
+
+  *::selection {
+    background: rgba(191, 214, 227, 0.7);
+    color: black;
+    /* color: rgba(0, 0, 0, 0.5); */
+  }
 `;
 
 export const Header = styled.div`

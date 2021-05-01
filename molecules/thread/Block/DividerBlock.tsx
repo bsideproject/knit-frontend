@@ -11,7 +11,7 @@ import {
 } from './DividerBlock.styled';
 import { setCaretPos } from '~/utils/dom';
 import { DividerType } from '~/@types/resources/thread';
-import DividerPicker from '../SidePannel/DividerPicker';
+import DividerPicker from '../SidePanel/DividerPicker';
 
 const DividerBlock: FC<DividerBlockProps> = ({
   type,
