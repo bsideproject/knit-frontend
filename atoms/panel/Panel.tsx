@@ -1,3 +1,5 @@
+import { VFC } from 'react';
+
 import { HeadingCollapseIcon } from '~/public/assets/icon';
 import {
   HeadingStyled,
@@ -8,38 +10,72 @@ import {
   FontColorStyled,
   AlignTextStyled,
   UrlStyled,
+  BackColorStyled,
 } from './Panel.Styled';
 import { DesignCommandType } from '~/@types/resources/thread';
+import { PanelStyles } from '~/molecules/thread/InlinePanel/types';
 
-const Heading = (
-  <HeadingStyled>
-    제목 3 <HeadingCollapseIcon />{' '}
-  </HeadingStyled>
-);
+export interface PanelCompProps {
+  currentStyle?: PanelStyles;
+}
 
-const Bold = <BoldStyled />;
+const Heading: VFC<PanelCompProps> = ({ currentStyle }) => {
+  let headingText = '본문';
+  switch (currentStyle?.size) {
+    case '6':
+      headingText = '제목1';
+      break;
+    case '5':
+      headingText = '제목2';
+      break;
+    case '4':
+      headingText = '제목3';
+      break;
+    case '3':
+      headingText = '본문';
+      break;
+    case '2':
+      headingText = '설명글';
+      break;
+    default:
+      break;
+  }
 
-const LineThrough = <LineThroughStyled />;
+  return (
+    <HeadingStyled>
+      {headingText} <HeadingCollapseIcon />{' '}
+    </HeadingStyled>
+  );
+};
 
-const Italic = <ItalicStyled />;
+const Bold = () => <BoldStyled />;
 
-const UnderLine = <UnderLineStyled />;
+const LineThrough = () => <LineThroughStyled />;
 
-const FontColor = <FontColorStyled />;
+const Italic = () => <ItalicStyled />;
 
-const AlignText = <AlignTextStyled />;
+const UnderLine = () => <UnderLineStyled />;
 
-const Url = <UrlStyled>URL</UrlStyled>;
+const FontColor: VFC<PanelCompProps> = ({ currentStyle }) => {
+  return <FontColorStyled currentStyle={currentStyle} />;
+};
+
+const BackColor = () => <BackColorStyled />;
+
+const AlignText = () => <AlignTextStyled />;
+
+const Url = () => <UrlStyled>URL</UrlStyled>;
 
 const Panel = [
-  { type: DesignCommandType.HEADING, component: Heading },
-  { type: DesignCommandType.BOLD, component: Bold },
-  { type: DesignCommandType.ITALIC, component: Italic },
-  { type: DesignCommandType.UNDERLINE, component: UnderLine },
-  { type: DesignCommandType.LINETHROUGH, component: LineThrough },
-  { type: DesignCommandType.FONTCOLOR, component: FontColor },
-  { type: DesignCommandType.ALIGNTEXT, component: AlignText },
-  { type: DesignCommandType.URL, component: Url },
+  { type: DesignCommandType.HEADING, Component: Heading },
+  { type: DesignCommandType.BOLD, Component: Bold },
+  { type: DesignCommandType.ITALIC, Component: Italic },
+  { type: DesignCommandType.UNDERLINE, Component: UnderLine },
+  { type: DesignCommandType.LINETHROUGH, Component: LineThrough },
+  { type: DesignCommandType.FONTCOLOR, Component: FontColor },
+  { type: DesignCommandType.BACKCOLOR, Component: BackColor },
+  { type: DesignCommandType.ALIGNTEXT, Component: AlignText },
+  { type: DesignCommandType.URL, Component: Url },
 ];
 
 export default Panel;

@@ -1,5 +1,7 @@
 import { VFC } from 'react';
-import { Container, Color } from './ColorPalette.styled';
+import { useDispatch } from 'react-redux';
+import { OverlayContainer, Container, Color } from './ColorPalette.styled';
+import { setIsOpenPalette } from '~/molecules/thread/Contents/Contents.slice';
 
 const colors = [
   '#2F2F2F',
@@ -15,22 +17,32 @@ const colors = [
 ];
 
 const ColorPalette: VFC = () => {
+  const dispatch = useDispatch();
+
   const handleSelectionBackground = (colorCode: string) => {
     document.execCommand('foreColor', false, colorCode);
+    dispatch(setIsOpenPalette(false));
+  };
+
+  const handleOverlayClicked = () => {
+    dispatch(setIsOpenPalette(false));
   };
 
   return (
-    <Container>
-      {colors.map((colorCode) => (
-        <Color
-          key={colorCode}
-          colorCode={colorCode}
-          onClick={() => {
-            handleSelectionBackground(colorCode);
-          }}
-        />
-      ))}
-    </Container>
+    <>
+      <Container>
+        {colors.map((colorCode) => (
+          <Color
+            key={colorCode}
+            colorCode={colorCode}
+            onClick={() => {
+              handleSelectionBackground(colorCode);
+            }}
+          />
+        ))}
+      </Container>
+      <OverlayContainer onClick={handleOverlayClicked} />
+    </>
   );
 };
 

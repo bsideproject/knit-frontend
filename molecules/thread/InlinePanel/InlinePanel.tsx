@@ -5,12 +5,14 @@ import { Container, PanelContainer, PanelContent } from './InlinePanel.styled';
 import { Panel, ColorPalette, AlignPanel, HeadingPanel } from '~/atoms/panel';
 import { DesignCommandType } from '~/@types/resources/thread';
 import { useRootState } from '~/app/store';
-import { setIsOpenAlignPanel, setIsOpenPalette } from '~/molecules/thread/Contents/Contents.slice';
-
-type CaretPixel = {
-  top: number;
-  left: number;
-};
+import {
+  setIsOpenAlignPanel,
+  setIsOpenBackPalette,
+  setIsOpenHeadingPanel,
+  setIsOpenPalette,
+} from '~/molecules/thread/Contents/Contents.slice';
+import { CaretPixel, PanelStyles } from './types';
+import BackColorPalette from '~/atoms/panel/BackColorPalette';
 
 interface Props {
   baseElement: HTMLDivElement | null;
@@ -18,17 +20,23 @@ interface Props {
 }
 
 const InlinePannel: FC<Props> = ({ baseElement, onContentWrapped }) => {
+  const [currentStyle, setCurrentStyle] = useState<PanelStyles>();
   const [caretPixel, setCaretPixel] = useState<CaretPixel | null>(null);
-  const isOpenPalette = useRootState(({ contents }) => contents.isOpenPalette);
-  const isOpenAlignPanel = useRootState(({ contents }) => contents.isOpenAlignPanel);
-  const isOpenHeadingPanel = useRootState(({ contents }) => contents.isOpenHeadingPanel);
 
+  const { isOpenPalette, isOpenAlignPanel, isOpenHeadingPanel, isOpenBackPalette } = useRootState(
+    ({ contents }) => contents
+  );
   const dispatch = useDispatch();
+
   useEffect(() => {
     const handleSelectionChange = () => {
       try {
         const pixel = getCaretPixel();
         const container = baseElement?.getBoundingClientRect();
+
+        if (pixel) {
+          handleCurrentStyle();
+        }
         if (!pixel || !container) {
           resetPanel();
           return;
@@ -45,6 +53,20 @@ const InlinePannel: FC<Props> = ({ baseElement, onContentWrapped }) => {
     return () => document.removeEventListener('selectionchange', handleSelectionChange);
   }, []);
 
+  const handleCurrentStyle = () => {
+    const selectionNode = document.getSelection()?.getRangeAt(0).startContainer.parentNode as any;
+
+    if (selectionNode) {
+      const newCurrentStyle = {
+        ...currentStyle,
+        color: selectionNode.color ? selectionNode.color : null,
+        size: selectionNode.size ? selectionNode.size : null,
+      };
+
+      setCurrentStyle(newCurrentStyle);
+    }
+  };
+
   const handleMouseDown: MouseEventHandler = (event) => {
     event.preventDefault();
   };
@@ -56,18 +78,21 @@ const InlinePannel: FC<Props> = ({ baseElement, onContentWrapped }) => {
     setCaretPixel(null);
     dispatch(setIsOpenPalette(false));
     dispatch(setIsOpenAlignPanel(false));
+    dispatch(setIsOpenHeadingPanel(false));
+    dispatch(setIsOpenBackPalette(false));
   };
 
   if (!caretPixel) return null;
   return (
     <Container top={caretPixel.top} left={caretPixel.left} onMouseDown={handleMouseDown}>
-      {isOpenPalette && <ColorPalette />}
       {isOpenAlignPanel && <AlignPanel />}
       {isOpenHeadingPanel && <HeadingPanel />}
+      {isOpenPalette && <ColorPalette />}
+      {isOpenBackPalette && <BackColorPalette />}
       <PanelContainer>
-        {Panel.map(({ type, component }) => (
+        {Panel.map(({ type, Component }) => (
           <PanelContent onClick={() => handleClickPanel(type)} key={type}>
-            {component}
+            <Component currentStyle={currentStyle} />
           </PanelContent>
         ))}
       </PanelContainer>
