@@ -6,11 +6,7 @@ interface Props extends AlignerProps {}
 
 const Modal: FC<Props> = ({ children, top, bottom, left, right }) => {
   return ReactDOM.createPortal(
-    <Container
-      onClick={() => {
-        console.log('123');
-      }}
-    >
+    <Container>
       <Aligner top={top} bottom={bottom} left={left} right={right}>
         {children}
       </Aligner>
