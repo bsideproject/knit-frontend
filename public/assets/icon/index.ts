@@ -15,6 +15,7 @@ export { default as LineThroughIcon } from './LineThroughIcon';
 export { default as UnderLineIcon } from './UnderLineIcon';
 export { default as ItalicIcon } from './ItalicIcon';
 export { default as FontColorIcon } from './FontColorIcon';
+export { default as BackColorIcon } from './BackColorIcon';
 export { default as HeadingCollapseIcon } from './HeadingCollapseIcon';
 export {
   AlignLeftIcon,

@@ -7,3 +7,13 @@ export type CreatedContent =
     }
   | ImageContent
   | DividerContent;
+
+export type CaretPixel = {
+  top: number;
+  left: number;
+};
+
+export interface PanelStyles {
+  color: string | null;
+  size: string | null;
+}

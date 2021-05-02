@@ -12,7 +12,12 @@ import { InlinePanel } from '../InlinePanel';
 import ImageBlock from '../Block/ImageBlock';
 import DividerBlock from '../Block/DividerBlock';
 import { useRootState } from '~/app/store';
-import { setIsOpenPalette, setIsOpenAlignPanel, setIsOpenHeadingPanel } from './Contents.slice';
+import {
+  setIsOpenPalette,
+  setIsOpenAlignPanel,
+  setIsOpenHeadingPanel,
+  setIsOpenBackPalette,
+} from './Contents.slice';
 
 interface Props {
   isEditMode: boolean;
@@ -24,7 +29,7 @@ const Contents: FC<Props> = ({ isEditMode, contents, onChangeContents }) => {
   const [focusInfo, setFocusInfo] = useState<{ contentId: number } & FocusInfo>();
   const dispatch = useDispatch();
 
-  const { isOpenPalette, isOpenAlignPanel, isOpenHeadingPanel } = useRootState(
+  const { isOpenPalette, isOpenAlignPanel, isOpenHeadingPanel, isOpenBackPalette } = useRootState(
     ({ contents }) => contents
   );
 
@@ -236,10 +241,12 @@ const Contents: FC<Props> = ({ isEditMode, contents, onChangeContents }) => {
     if (type === DesignCommandType.FONTCOLOR) {
       dispatch(setIsOpenPalette(!isOpenPalette));
     }
+    if (type === DesignCommandType.BACKCOLOR) {
+      dispatch(setIsOpenBackPalette(!isOpenBackPalette));
+    }
     if (type === DesignCommandType.ALIGNTEXT) {
       dispatch(setIsOpenAlignPanel(!isOpenAlignPanel));
     }
-
     if (type === DesignCommandType.HEADING) {
       dispatch(setIsOpenHeadingPanel(!isOpenHeadingPanel));
     }

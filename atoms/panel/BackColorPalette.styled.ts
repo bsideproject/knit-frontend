@@ -10,7 +10,7 @@ export const Container = styled.div`
   width: 84px;
   height: 184px;
   bottom: ${InlinePanel.BOTTOM};
-  right: 84px;
+  right: 40px;
   background: #ffffff;
   box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.25);
   padding: 10px;
@@ -18,7 +18,7 @@ export const Container = styled.div`
   align-items: center;
 `;
 
-export const Color = styled.div<{ colorCode: string }>`
+export const BackColor = styled.div<{ colorCode: string }>`
   background: ${({ colorCode }) => colorCode};
   border: ${({ colorCode }) => colorCode === '#FFFFFF' && `1px solid #2F2F2F`};
   border-radius: 4px;
