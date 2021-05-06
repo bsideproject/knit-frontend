@@ -18,7 +18,7 @@ const TextBlock: FC<TextBlockProps> = ({
   onKeyPress = () => {},
   onKeyDown = () => {},
 }) => {
-  const valueRef = useWatchRef<TextBlockProps['value']>(value);
+  // const valueRef = useWatchRef<TextBlockProps['value']>(value);
   const onFocusRef = useWatchRef<TextBlockProps['onFocus']>(onFocus);
   const onBlurRef = useWatchRef<TextBlockProps['onBlur']>(onBlur);
   const onChangeRef = useWatchRef<TextBlockProps['onChange']>(onChange);
@@ -30,18 +30,17 @@ const TextBlock: FC<TextBlockProps> = ({
   useEffect(() => {
     if (!focusInfo) return;
     const { focusType } = focusInfo;
-
     if (focusType === FocusType.PASSIVE) return;
 
     const element = domRef.current?.el.current;
     if (!element) return;
 
     if (focusType === FocusType.FIRST_CARET) {
-      setCaretPos(element, 0);
+      setCaretPos(element, focusType);
       return;
     }
     if (focusType === FocusType.LAST_CARET) {
-      setCaretPos(element, valueRef.current?.length ?? 0);
+      setCaretPos(element, focusType);
       return;
     }
     if (focusType === FocusType.DESIGNATE_CARET) {

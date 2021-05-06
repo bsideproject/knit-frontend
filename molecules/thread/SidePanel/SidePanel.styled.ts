@@ -15,7 +15,7 @@ export const Container = styled.div`
 
   transition: 0.16s ease-out;
   cursor: pointer;
-  z-index: ${CSSzIndex.THREAD_SIDE_PANNEL};
+  z-index: ${CSSzIndex.THREAD_SIDE_PANEL};
 `;
 
 export const IconContainer = styled.div`
