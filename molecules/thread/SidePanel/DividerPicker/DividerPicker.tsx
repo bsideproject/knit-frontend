@@ -10,14 +10,17 @@ import {
   NormalLine,
   ShortLine,
   SolidLine,
+  TrashIcon,
 } from './DividerPicker.styled';
 
 interface Props {
   onSelect: (deviderType: DividerType) => void;
+  onDelete?: () => void;
   onClickOutside?: () => void;
   className?: string;
+  isPanel?: boolean;
 }
-const DividerPicker: FC<Props> = ({ onSelect, onClickOutside, className }) => {
+const DividerPicker: FC<Props> = ({ onSelect, onDelete, onClickOutside, className, isPanel }) => {
   const elemRef = useOnClickOutside<HTMLDivElement>(onClickOutside);
 
   return (
@@ -37,6 +40,12 @@ const DividerPicker: FC<Props> = ({ onSelect, onClickOutside, className }) => {
       <OptionWrapper onClick={() => onSelect(DividerType.SHORT)}>
         <ShortLine />
       </OptionWrapper>
+
+      {!isPanel && (
+        <OptionWrapper onClick={() => onDelete?.()}>
+          <TrashIcon />
+        </OptionWrapper>
+      )}
     </Container>
   );
 };

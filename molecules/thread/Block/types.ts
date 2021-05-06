@@ -21,11 +21,19 @@ export interface ImageBlockProps extends BlockProps {
   url: string;
   represent: boolean;
   onChangeRepresent: () => void;
+  onDelete: () => void;
 }
 
 export interface DividerBlockProps extends BlockProps {
   type: DividerType;
   onChange: (deviderType: DividerType) => void;
+  onDelete: () => void;
+}
+
+export interface CodeBlockProps extends BlockProps {
+  value?: string;
+  onChange: (deviderType: DividerType) => void;
+  onDelete: () => void;
 }
 
 export type BlockElement = HTMLDivElement;

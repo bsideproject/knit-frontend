@@ -22,6 +22,7 @@ const Input: VFC<Props> = ({
   methods,
   pattern,
   required,
+  ref,
 }) => {
   const rules: RegisterOptions = {};
   if (required) {
@@ -32,6 +33,7 @@ const Input: VFC<Props> = ({
     rules.pattern = { value: pattern, message: '형식이 일치하지 않습니다.' };
   }
 
+  console.log(ref);
   return (
     <InputStyled
       className={className}
@@ -39,6 +41,7 @@ const Input: VFC<Props> = ({
       disabled={disabled}
       maxLength={maxLength}
       value={value}
+      ref={ref}
       {...methods?.register(name || '', { ...rules })}
     />
   );

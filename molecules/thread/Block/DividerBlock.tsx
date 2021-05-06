@@ -23,9 +23,9 @@ const DividerBlock: FC<DividerBlockProps> = ({
   onKeyPress,
   className,
   onChange,
+  onDelete,
 }) => {
   const domRef = useRef<HTMLDivElement>(null);
-
   useEffect(() => {
     if (!focusInfo) return;
     if (focusInfo.focusType === FocusType.PASSIVE) return;
@@ -77,7 +77,7 @@ const DividerBlock: FC<DividerBlockProps> = ({
       ) : (
         <ShortLine />
       )}
-      {focusInfo && <DividerPicker onSelect={onChange} />}
+      {focusInfo && <DividerPicker onSelect={onChange} onDelete={onDelete} />}
     </Container>
   );
 };
