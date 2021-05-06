@@ -10,22 +10,27 @@ import {
   QuoteIcon,
   GridIcon,
 } from '~/public/assets/icon';
-import { Container, IconContainer } from './SidePannel.styled';
-import { promptFileSelector } from '~/utils/file';
+import { Container, IconContainer } from './SidePanel.styled';
+import { promptFileSelector, getBase64 } from '~/utils/file';
 import { ContentType, DividerType } from '~/@types/resources/thread';
 import { CreatedContent } from './types';
 import EmojiPicker, { Emoji } from './EmojiPicker';
 import DividerPicker from './DividerPicker';
 import { createDividerContent } from '../Contents/helpers';
+// import axios from '~/utils/api';
+// import useSWR from 'swr';
 
 interface Props {
   onContentCreated: (createdContent: CreatedContent) => void;
 }
 
+// const threadImageUploadEndpoint = '/upload/thumbnail';
+
 const SidePannel: FC<Props> = ({ onContentCreated }) => {
   const ref = useRef<HTMLDivElement>(null);
   const [emojiPickerOpened, setEmojiPickerOpened] = useState(false);
   const [deviderPickerOpened, setDividerPickerOpened] = useState(false);
+  // const { data } = useSWR<any>(threadImageUploadEndpoint, axios);
 
   useEffect(() => {
     const handleScroll = _.throttle(() => {
@@ -40,7 +45,18 @@ const SidePannel: FC<Props> = ({ onContentCreated }) => {
 
   const handleClickImageIcon = async () => {
     const file = await promptFileSelector();
-    console.log(file);
+
+    const formData = new FormData();
+    const base64File = await getBase64(file);
+    formData.append('file', base64File);
+    formData.append('fileName', file.name);
+    formData.append('type', 'image');
+
+    // const response = await axios.post(`upload`, formData, {
+    //   headers: {
+    //     'Content-Type': 'multipart/form-data',
+    //   },
+    // });
   };
 
   const handleSelectEmoji = (emoji: Emoji) => {

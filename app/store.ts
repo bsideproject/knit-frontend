@@ -2,10 +2,12 @@ import { MakeStore, createWrapper } from 'next-redux-wrapper';
 import { configureStore, combineReducers } from '@reduxjs/toolkit';
 import { useSelector } from 'react-redux';
 import { reducer as headerReducer } from '~/atoms/layout/header';
+import { reducer as contentsReducer } from '~/molecules/thread/Contents/Contents.slice';
 
 // create a root reducer
 const reducer = combineReducers({
   header: headerReducer,
+  contents: contentsReducer,
 });
 
 export type RootState = ReturnType<typeof reducer>;

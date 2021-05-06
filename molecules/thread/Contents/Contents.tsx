@@ -1,15 +1,23 @@
 import { FC, useState, memo, useRef, MouseEventHandler, KeyboardEventHandler } from 'react';
+import { useDispatch } from 'react-redux';
 import { ContentEditableEvent } from 'react-contenteditable';
-import { ContentType, DividerType, Thread } from '~/@types/resources/thread';
+import { ContentType, DividerType, Thread, DesignCommandType } from '~/@types/resources/thread';
 import { getCaretNumber } from '~/utils/dom';
 import { TextBlock } from '../Block';
 import { createTextContent } from './helpers';
-import { SidePannel, CreatedContent } from '../SidePannel';
+import { SidePanel, CreatedContent } from '../SidePanel';
 import { Container, BlockWrapper } from './Contents.styled';
 import { FocusInfo, FocusType } from '../Block/types';
-import { InlinePannel } from '../InlinePannel';
+import { InlinePanel } from '../InlinePanel';
 import ImageBlock from '../Block/ImageBlock';
 import DividerBlock from '../Block/DividerBlock';
+import { useRootState } from '~/app/store';
+import {
+  setIsOpenPalette,
+  setIsOpenAlignPanel,
+  setIsOpenHeadingPanel,
+  setIsOpenBackPalette,
+} from './Contents.slice';
 
 interface Props {
   isEditMode: boolean;
@@ -19,6 +27,11 @@ interface Props {
 
 const Contents: FC<Props> = ({ isEditMode, contents, onChangeContents }) => {
   const [focusInfo, setFocusInfo] = useState<{ contentId: number } & FocusInfo>();
+  const dispatch = useDispatch();
+
+  const { isOpenPalette, isOpenAlignPanel, isOpenHeadingPanel, isOpenBackPalette } = useRootState(
+    ({ contents }) => contents
+  );
 
   const handleClickEmptySpace: MouseEventHandler = (event) => {
     if (event.target !== event.currentTarget) return;
@@ -210,6 +223,35 @@ const Contents: FC<Props> = ({ isEditMode, contents, onChangeContents }) => {
     onChangeContents(updatedContents);
   };
 
+  const handleContentWrapped = (type: DesignCommandType) => {
+    // if (!focusInfo) throw new Error();
+
+    if (type === DesignCommandType.BOLD) {
+      document.execCommand('bold');
+    }
+    if (type === DesignCommandType.ITALIC) {
+      document.execCommand('italic');
+    }
+    if (type === DesignCommandType.UNDERLINE) {
+      document.execCommand('underline');
+    }
+    if (type === DesignCommandType.LINETHROUGH) {
+      document.execCommand('strikeThrough');
+    }
+    if (type === DesignCommandType.FONTCOLOR) {
+      dispatch(setIsOpenPalette(!isOpenPalette));
+    }
+    if (type === DesignCommandType.BACKCOLOR) {
+      dispatch(setIsOpenBackPalette(!isOpenBackPalette));
+    }
+    if (type === DesignCommandType.ALIGNTEXT) {
+      dispatch(setIsOpenAlignPanel(!isOpenAlignPanel));
+    }
+    if (type === DesignCommandType.HEADING) {
+      dispatch(setIsOpenHeadingPanel(!isOpenHeadingPanel));
+    }
+  };
+
   const handleContentCreated = (createdContent: CreatedContent) => {
     if (createdContent.type === ContentType.EMOJI) {
       const { emoji } = createdContent;
@@ -287,8 +329,10 @@ const Contents: FC<Props> = ({ isEditMode, contents, onChangeContents }) => {
 
   return (
     <Container isEditMode={isEditMode} onClick={handleClickEmptySpace} ref={containerRef}>
-      {isEditMode && <SidePannel onContentCreated={handleContentCreated} />}
-      {isEditMode && <InlinePannel baseElement={containerRef.current} />}
+      {isEditMode && <SidePanel onContentCreated={handleContentCreated} />}
+      {isEditMode && (
+        <InlinePanel onContentWrapped={handleContentWrapped} baseElement={containerRef.current} />
+      )}
       {contents.map((content, index) => {
         switch (content.type) {
           case ContentType.TEXT:

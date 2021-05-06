@@ -10,3 +10,16 @@ export { default as LinkIcon } from './LinkIcon';
 export { default as QuoteIcon } from './QuoteIcon';
 export { default as ArrowBottom } from './ArrowBottom';
 export { default as GridIcon } from './GridIcon';
+export { default as BoldIcon } from './BoldIcon';
+export { default as LineThroughIcon } from './LineThroughIcon';
+export { default as UnderLineIcon } from './UnderLineIcon';
+export { default as ItalicIcon } from './ItalicIcon';
+export { default as FontColorIcon } from './FontColorIcon';
+export { default as BackColorIcon } from './BackColorIcon';
+export { default as HeadingCollapseIcon } from './HeadingCollapseIcon';
+export {
+  AlignLeftIcon,
+  AlignCenterIcon,
+  AlignRightIcon,
+  AlignLeftPanelIcon,
+} from './AlignTextIcon';

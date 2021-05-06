@@ -30,7 +30,6 @@ const TextBlock: FC<TextBlockProps> = ({
   useEffect(() => {
     if (!focusInfo) return;
     const { focusType } = focusInfo;
-
     if (focusType === FocusType.PASSIVE) return;
 
     const element = domRef.current?.el.current;
