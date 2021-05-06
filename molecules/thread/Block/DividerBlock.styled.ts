@@ -37,7 +37,7 @@ export const Container = styled.div<{ editable: boolean }>`
 
   & > ${DividerPicker} {
     right: calc(50% - 60px);
-    top: -160px;
+    top: -190px;
   }
 `;
 

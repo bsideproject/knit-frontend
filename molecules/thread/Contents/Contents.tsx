@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import { ContentEditableEvent } from 'react-contenteditable';
 import { ContentType, DividerType, Thread, DesignCommandType } from '~/@types/resources/thread';
 import { getCaretNumber } from '~/utils/dom';
-import { TextBlock } from '../Block';
+import { TextBlock, CodeBlock } from '../Block';
 import { createTextContent } from './helpers';
 import { SidePanel, CreatedContent } from '../SidePanel';
 import { Container, BlockWrapper } from './Contents.styled';
@@ -17,6 +17,7 @@ import {
   setIsOpenAlignPanel,
   setIsOpenHeadingPanel,
   setIsOpenBackPalette,
+  setIsOpenUrlPanel,
 } from './Contents.slice';
 
 interface Props {
@@ -29,9 +30,13 @@ const Contents: FC<Props> = ({ isEditMode, contents, onChangeContents }) => {
   const [focusInfo, setFocusInfo] = useState<{ contentId: number } & FocusInfo>();
   const dispatch = useDispatch();
 
-  const { isOpenPalette, isOpenAlignPanel, isOpenHeadingPanel, isOpenBackPalette } = useRootState(
-    ({ contents }) => contents
-  );
+  const {
+    isOpenPalette,
+    isOpenAlignPanel,
+    isOpenHeadingPanel,
+    isOpenBackPalette,
+    isOpenUrlPanel,
+  } = useRootState(({ contents }) => contents);
 
   const handleClickEmptySpace: MouseEventHandler = (event) => {
     if (event.target !== event.currentTarget) return;
@@ -70,10 +75,16 @@ const Contents: FC<Props> = ({ isEditMode, contents, onChangeContents }) => {
     onChangeContents([...contents.slice(0, index), content, ...contents.slice(index + 1)]);
   };
 
+  // const createChangeCodeHandler = (index: number) => (event: ContentEditableEvent) => {
+  //   // const value = event.target.value ?? '';
+  //   const value = document.getElementsByClassName('javascript hljs')[0]?.innerText ?? '';
+  //   const content = { ...contents[index], value };
+  //   onChangeContents([...contents.slice(0, index), content, ...contents.slice(index + 1)]);
+  // };
+
   const createKeyPressHandler = (index: number): KeyboardEventHandler => (event) => {
     const { key, shiftKey, target } = event;
     const content = contents[index];
-
     if (key === 'Enter') {
       if (shiftKey) return;
       event.preventDefault();
@@ -108,7 +119,6 @@ const Contents: FC<Props> = ({ isEditMode, contents, onChangeContents }) => {
   const createKeyDownHandler = (index: number): KeyboardEventHandler => (event) => {
     const { key, shiftKey, metaKey, target } = event;
     const content = contents[index];
-
     if (key === 'Backspace') {
       // 첫번째 block이거나 전체 block 개수가 1개인 경우 pass
       if (index === 0 || contents.length === 1) return;
@@ -144,15 +154,7 @@ const Contents: FC<Props> = ({ isEditMode, contents, onChangeContents }) => {
           ...contents.slice(index + 1),
         ]);
       } else {
-        setFocusInfo({
-          contentId: prevContent.id,
-          focusType: FocusType.LAST_CARET,
-        });
-        onChangeContents([
-          ...contents.slice(0, index - 1),
-          prevContent,
-          ...contents.slice(index + 1),
-        ]);
+        deleteCurrentContents(index);
       }
       return;
     }
@@ -174,12 +176,11 @@ const Contents: FC<Props> = ({ isEditMode, contents, onChangeContents }) => {
       // 첫번째 block인 경우 pass
       if (index === 0) return;
 
-      if (content.type === ContentType.TEXT) {
+      if (content.type === ContentType.TEXT || content.type === ContentType.CODE) {
         const caretNum = getCaretNumber(target);
         // caret이 첫번째 위치가 아닌 경우 pass
         if (caretNum !== 0 && !metaKey) return;
       }
-
       event.preventDefault();
       setFocusInfo({
         contentId: contents[index - 1].id,
@@ -192,7 +193,7 @@ const Contents: FC<Props> = ({ isEditMode, contents, onChangeContents }) => {
       // 마지막 block인 경우 pass
       if (index === contents.length - 1) return;
 
-      if (content.type === ContentType.TEXT) {
+      if (content.type === ContentType.TEXT || content.type === ContentType.CODE) {
         const caretNum = getCaretNumber(target);
         // caret이 마지막 위치가 아닌 경우 pass
         if (caretNum !== content.value.length && !metaKey) return;
@@ -223,6 +224,14 @@ const Contents: FC<Props> = ({ isEditMode, contents, onChangeContents }) => {
     onChangeContents(updatedContents);
   };
 
+  const deleteCurrentContents = (index: number) => () => {
+    const prevContent = contents[index - 1];
+    setFocusInfo({
+      contentId: prevContent.id,
+      focusType: FocusType.LAST_CARET,
+    });
+    onChangeContents([...contents.slice(0, index - 1), prevContent, ...contents.slice(index + 1)]);
+  };
   const handleContentWrapped = (type: DesignCommandType) => {
     // if (!focusInfo) throw new Error();
 
@@ -249,6 +258,9 @@ const Contents: FC<Props> = ({ isEditMode, contents, onChangeContents }) => {
     }
     if (type === DesignCommandType.HEADING) {
       dispatch(setIsOpenHeadingPanel(!isOpenHeadingPanel));
+    }
+    if (type === DesignCommandType.URL) {
+      dispatch(setIsOpenUrlPanel(!isOpenUrlPanel));
     }
   };
 
@@ -322,11 +334,34 @@ const Contents: FC<Props> = ({ isEditMode, contents, onChangeContents }) => {
       return;
     }
 
+    if (createdContent.type === ContentType.IMAGE) {
+      try {
+        // focus 된 block이 있는 경우 다음 위치에 Image block 추가
+        if (!focusInfo) throw new Error();
+
+        const index = contents.findIndex(({ id }) => id === focusInfo.contentId);
+        if (index === -1) throw new Error();
+        onChangeContents([
+          ...contents.slice(0, index + 1),
+          createdContent,
+          ...contents.slice(index + 1),
+        ]);
+      } catch {
+        // focus 된 block이 없는 경우 마지막 위치에 Image block 추가
+        onChangeContents(contents.concat(createdContent));
+      } finally {
+        setFocusInfo({
+          contentId: createdContent.id,
+          focusType: FocusType.LAST_CARET,
+        });
+      }
+      return;
+    }
+
     console.log('keep return statement');
   };
 
   const containerRef = useRef<HTMLDivElement>(null);
-
   return (
     <Container isEditMode={isEditMode} onClick={handleClickEmptySpace} ref={containerRef}>
       {isEditMode && <SidePanel onContentCreated={handleContentCreated} />}
@@ -365,6 +400,7 @@ const Contents: FC<Props> = ({ isEditMode, contents, onChangeContents }) => {
                   onKeyPress={createKeyPressHandler(index)}
                   represent={content.represent}
                   onChangeRepresent={createChangeRepresentImageHandler(content.id)}
+                  onDelete={deleteCurrentContents(index)}
                 />
               </BlockWrapper>
             );
@@ -381,6 +417,25 @@ const Contents: FC<Props> = ({ isEditMode, contents, onChangeContents }) => {
                   onKeyDown={createKeyDownHandler(index)}
                   onKeyPress={createKeyPressHandler(index)}
                   onChange={createChangeDividerHandler(content.id)}
+                  onDelete={deleteCurrentContents(index)}
+                />
+              </BlockWrapper>
+            );
+          case ContentType.CODE:
+            return (
+              <BlockWrapper>
+                <CodeBlock
+                  key={content.id}
+                  editable={isEditMode}
+                  value={content.value}
+                  focusInfo={content.id === focusInfo?.contentId ? focusInfo : null}
+                  onBlur={handleBlur}
+                  onFocus={createFocusHandler(content.id)}
+                  onKeyDown={createKeyDownHandler(index)}
+                  onKeyPress={createKeyPressHandler(index)}
+                  // onChange={createChangeCodeHandler(index)}
+                  onChange={() => {}}
+                  onDelete={deleteCurrentContents(index)}
                 />
               </BlockWrapper>
             );

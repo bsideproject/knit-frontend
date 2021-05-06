@@ -2,6 +2,7 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 
 import { useEffect, useRef } from 'react';
+import { FocusType } from '~/molecules/thread/Block';
 
 /**
  * get caret pixel position
@@ -41,7 +42,6 @@ export const getCaretNumber = (target?: any): number | null => {
     } catch {
       return null;
     }
-
     const range = _range.cloneRange();
     range.selectNodeContents(target);
     range.setEnd(_range.endContainer, _range.endOffset);
@@ -60,26 +60,49 @@ export const getCaretNumber = (target?: any): number | null => {
  */
 export const setCaretPos = (
   target: HTMLDivElement | HTMLInputElement | HTMLTextAreaElement,
-  pos: number
+  focustType: FocusType.FIRST_CARET | FocusType.LAST_CARET
 ) => {
   // for texterea/input element
-  if (target instanceof HTMLInputElement || target instanceof HTMLTextAreaElement) {
-    target.setSelectionRange(pos, pos);
-  }
+  // if (target instanceof HTMLInputElement || target instanceof HTMLTextAreaElement) {
+  //   target.setSelectionRange(pos, pos);
+  // }
+
   // for contentedit field
   if (target && target.contentEditable) {
     target.focus();
-    const textNode = target.childNodes[0];
-    if (textNode) {
-      const selection = window.getSelection();
-      if (!selection) return;
 
+    const selection = window.getSelection();
+    if (!selection) return;
+
+    try {
       const range = document.createRange();
-      range.setStart(textNode, pos);
-      range.collapse(true);
-      selection.removeAllRanges();
-      selection.addRange(range);
+
+      let node;
+      let position;
+      if (focustType === FocusType.FIRST_CARET) {
+        node = target.firstChild as ChildNode;
+        position = 0;
+      }
+      if (focustType === FocusType.LAST_CARET) {
+        node = target.lastChild as ChildNode;
+        position = node?.textContent?.length;
+        // TODO caret position for Code format
+        // node = target.childNodes[0].lastChild.lastChild;
+        // position = node?.textContent?.length - 1;
+      }
+
+      if (node && position) {
+        range.setStart(node, position);
+        range.collapse(true);
+        selection.removeAllRanges();
+        selection.addRange(range);
+      }
+    } catch (error) {
+      console.error(error);
     }
+    // }
+
+    // document.getElementsByClassName('hljs-comment')[2].innerText.length
   }
 };
 

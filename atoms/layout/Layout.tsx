@@ -24,6 +24,8 @@ const Layout: FC<LayoutProps> = ({ title = 'Knit', children }) => {
     <>
       <Head>
         <link rel="icon" href="/favicon.ico" />
+        <link rel="stylesheet" href="https://highlightjs.org/static/demo/styles/railscasts.css" />
+
         <title>{title}</title>
       </Head>
       <Header />

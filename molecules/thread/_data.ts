@@ -77,6 +77,66 @@ export default {
       type: ContentType.TEXT,
       value: `다양한 분석은 필요 없고 간단하게 유입량 정도만 확인하고 싶다고 하면 GA (UA 또는 GA4) 코드만 심어도 문제 없다.`,
     },
+    //   {
+    //     id: 1618332038582,
+    //     type: ContentType.CODE,
+    //     value: `
+    //     // Next.js example code
+    //     const App: VFC<AppProps> = ({ Component, pageProps, router }) => {
+    //       const { pathname } = router;
+    //       let LayoutComponent = Layout;
+
+    //       if (pathname.startsWith('/signin')) {
+    //         return <Component />;
+    //       }
+
+    //       if (pathname.startsWith('/admin')) {
+    //         LayoutComponent = AdminLayout;
+    //       }
+
+    //       return (
+    //         <ThemeProvider theme={theme}>
+    //           <LayoutComponent>
+    //             <Component {...pageProps} />
+    //           </LayoutComponent>
+    //         </ThemeProvider>
+    //       );
+    //     };
+
+    // export default wrapper.withRedux(App);
+    //     `,
+    //   },
+    // {
+    //   id: 1618332038583,
+    //   type: ContentType.CODE,
+    //   value: `
+    //   def find_parent(parent, x):
+    //   # 루트 노드가 아니라면, 루트 노드를 찾을 때까지 재귀적으로 호출
+    //   if parent[x] != x:
+    //       parent[x] = find_parent(parent, parent[x])
+    //   return parent[x]
+
+    //   # 두 원소가 속한 집합을 합치기
+    //   def union_parent(parent, a, b):
+    //       a = find_parent(parent, a)
+    //       b = find_parent(parent, b)
+    //       if a < b:
+    //           parent[b] = a
+    //       else:
+    //           parent[a] = b
+
+    //   # Union 연산을 각각 수행
+    //   for i in range(e):
+    //       a, b = map(int, input().split())
+    //       union_parent(parent, a, b)
+
+    //   # 각 원소가 속한 집합 출력하기
+    //   print('각 원소가 속한 집합: ', end='')
+    //   for i in range(1, v + 1):
+    //       print(find_parent(parent, i), end=' ')
+
+    //   `,
+    // },
   ],
   modifiedDateTime: Date.now(),
 } as Thread;
