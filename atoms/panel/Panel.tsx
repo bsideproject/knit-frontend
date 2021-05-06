@@ -60,8 +60,9 @@ const FontColor: VFC<PanelCompProps> = ({ currentStyle }) => {
   return <FontColorStyled currentStyle={currentStyle} />;
 };
 
-const BackColor = () => <BackColorStyled />;
-
+const BackColor: VFC<PanelCompProps> = ({ currentStyle }) => {
+  return <BackColorStyled currentStyle={currentStyle} />;
+};
 const AlignText = () => <AlignTextStyled />;
 
 const Url = () => <UrlStyled>URL</UrlStyled>;

@@ -7,3 +7,7 @@ export type CreatedContent =
     }
   | ImageContent
   | DividerContent;
+
+export interface ImageUploadResponse {
+  url: string;
+}

@@ -16,4 +16,5 @@ export type CaretPixel = {
 export interface PanelStyles {
   color: string | null;
   size: string | null;
+  background: string | null;
 }
