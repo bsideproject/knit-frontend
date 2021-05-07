@@ -11,13 +11,13 @@ import {
   GridIcon,
 } from '~/public/assets/icon';
 import { Container, IconContainer } from './SidePanel.styled';
-import { promptFileSelector, getBase64 } from '~/utils/file';
+import { promptFileSelector } from '~/utils/file';
 import { ContentType, DividerType } from '~/@types/resources/thread';
-import { CreatedContent } from './types';
+import { CreatedContent, ImageUploadResponse } from './types';
 import EmojiPicker, { Emoji } from './EmojiPicker';
 import DividerPicker from './DividerPicker';
-import { createDividerContent } from '../Contents/helpers';
-// import axios from '~/utils/api';
+import { createDividerContent, createImageContent } from '../Contents/helpers';
+import axios from '~/utils/api';
 // import useSWR from 'swr';
 
 interface Props {
@@ -43,20 +43,23 @@ const SidePannel: FC<Props> = ({ onContentCreated }) => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const handleClickImageIcon = async () => {
+  const handleSelectImage = async () => {
     const file = await promptFileSelector();
 
     const formData = new FormData();
-    const base64File = await getBase64(file);
-    formData.append('file', base64File);
-    formData.append('fileName', file.name);
-    formData.append('type', 'image');
+    formData.append('file', file);
+    formData.append('type', 'thread');
+    try {
+      const { url } = (await axios.post(`upload`, formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      })) as ImageUploadResponse;
 
-    // const response = await axios.post(`upload`, formData, {
-    //   headers: {
-    //     'Content-Type': 'multipart/form-data',
-    //   },
-    // });
+      onContentCreated(createImageContent({ url, represent: false }));
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   const handleSelectEmoji = (emoji: Emoji) => {
@@ -74,7 +77,7 @@ const SidePannel: FC<Props> = ({ onContentCreated }) => {
 
   return (
     <Container ref={ref} onMouseDown={(event) => event.preventDefault()}>
-      <IconContainer onClick={handleClickImageIcon}>
+      <IconContainer onClick={handleSelectImage}>
         <ImageIcon />
       </IconContainer>
       <IconContainer>
@@ -93,6 +96,7 @@ const SidePannel: FC<Props> = ({ onContentCreated }) => {
         <LineIcon />
         {deviderPickerOpened && (
           <DividerPicker
+            isPanel
             onSelect={handleSelectDivider}
             onClickOutside={() => setDividerPickerOpened(false)}
           />

@@ -3,6 +3,7 @@ import styled from '@emotion/styled';
 import { Container, RepresentButton } from './ImageBlock.styled';
 import { FocusType, ImageBlockProps } from './types';
 import { setCaretPos } from '~/utils/dom';
+import { ImagePicker } from '~/molecules/thread/Image';
 
 const ImageBlock: FC<ImageBlockProps> = ({
   url,
@@ -14,6 +15,7 @@ const ImageBlock: FC<ImageBlockProps> = ({
   onKeyDown,
   onKeyPress,
   onChangeRepresent,
+  onDelete,
   className,
 }) => {
   const domRef = useRef<HTMLDivElement>(null);
@@ -69,6 +71,7 @@ const ImageBlock: FC<ImageBlockProps> = ({
           대표
         </RepresentButton>
       )}
+      {focusInfo && <ImagePicker onDelete={onDelete} />}
     </Container>
   );
 };

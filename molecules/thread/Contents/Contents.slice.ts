@@ -5,6 +5,7 @@ interface ContentsState {
   isOpenBackPalette: boolean;
   isOpenAlignPanel: boolean;
   isOpenHeadingPanel: boolean;
+  isOpenUrlPanel: boolean;
 }
 
 const initialState: ContentsState = {
@@ -12,6 +13,7 @@ const initialState: ContentsState = {
   isOpenBackPalette: false,
   isOpenAlignPanel: false,
   isOpenHeadingPanel: false,
+  isOpenUrlPanel: false,
 };
 
 const contentsSlice = createSlice({
@@ -30,6 +32,9 @@ const contentsSlice = createSlice({
     setIsOpenBackPalette(state, { payload }: PayloadAction<boolean>) {
       state.isOpenBackPalette = payload;
     },
+    setIsOpenUrlPanel(state, { payload }: PayloadAction<boolean>) {
+      state.isOpenUrlPanel = payload;
+    },
   },
 });
 export const { reducer, actions } = contentsSlice;
@@ -38,4 +43,5 @@ export const {
   setIsOpenAlignPanel,
   setIsOpenHeadingPanel,
   setIsOpenBackPalette,
+  setIsOpenUrlPanel,
 } = contentsSlice.actions;

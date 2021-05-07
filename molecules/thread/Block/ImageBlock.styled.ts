@@ -32,6 +32,7 @@ export const Container = styled.div<{ editable: boolean }>`
 
   & > img {
     width: 100%;
+    height: 300px;
   }
 `;
 

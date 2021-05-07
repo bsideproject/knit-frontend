@@ -34,8 +34,11 @@ export const FontColorStyled = styled(FontColorIcon)<PanelCompProps>`
   }
 `;
 
-export const BackColorStyled = styled(BackColorIcon)`
-  padding-top: 4px;
+export const BackColorStyled = styled(BackColorIcon)<PanelCompProps>`
+  margin-top: 2px;
+  & {
+    background: ${({ currentStyle }) => currentStyle?.background};
+  }
 `;
 
 export const AlignTextStyled = styled(AlignLeftPanelIcon)``;

@@ -2,7 +2,7 @@ import { FC, memo, MouseEventHandler, useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { getCaretPixel } from '~/utils/dom';
 import { Container, PanelContainer, PanelContent } from './InlinePanel.styled';
-import { Panel, ColorPalette, AlignPanel, HeadingPanel } from '~/atoms/panel';
+import { Panel, ColorPalette, AlignPanel, HeadingPanel, UrlPanel } from '~/atoms/panel';
 import { DesignCommandType } from '~/@types/resources/thread';
 import { useRootState } from '~/app/store';
 import {
@@ -10,6 +10,7 @@ import {
   setIsOpenBackPalette,
   setIsOpenHeadingPanel,
   setIsOpenPalette,
+  setIsOpenUrlPanel,
 } from '~/molecules/thread/Contents/Contents.slice';
 import { CaretPixel, PanelStyles } from './types';
 import BackColorPalette from '~/atoms/panel/BackColorPalette';
@@ -23,9 +24,13 @@ const InlinePannel: FC<Props> = ({ baseElement, onContentWrapped }) => {
   const [currentStyle, setCurrentStyle] = useState<PanelStyles>();
   const [caretPixel, setCaretPixel] = useState<CaretPixel | null>(null);
 
-  const { isOpenPalette, isOpenAlignPanel, isOpenHeadingPanel, isOpenBackPalette } = useRootState(
-    ({ contents }) => contents
-  );
+  const {
+    isOpenPalette,
+    isOpenAlignPanel,
+    isOpenHeadingPanel,
+    isOpenBackPalette,
+    isOpenUrlPanel,
+  } = useRootState(({ contents }) => contents);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -33,7 +38,6 @@ const InlinePannel: FC<Props> = ({ baseElement, onContentWrapped }) => {
       try {
         const pixel = getCaretPixel();
         const container = baseElement?.getBoundingClientRect();
-
         if (pixel) {
           handleCurrentStyle();
         }
@@ -61,6 +65,9 @@ const InlinePannel: FC<Props> = ({ baseElement, onContentWrapped }) => {
         ...currentStyle,
         color: selectionNode.color ? selectionNode.color : null,
         size: selectionNode.size ? selectionNode.size : null,
+        background: selectionNode.style.backgroundColor
+          ? selectionNode.style.backgroundColor
+          : null,
       };
 
       setCurrentStyle(newCurrentStyle);
@@ -80,15 +87,18 @@ const InlinePannel: FC<Props> = ({ baseElement, onContentWrapped }) => {
     dispatch(setIsOpenAlignPanel(false));
     dispatch(setIsOpenHeadingPanel(false));
     dispatch(setIsOpenBackPalette(false));
+    dispatch(setIsOpenUrlPanel(false));
   };
 
   if (!caretPixel) return null;
+
   return (
     <Container top={caretPixel.top} left={caretPixel.left} onMouseDown={handleMouseDown}>
       {isOpenAlignPanel && <AlignPanel />}
       {isOpenHeadingPanel && <HeadingPanel />}
       {isOpenPalette && <ColorPalette />}
       {isOpenBackPalette && <BackColorPalette />}
+      {isOpenUrlPanel && <UrlPanel />}
       <PanelContainer>
         {Panel.map(({ type, Component }) => (
           <PanelContent onClick={() => handleClickPanel(type)} key={type}>
