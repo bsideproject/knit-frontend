@@ -15,7 +15,7 @@ import {
 } from '~/molecules/thread';
 import { getNextBlockElement } from '~/molecules/thread/Block/helpers';
 import threadMockData from '~/molecules/thread/_data';
-// test
+
 const { Container, Header, Tasks, TitleBlock, SubTitleBlock, Metas, Divider } = Layout;
 
 const ThreadPage: FC = () => {
@@ -87,6 +87,7 @@ const ThreadPage: FC = () => {
         )}
         <Cover url={thread.coverUrl} editable={isEditMode} onChange={handleChangeCover} />
         <TitleBlock
+          openPanel={false}
           editable={isEditMode}
           placeholder="어떤 글을 쓰실건가요?"
           value={thread.title}
@@ -95,6 +96,7 @@ const ThreadPage: FC = () => {
         />
         {(isEditMode || thread.subTitle) && (
           <SubTitleBlock
+            openPanel={false}
             editable={isEditMode}
             placeholder="Subtitle"
             value={thread.subTitle}
