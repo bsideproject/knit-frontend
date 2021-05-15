@@ -1,10 +1,9 @@
 import styled from '@emotion/styled';
 import { AlignLeftIcon, AlignCenterIcon, AlignRightIcon } from '~/public/assets/icon';
-import { theme } from '~/styles';
 import { CSSzIndex, InlinePanel } from '~/@types/style';
 import { Input } from '../field';
 
-export const Container = styled.div`
+export const Container = styled.div<{ top: number; left: number }>`
   position: absolute;
   z-index: ${CSSzIndex.THREAD_INLINE_PANEL};
 
@@ -13,47 +12,33 @@ export const Container = styled.div`
   right: 0px;
   top: 60px;
   justify-content: center;
-  align-content: center;
+  align-items: center;
   background: #ffffff;
   box-shadow: 0px 2px 12px rgba(0, 0, 0, 0.25);
   border-radius: 4px;
 
-  position: absolute;
-  width: 340px;
-  height: 46px;
-`;
+  width: 320px;
+  height: 35px;
+  padding-left: 5px;
+  padding-right: 5px;
 
-export const Content = styled.div`
-  position: absolute;
-  width: 314px;
-  height: 34px;
-
-  background: #ffffff;
-  border: 2px solid #e2e1eb;
-  box-sizing: border-box;
-  border-radius: 4px;
-  /* width: 100%;
-  height: 100%;
-  align-items: center;
-  display: flex;
-  justify-content: center;
-  cursor: pointer;
-  &:hover {
-    & > svg > path {
-      stroke: ${theme.palette.primary};
-    }
-  } */
+  top: ${({ top }) => `${top - 40}px`};
+  left: ${({ left }) => `${left - 20}px`};
 `;
 
 export const InputStyled = styled(Input)`
   position: absolute;
-  width: 314px;
-  height: 34px;
-
+  display: flex;
+  align-items: center;
+  width: 90%;
   background: #ffffff;
   border: 2px solid #e2e1eb;
   box-sizing: border-box;
   border-radius: 4px;
+  &:focus {
+    border: 2px solid #e2e1eb;
+    outline: none;
+  }
 `;
 
 export const AlignLeftStyled = styled(AlignLeftIcon)``;

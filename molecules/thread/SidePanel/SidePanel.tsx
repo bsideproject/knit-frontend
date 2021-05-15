@@ -18,6 +18,7 @@ import EmojiPicker, { Emoji } from './EmojiPicker';
 import DividerPicker from './DividerPicker';
 import { createDividerContent, createImageContent } from '../Contents/helpers';
 import axios from '~/utils/api';
+import { FileExtensionType } from '~/utils/file/types';
 // import useSWR from 'swr';
 
 interface Props {
@@ -44,7 +45,7 @@ const SidePannel: FC<Props> = ({ onContentCreated }) => {
   }, []);
 
   const handleSelectImage = async () => {
-    const file = await promptFileSelector();
+    const file = await promptFileSelector(FileExtensionType.IMAGE);
 
     const formData = new FormData();
     formData.append('file', file);

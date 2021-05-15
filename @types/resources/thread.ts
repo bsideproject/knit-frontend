@@ -3,8 +3,6 @@ export interface Thread {
   id: 123;
   /* 문서 대표이미지 url (s3) */
   thumbnailUrl?: string;
-  /* 문서 커버이미지 url (s3) */
-  coverUrl?: string;
   /* 문서 표제 */
   title: string;
   /* 문서 부제 */

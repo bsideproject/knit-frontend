@@ -364,9 +364,11 @@ const Contents: FC<Props> = ({ isEditMode, contents, onChangeContents }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   return (
     <Container isEditMode={isEditMode} onClick={handleClickEmptySpace} ref={containerRef}>
-      {isEditMode && <SidePanel onContentCreated={handleContentCreated} />}
       {isEditMode && (
-        <InlinePanel onContentWrapped={handleContentWrapped} baseElement={containerRef.current} />
+        <>
+          <SidePanel onContentCreated={handleContentCreated} />
+          <InlinePanel onContentWrapped={handleContentWrapped} baseElement={containerRef.current} />
+        </>
       )}
       {contents.map((content, index) => {
         switch (content.type) {
