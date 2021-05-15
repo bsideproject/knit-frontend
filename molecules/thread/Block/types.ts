@@ -4,6 +4,7 @@ import { DividerType } from '~/@types/resources/thread';
 
 export interface BlockProps {
   className?: string;
+  openPanel?: boolean;
   editable: boolean;
   focusInfo?: FocusInfo | null;
   onBlur?: () => void;

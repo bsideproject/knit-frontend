@@ -1,6 +1,6 @@
 import { FC, memo, MouseEventHandler, useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { getCaretPixel } from '~/utils/dom';
+import { getCaretPixel, findSelectionBlockNode } from '~/utils/dom';
 import { Container, PanelContainer, PanelContent } from './InlinePanel.styled';
 import { Panel, ColorPalette, AlignPanel, HeadingPanel, UrlPanel, TrashPanel } from '~/atoms/panel';
 import { DesignCommandType } from '~/@types/resources/thread';
@@ -38,18 +38,24 @@ const InlinePannel: FC<Props> = ({ baseElement, onContentWrapped }) => {
       try {
         const pixel = getCaretPixel();
         const container = baseElement?.getBoundingClientRect();
-        if (pixel) {
-          handleCurrentStyle();
+
+        const blockNode = findSelectionBlockNode();
+        if (blockNode?.dataset?.openpanel !== 'true') {
+          return;
         }
         if (!pixel || !container) {
           resetPanel();
           return;
         }
+        if (pixel) {
+          handleCurrentStyle();
+        }
         setCaretPixel({
           top: pixel.top - container.top,
           left: pixel.left - container.left,
         });
-      } catch {
+      } catch (error) {
+        console.error(error);
         resetPanel();
       }
     };

@@ -145,3 +145,17 @@ export const getDragPostition = () => {
   }
   return null;
 };
+
+export const findSelectionBlockNode = (): HTMLElement | null => {
+  let selectionNode = document.getSelection()?.getRangeAt(0).startContainer as
+    | HTMLElement
+    | undefined
+    | null;
+  for (let i = 0; i < 10; i += 1) {
+    selectionNode = selectionNode?.parentNode as HTMLElement;
+    if (selectionNode?.dataset?.block) {
+      return selectionNode;
+    }
+  }
+  return null;
+};

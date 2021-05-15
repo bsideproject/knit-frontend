@@ -93,6 +93,7 @@ const ThreadPage: FC = () => {
         )}
         <Cover url={thread.thumbnailUrl} editable={isEditMode} onChange={handleChangeCover} />
         <TitleBlock
+          openPanel={false}
           editable={isEditMode}
           placeholder="어떤 글을 쓰실건가요?"
           value={thread.title}
@@ -101,6 +102,7 @@ const ThreadPage: FC = () => {
         />
         {(isEditMode || thread.subTitle) && (
           <SubTitleBlock
+            openPanel={false}
             editable={isEditMode}
             placeholder="Subtitle"
             value={thread.subTitle}

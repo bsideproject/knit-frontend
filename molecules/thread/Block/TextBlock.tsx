@@ -8,10 +8,11 @@ import { TextBlockProps, FocusType } from './types';
 
 const TextBlock: FC<TextBlockProps> = ({
   className,
-  editable = false,
   placeholder,
   value,
   focusInfo,
+  editable = false,
+  openPanel = true,
   onFocus = () => {},
   onBlur = () => {},
   onChange = () => {},
@@ -72,6 +73,7 @@ const TextBlock: FC<TextBlockProps> = ({
     <Container
       ref={domRef}
       data-block="true"
+      data-openpanel={openPanel}
       spellCheck="false"
       autoCapitalize="off"
       autoCorrect="off"
