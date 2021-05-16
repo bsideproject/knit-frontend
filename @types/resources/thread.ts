@@ -44,6 +44,7 @@ export enum ContentType {
   CODE = 'CODE',
   DEVIDER = 'DEVIDER',
   EMOJI = 'EMOJI',
+  URL = 'URL',
 }
 
 export interface Content<T extends ContentType> {
@@ -74,6 +75,11 @@ export enum DividerType {
 }
 export interface DividerContent extends Content<ContentType.DEVIDER> {
   deviderType: DividerType;
+}
+
+export interface UrlContent extends Content<ContentType.URL> {
+  url: string;
+  description: string;
 }
 
 export type CodeFormat = 'javascript' | 'json' | void;
