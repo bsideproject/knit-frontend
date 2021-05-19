@@ -1,15 +1,6 @@
 import { FC, memo, MouseEvent, useEffect, useRef, useState } from 'react';
 import _ from 'lodash';
-import {
-  ImageIcon,
-  VideoIcon,
-  SmileIcon,
-  LineIcon,
-  CodeIcon,
-  LinkIcon,
-  QuoteIcon,
-  GridIcon,
-} from '~/public/assets/icon';
+import { ImageIcon, SmileIcon, LineIcon, CodeIcon, LinkIcon } from '~/public/assets/icon';
 import { Container, IconContainer } from './SidePanel.styled';
 import { promptFileSelector } from '~/utils/file';
 import { ContentType, DividerType } from '~/@types/resources/thread';
@@ -90,9 +81,9 @@ const SidePannel: FC<Props> = ({ onContentCreated }) => {
       <IconContainer onClick={handleSelectImage}>
         <ImageIcon />
       </IconContainer>
-      <IconContainer>
+      {/* <IconContainer>
         <VideoIcon />
-      </IconContainer>
+      </IconContainer> */}
       <IconContainer onClick={() => setEmojiPickerOpened(true)}>
         <SmileIcon />
         {emojiPickerOpened && (
@@ -125,12 +116,12 @@ const SidePannel: FC<Props> = ({ onContentCreated }) => {
           />
         )}
       </IconContainer>
-      <IconContainer>
+      {/* <IconContainer>
         <QuoteIcon />
       </IconContainer>
       <IconContainer>
         <GridIcon />
-      </IconContainer>
+      </IconContainer> */}
     </Container>
   );
 };
