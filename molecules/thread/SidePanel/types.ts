@@ -1,4 +1,4 @@
-import { ContentType, DividerContent, ImageContent } from '~/@types/resources/thread';
+import { ContentType, DividerContent, ImageContent, UrlContent } from '~/@types/resources/thread';
 
 export type CreatedContent =
   | {
@@ -6,7 +6,8 @@ export type CreatedContent =
       emoji: string;
     }
   | ImageContent
-  | DividerContent;
+  | DividerContent
+  | UrlContent;
 
 export interface ImageUploadResponse {
   url: string;

@@ -1,24 +1,16 @@
-import { FC, memo, useEffect, useRef, useState } from 'react';
+import { FC, memo, MouseEvent, useEffect, useRef, useState } from 'react';
 import _ from 'lodash';
-import {
-  ImageIcon,
-  VideoIcon,
-  SmileIcon,
-  LineIcon,
-  CodeIcon,
-  LinkIcon,
-  QuoteIcon,
-  GridIcon,
-} from '~/public/assets/icon';
+import { ImageIcon, SmileIcon, LineIcon, CodeIcon, LinkIcon } from '~/public/assets/icon';
 import { Container, IconContainer } from './SidePanel.styled';
 import { promptFileSelector } from '~/utils/file';
 import { ContentType, DividerType } from '~/@types/resources/thread';
 import { CreatedContent, ImageUploadResponse } from './types';
 import EmojiPicker, { Emoji } from './EmojiPicker';
 import DividerPicker from './DividerPicker';
-import { createDividerContent, createImageContent } from '../Contents/helpers';
+import { createDividerContent, createImageContent, createUrlContent } from '../Contents/helpers';
 import axios from '~/utils/api';
-// import useSWR from 'swr';
+import { FileExtensionType } from '~/utils/file/types';
+import UrlPicker from './UrlPicker';
 
 interface Props {
   onContentCreated: (createdContent: CreatedContent) => void;
@@ -30,6 +22,7 @@ const SidePannel: FC<Props> = ({ onContentCreated }) => {
   const ref = useRef<HTMLDivElement>(null);
   const [emojiPickerOpened, setEmojiPickerOpened] = useState(false);
   const [deviderPickerOpened, setDividerPickerOpened] = useState(false);
+  const [urlPickerOpened, setUrlPickerOpened] = useState(false);
   // const { data } = useSWR<any>(threadImageUploadEndpoint, axios);
 
   useEffect(() => {
@@ -44,7 +37,7 @@ const SidePannel: FC<Props> = ({ onContentCreated }) => {
   }, []);
 
   const handleSelectImage = async () => {
-    const file = await promptFileSelector();
+    const file = await promptFileSelector(FileExtensionType.IMAGE);
 
     const formData = new FormData();
     formData.append('file', file);
@@ -75,14 +68,22 @@ const SidePannel: FC<Props> = ({ onContentCreated }) => {
     onContentCreated(createDividerContent(deviderType));
   };
 
+  const handleSelectUrl = (url: string, description: string) => {
+    setUrlPickerOpened(false);
+    onContentCreated(createUrlContent(url, description));
+  };
+  const handleMouseDown = (event: MouseEvent<HTMLDivElement>) => {
+    event.preventDefault();
+  };
+
   return (
-    <Container ref={ref} onMouseDown={(event) => event.preventDefault()}>
+    <Container ref={ref} onMouseDown={handleMouseDown}>
       <IconContainer onClick={handleSelectImage}>
         <ImageIcon />
       </IconContainer>
-      <IconContainer>
+      {/* <IconContainer>
         <VideoIcon />
-      </IconContainer>
+      </IconContainer> */}
       <IconContainer onClick={() => setEmojiPickerOpened(true)}>
         <SmileIcon />
         {emojiPickerOpened && (
@@ -105,15 +106,22 @@ const SidePannel: FC<Props> = ({ onContentCreated }) => {
       <IconContainer>
         <CodeIcon />
       </IconContainer>
-      <IconContainer>
+      <IconContainer onClick={() => setUrlPickerOpened(true)}>
         <LinkIcon />
+        {urlPickerOpened && (
+          <UrlPicker
+            isPanel
+            onSelect={handleSelectUrl}
+            onClickOutside={() => setUrlPickerOpened(false)}
+          />
+        )}
       </IconContainer>
-      <IconContainer>
+      {/* <IconContainer>
         <QuoteIcon />
       </IconContainer>
       <IconContainer>
         <GridIcon />
-      </IconContainer>
+      </IconContainer> */}
     </Container>
   );
 };

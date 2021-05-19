@@ -1,5 +1,5 @@
-import { Wrapper, BorderLine } from './TextInput.styled';
-import Input, { Props as InputProps } from './Input';
+import { Wrapper, BorderLine, Input } from './TextInput.styled';
+import { Props as InputProps } from './Input';
 import { Description } from '~/atoms/description';
 import { Error } from '~/atoms/error';
 

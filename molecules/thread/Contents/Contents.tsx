@@ -358,15 +358,48 @@ const Contents: FC<Props> = ({ isEditMode, contents, onChangeContents }) => {
       return;
     }
 
+    if (createdContent.type === ContentType.URL) {
+      // const { key, shiftKey, target } = event;
+      // Next step
+      // if (!focusInfo) throw new Error();
+      // // const content = contents[index];
+      // const index = contents.findIndex(({ id }) => id === focusInfo.contentId);
+      // const caretNum = getCaretNumber(target);
+      // let currContent;
+      // let nextContent;
+      // if (content.type === ContentType.TEXT) {
+      //   currContent = {
+      //     ...content,
+      //     ...(caretNum !== null ? { value: content.value.slice(0, caretNum) } : null),
+      //   };
+      //   nextContent = createTextContent(caretNum !== null ? content.value.slice(caretNum) : '');
+      // } else {
+      //   currContent = content;
+      //   nextContent = createTextContent();
+      // }
+      // onChangeContents([
+      //   ...contents.slice(0, index),
+      //   currContent,
+      //   nextContent,
+      //   ...contents.slice(index + 1),
+      // ]);
+      // setFocusInfo({
+      //   contentId: nextContent.id,
+      //   focusType: FocusType.FIRST_CARET,
+      // });
+    }
+
     console.log('keep return statement');
   };
 
   const containerRef = useRef<HTMLDivElement>(null);
   return (
     <Container isEditMode={isEditMode} onClick={handleClickEmptySpace} ref={containerRef}>
-      {isEditMode && <SidePanel onContentCreated={handleContentCreated} />}
       {isEditMode && (
-        <InlinePanel onContentWrapped={handleContentWrapped} baseElement={containerRef.current} />
+        <>
+          <SidePanel onContentCreated={handleContentCreated} />
+          <InlinePanel onContentWrapped={handleContentWrapped} baseElement={containerRef.current} />
+        </>
       )}
       {contents.map((content, index) => {
         switch (content.type) {

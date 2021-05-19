@@ -2,8 +2,7 @@ import { CategoryType, ContentType, Thread } from '~/@types/resources/thread';
 
 export default {
   id: 123,
-  thumbnailUrl: '',
-  coverUrl:
+  thumbnailUrl:
     'https://storage.googleapis.com/twg-content/original_images/2560x1152_Google_MarketingPlatform.png',
   title: 'Google Marketing Platform으로 데이터 분석하기',
   subTitle: '',

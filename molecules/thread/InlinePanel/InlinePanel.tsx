@@ -2,7 +2,7 @@ import { FC, memo, MouseEventHandler, useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { getCaretPixel, findSelectionBlockNode } from '~/utils/dom';
 import { Container, PanelContainer, PanelContent } from './InlinePanel.styled';
-import { Panel, ColorPalette, AlignPanel, HeadingPanel, UrlPanel } from '~/atoms/panel';
+import { Panel, ColorPalette, AlignPanel, HeadingPanel, UrlPanel, TrashPanel } from '~/atoms/panel';
 import { DesignCommandType } from '~/@types/resources/thread';
 import { useRootState } from '~/app/store';
 import {
@@ -10,7 +10,6 @@ import {
   setIsOpenBackPalette,
   setIsOpenHeadingPanel,
   setIsOpenPalette,
-  setIsOpenUrlPanel,
 } from '~/molecules/thread/Contents/Contents.slice';
 import { CaretPixel, PanelStyles } from './types';
 import BackColorPalette from '~/atoms/panel/BackColorPalette';
@@ -23,13 +22,14 @@ interface Props {
 const InlinePannel: FC<Props> = ({ baseElement, onContentWrapped }) => {
   const [currentStyle, setCurrentStyle] = useState<PanelStyles>();
   const [caretPixel, setCaretPixel] = useState<CaretPixel | null>(null);
-
+  const [memoCaretPixel, setMemoCaretPixel] = useState<CaretPixel>();
   const {
     isOpenPalette,
     isOpenAlignPanel,
     isOpenHeadingPanel,
     isOpenBackPalette,
     isOpenUrlPanel,
+    posTrashPanel,
   } = useRootState(({ contents }) => contents);
   const dispatch = useDispatch();
 
@@ -63,6 +63,12 @@ const InlinePannel: FC<Props> = ({ baseElement, onContentWrapped }) => {
     return () => document.removeEventListener('selectionchange', handleSelectionChange);
   }, []);
 
+  useEffect(() => {
+    if (caretPixel) {
+      setMemoCaretPixel(caretPixel);
+    }
+  }, [caretPixel]);
+
   const handleCurrentStyle = () => {
     const selectionNode = document.getSelection()?.getRangeAt(0).startContainer.parentNode as any;
 
@@ -93,9 +99,16 @@ const InlinePannel: FC<Props> = ({ baseElement, onContentWrapped }) => {
     dispatch(setIsOpenAlignPanel(false));
     dispatch(setIsOpenHeadingPanel(false));
     dispatch(setIsOpenBackPalette(false));
-    dispatch(setIsOpenUrlPanel(false));
   };
 
+  if (posTrashPanel) {
+    return <TrashPanel />;
+  }
+  if (memoCaretPixel) {
+    if (isOpenUrlPanel) {
+      return <UrlPanel top={memoCaretPixel.top} left={memoCaretPixel.left} />;
+    }
+  }
   if (!caretPixel) return null;
 
   return (
@@ -104,7 +117,6 @@ const InlinePannel: FC<Props> = ({ baseElement, onContentWrapped }) => {
       {isOpenHeadingPanel && <HeadingPanel />}
       {isOpenPalette && <ColorPalette />}
       {isOpenBackPalette && <BackColorPalette />}
-      {isOpenUrlPanel && <UrlPanel />}
       <PanelContainer>
         {Panel.map(({ type, Component }) => (
           <PanelContent onClick={() => handleClickPanel(type)} key={type}>
