@@ -15,6 +15,7 @@ import {
 } from '~/molecules/thread';
 import { getNextBlockElement } from '~/molecules/thread/Block/helpers';
 import threadMockData from '~/molecules/thread/_data';
+// import axios from '~/utils/api';
 
 const { Container, Header, Tasks, TitleBlock, SubTitleBlock, Metas, Divider } = Layout;
 
@@ -57,12 +58,17 @@ const ThreadPage: FC = () => {
   const handleClickCaptureContainer: MouseEventHandler<HTMLElement> = (event) => {
     // 문서 편집 중에는 모든 링크 동작하지 않도록 처리
     if (isEditMode && (event.target as HTMLElement).tagName === 'A') {
-      event.preventDefault();
+      // event.preventDefault();
     }
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     console.log(thread);
+
+    // const formData = new FormData();
+
+    // const test = (await axios.post(`v1/threads/register`, { data: thread })) as any;
+    // console.log(test);
   };
 
   return (
@@ -85,7 +91,7 @@ const ThreadPage: FC = () => {
             </Tasks>
           </Header>
         )}
-        <Cover url={thread.coverUrl} editable={isEditMode} onChange={handleChangeCover} />
+        <Cover url={thread.thumbnailUrl} editable={isEditMode} onChange={handleChangeCover} />
         <TitleBlock
           openPanel={false}
           editable={isEditMode}

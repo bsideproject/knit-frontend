@@ -3,8 +3,6 @@ export interface Thread {
   id: 123;
   /* 문서 대표이미지 url (s3) */
   thumbnailUrl?: string;
-  /* 문서 커버이미지 url (s3) */
-  coverUrl?: string;
   /* 문서 표제 */
   title: string;
   /* 문서 부제 */
@@ -46,6 +44,7 @@ export enum ContentType {
   CODE = 'CODE',
   DEVIDER = 'DEVIDER',
   EMOJI = 'EMOJI',
+  URL = 'URL',
 }
 
 export interface Content<T extends ContentType> {
@@ -76,6 +75,11 @@ export enum DividerType {
 }
 export interface DividerContent extends Content<ContentType.DEVIDER> {
   deviderType: DividerType;
+}
+
+export interface UrlContent extends Content<ContentType.URL> {
+  url: string;
+  description: string;
 }
 
 export type CodeFormat = 'javascript' | 'json' | void;

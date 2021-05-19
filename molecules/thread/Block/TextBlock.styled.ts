@@ -4,6 +4,7 @@ import ContentEditable from 'react-contenteditable';
 import { resolveProp } from '~/utils/styles';
 import { BlockProps } from './types';
 import * as font from '~/styles/font';
+import { theme } from '~/styles';
 
 export const Container = styled(ContentEditable as any)<Omit<BlockProps, 'onChange'>>`
   padding: 10px;
@@ -38,4 +39,9 @@ export const Container = styled(ContentEditable as any)<Omit<BlockProps, 'onChan
       }
     `,
   })}
+
+  a {
+    color: ${theme.palette.primary} !important;
+    text-decoration: underline;
+  }
 `;

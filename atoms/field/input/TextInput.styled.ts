@@ -1,6 +1,7 @@
 import styled from '@emotion/styled';
 import { css, Theme } from '@emotion/react';
 import { TextInputProps } from './TextInput';
+import AtomInput from './Input';
 
 const colorStyles = ({ theme, error, disabled }: TextInputProps & { theme: Theme }) => {
   if (disabled) {
@@ -32,7 +33,7 @@ export const BorderLine = styled.div`
   display: inline-block;
   transition: 0.3s width ease-in-out;
   position: absolute;
-  top: 24px;
+  bottom: 0px;
   ${colorStyles}
 `;
 
@@ -51,8 +52,9 @@ export const Wrapper = styled.div<TextInputProps>`
 
       & + div {
         width: 100%;
-        height: 2px;
+        height: 1px;
       }
     }
   }
 `;
+export const Input = styled(AtomInput)``;
