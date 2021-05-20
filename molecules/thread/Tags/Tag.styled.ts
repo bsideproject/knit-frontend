@@ -9,7 +9,7 @@ export const DeleteButton = styled(CloseButton)`
   top: 0px;
   left: 10px;
   height: 30px;
-
+  padding: 0px;
   display: inline-flex;
   justify-content: center;
   align-items: center;
@@ -25,7 +25,6 @@ export const DeleteButton = styled(CloseButton)`
 export const Container = styled.div<{ editting?: boolean }>`
   position: relative;
   display: inline-block;
-
   & > ${Tag} {
     position: relative;
     margin: 0 10px 10px 0;
@@ -37,6 +36,7 @@ export const Container = styled.div<{ editting?: boolean }>`
   ${resolveProp('editting', {
     true: css`
       &:hover {
+        margin-left: 8px;
         & > ${Tag} {
           background: #f7b8ce;
           z-index: 1;

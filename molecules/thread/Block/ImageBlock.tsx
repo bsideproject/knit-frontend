@@ -71,7 +71,7 @@ const ImageBlock: FC<ImageBlockProps> = ({
           대표
         </RepresentButton>
       )}
-      {focusInfo && <ImagePicker onDelete={onDelete} />}
+      {editable && focusInfo && <ImagePicker onDelete={onDelete} />}
     </Container>
   );
 };

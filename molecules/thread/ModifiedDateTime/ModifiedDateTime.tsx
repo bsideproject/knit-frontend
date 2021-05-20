@@ -8,6 +8,9 @@ interface Props {
 }
 
 const ModifiedDateTime: FC<Props> = ({ dateTime }) => {
+  if (!dateTime) {
+    return null;
+  }
   const formattedDateTime = DateTime.fromMillis(dateTime).toFormat('yyyy.LL.dd HH:mm');
   return <Container>{formattedDateTime} 작성된 문서</Container>;
 };

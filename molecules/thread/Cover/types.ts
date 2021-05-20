@@ -1,5 +1,8 @@
 export interface CoverProps {
-  url?: string;
+  url?: string | undefined | null;
   editable: boolean;
   onChange: (url: string | null) => void;
+}
+export interface ImageUploadResponse {
+  url: string;
 }

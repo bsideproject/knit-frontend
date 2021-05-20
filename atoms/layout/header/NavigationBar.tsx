@@ -33,7 +33,12 @@ const NavigationBar = () => {
         </LeftBox>
         <RightBox>
           <RightContent>
-            랜덤 문서
+            <Link href="/">
+              <a>문서 읽기</a>
+            </Link>
+            <Link href="/thread">
+              <a>문서 작성</a>
+            </Link>
             <SearchInput placeholder="검색어를 입력하세요." onSubmit={onSubmit} />
             <a href="#" onClick={handleClickSignin}>
               시작하기

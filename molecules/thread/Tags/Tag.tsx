@@ -16,8 +16,8 @@ const Tag: FC<Props> = ({ id, title, editting, onClickDelete }) => {
 
   return (
     <Container editting={editting}>
-      <DeleteButton sizePx={25} iconSizePx={10} onClick={handleClickDelete} tabIndex={-1} />
-      <TagAtom title={title} onClick={handleClickDelete} tabIndex={-1} />
+      <DeleteButton sizePx={20} iconSizePx={10} onClick={handleClickDelete} tabIndex={-1} />
+      <TagAtom title={title} tabIndex={-1} />
     </Container>
   );
 };
