@@ -43,7 +43,7 @@ const Contents: FC<Props> = ({ isEditMode, contents = [], onChangeContents }) =>
     if (event.target !== event.currentTarget) return;
 
     // block이 하나도 없는 경우 text block을 생성한 뒤 focus
-    if (!contents || !_.size(contents)) {
+    if (!_.size(contents)) {
       const content = createTextContent();
       onChangeContents([content]);
       setFocusInfo({
