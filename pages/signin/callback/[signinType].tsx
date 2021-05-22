@@ -60,6 +60,7 @@ const handleNaverLogin = async () => {
        * - Knit BE 로그인 API 호출
        * - Knit Access token, Refresh token 저장
        */
+      localStorage.setItem('access_token', naverLogin.accessToken.accessToken);
       resolve();
     });
   });
