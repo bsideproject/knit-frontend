@@ -1,5 +1,6 @@
 import { FC, useState, memo, useRef, MouseEventHandler, KeyboardEventHandler } from 'react';
 import { useDispatch } from 'react-redux';
+import _ from 'lodash';
 import { ContentEditableEvent } from 'react-contenteditable';
 import { ContentType, DividerType, Thread, DesignCommandType } from '~/@types/resources/thread';
 import { getCaretNumber } from '~/utils/dom';
@@ -26,10 +27,10 @@ interface Props {
   onChangeContents: (contents: Thread['contents']) => void;
 }
 
-const Contents: FC<Props> = ({ isEditMode, contents, onChangeContents }) => {
+const Contents: FC<Props> = ({ isEditMode, contents = [], onChangeContents }) => {
   const [focusInfo, setFocusInfo] = useState<{ contentId: number } & FocusInfo>();
   const dispatch = useDispatch();
-
+  const containerRef = useRef<HTMLDivElement>(null);
   const {
     isOpenPalette,
     isOpenAlignPanel,
@@ -42,25 +43,25 @@ const Contents: FC<Props> = ({ isEditMode, contents, onChangeContents }) => {
     if (event.target !== event.currentTarget) return;
 
     // block이 하나도 없는 경우 text block을 생성한 뒤 focus
-    if (contents.length === 0) {
+    if (!_.size(contents)) {
       const content = createTextContent();
       onChangeContents([content]);
       setFocusInfo({
-        contentId: content.id,
+        contentId: content.contentId,
         focusType: FocusType.LAST_CARET,
       });
       return;
     }
     // 마지막 block에 focus
     setFocusInfo({
-      contentId: contents[contents.length - 1].id,
+      contentId: contents[contents.length - 1].contentId,
       focusType: FocusType.LAST_CARET,
     });
   };
 
-  const createFocusHandler = (id: number) => () => {
+  const createFocusHandler = (contentId: number) => () => {
     setFocusInfo({
-      contentId: id,
+      contentId,
       focusType: FocusType.PASSIVE,
     });
   };
@@ -110,7 +111,7 @@ const Contents: FC<Props> = ({ isEditMode, contents, onChangeContents }) => {
         ...contents.slice(index + 1),
       ]);
       setFocusInfo({
-        contentId: nextContent.id,
+        contentId: nextContent.contentId,
         focusType: FocusType.FIRST_CARET,
       });
     }
@@ -137,14 +138,14 @@ const Contents: FC<Props> = ({ isEditMode, contents, onChangeContents }) => {
             value: `${prevContent.value}${content.value}`,
           };
           setFocusInfo({
-            contentId: updatedPrevContent.id,
+            contentId: updatedPrevContent.contentId,
             focusType: FocusType.DESIGNATE_CARET,
             focusCaretPos: prevContent.value.length,
           });
         } else {
           updatedPrevContent = prevContent;
           setFocusInfo({
-            contentId: updatedPrevContent.id,
+            contentId: updatedPrevContent.contentId,
             focusType: FocusType.LAST_CARET,
           });
         }
@@ -167,7 +168,7 @@ const Contents: FC<Props> = ({ isEditMode, contents, onChangeContents }) => {
 
       event.preventDefault();
       setFocusInfo({
-        contentId: shiftKey ? contents[index - 1].id : contents[index + 1].id,
+        contentId: shiftKey ? contents[index - 1].contentId : contents[index + 1].contentId,
         focusType: FocusType.LAST_CARET,
       });
     }
@@ -183,7 +184,7 @@ const Contents: FC<Props> = ({ isEditMode, contents, onChangeContents }) => {
       }
       event.preventDefault();
       setFocusInfo({
-        contentId: contents[index - 1].id,
+        contentId: contents[index - 1].contentId,
         focusType: FocusType.LAST_CARET,
       });
       return;
@@ -201,24 +202,24 @@ const Contents: FC<Props> = ({ isEditMode, contents, onChangeContents }) => {
 
       event.preventDefault();
       setFocusInfo({
-        contentId: contents[index + 1].id,
+        contentId: contents[index + 1].contentId,
         focusType: FocusType.FIRST_CARET,
       });
     }
   };
 
-  const createChangeRepresentImageHandler = (id: number) => () => {
+  const createChangeRepresentImageHandler = (contentId: number) => () => {
     const updatedContents = contents.map((content) => {
       if (content.type !== ContentType.IMAGE) return content;
-      return { ...content, represent: content.id === id };
+      return { ...content, represent: content.contentId === contentId };
     });
     onChangeContents(updatedContents);
   };
 
-  const createChangeDividerHandler = (id: number) => (deviderType: DividerType) => {
+  const createChangeDividerHandler = (contentId: number) => (deviderType: DividerType) => {
     const updatedContents = contents.map((content) => {
       if (content.type !== ContentType.DEVIDER) return content;
-      if (content.id !== id) return content;
+      if (content.contentId !== contentId) return content;
       return { ...content, deviderType };
     });
     onChangeContents(updatedContents);
@@ -227,7 +228,7 @@ const Contents: FC<Props> = ({ isEditMode, contents, onChangeContents }) => {
   const deleteCurrentContents = (index: number) => () => {
     const prevContent = contents[index - 1];
     setFocusInfo({
-      contentId: prevContent.id,
+      contentId: prevContent.contentId,
       focusType: FocusType.LAST_CARET,
     });
     onChangeContents([...contents.slice(0, index - 1), prevContent, ...contents.slice(index + 1)]);
@@ -272,7 +273,7 @@ const Contents: FC<Props> = ({ isEditMode, contents, onChangeContents }) => {
         // text block에 focus되어 있는 상태로 이모티콘 추가한 경우 현재 caret 위치에 이모티콘 입력
         if (!focusInfo) throw new Error();
 
-        const index = contents.findIndex(({ id }) => id === focusInfo.contentId);
+        const index = contents.findIndex(({ contentId }) => contentId === focusInfo.contentId);
         if (index === -1) throw new Error();
 
         const focusedContent = contents[index];
@@ -293,7 +294,7 @@ const Contents: FC<Props> = ({ isEditMode, contents, onChangeContents }) => {
           ...contents.slice(index + 1),
         ]);
         setFocusInfo({
-          contentId: updatedContent.id,
+          contentId: updatedContent.contentId,
           focusType: FocusType.DESIGNATE_CARET,
           focusCaretPos: caretPosNum + emoji.length,
         });
@@ -302,7 +303,7 @@ const Contents: FC<Props> = ({ isEditMode, contents, onChangeContents }) => {
         const content = createTextContent(emoji);
         onChangeContents(contents.concat(content));
         setFocusInfo({
-          contentId: content.id,
+          contentId: content.contentId,
           focusType: FocusType.LAST_CARET,
         });
       }
@@ -314,7 +315,7 @@ const Contents: FC<Props> = ({ isEditMode, contents, onChangeContents }) => {
         // focus 된 block이 있는 경우 다음 위치에 devider block 추가
         if (!focusInfo) throw new Error();
 
-        const index = contents.findIndex(({ id }) => id === focusInfo.contentId);
+        const index = contents.findIndex(({ contentId }) => contentId === focusInfo.contentId);
         if (index === -1) throw new Error();
 
         onChangeContents([
@@ -327,7 +328,7 @@ const Contents: FC<Props> = ({ isEditMode, contents, onChangeContents }) => {
         onChangeContents(contents.concat(createdContent));
       } finally {
         setFocusInfo({
-          contentId: createdContent.id,
+          contentId: createdContent.contentId,
           focusType: FocusType.LAST_CARET,
         });
       }
@@ -339,7 +340,7 @@ const Contents: FC<Props> = ({ isEditMode, contents, onChangeContents }) => {
         // focus 된 block이 있는 경우 다음 위치에 Image block 추가
         if (!focusInfo) throw new Error();
 
-        const index = contents.findIndex(({ id }) => id === focusInfo.contentId);
+        const index = contents.findIndex(({ contentId }) => contentId === focusInfo.contentId);
         if (index === -1) throw new Error();
         onChangeContents([
           ...contents.slice(0, index + 1),
@@ -351,7 +352,7 @@ const Contents: FC<Props> = ({ isEditMode, contents, onChangeContents }) => {
         onChangeContents(contents.concat(createdContent));
       } finally {
         setFocusInfo({
-          contentId: createdContent.id,
+          contentId: createdContent.contentId,
           focusType: FocusType.LAST_CARET,
         });
       }
@@ -363,7 +364,7 @@ const Contents: FC<Props> = ({ isEditMode, contents, onChangeContents }) => {
       // Next step
       // if (!focusInfo) throw new Error();
       // // const content = contents[index];
-      // const index = contents.findIndex(({ id }) => id === focusInfo.contentId);
+      // const index = contents.findIndex(({ contentId }) => contentId === focusInfo.contentId);
       // const caretNum = getCaretNumber(target);
       // let currContent;
       // let nextContent;
@@ -384,7 +385,7 @@ const Contents: FC<Props> = ({ isEditMode, contents, onChangeContents }) => {
       //   ...contents.slice(index + 1),
       // ]);
       // setFocusInfo({
-      //   contentId: nextContent.id,
+      //   contentId: nextContent.contentId,
       //   focusType: FocusType.FIRST_CARET,
       // });
     }
@@ -392,7 +393,6 @@ const Contents: FC<Props> = ({ isEditMode, contents, onChangeContents }) => {
     console.log('keep return statement');
   };
 
-  const containerRef = useRef<HTMLDivElement>(null);
   return (
     <Container isEditMode={isEditMode} onClick={handleClickEmptySpace} ref={containerRef}>
       {isEditMode && (
@@ -401,18 +401,18 @@ const Contents: FC<Props> = ({ isEditMode, contents, onChangeContents }) => {
           <InlinePanel onContentWrapped={handleContentWrapped} baseElement={containerRef.current} />
         </>
       )}
-      {contents.map((content, index) => {
+      {contents?.map((content, index) => {
         switch (content.type) {
           case ContentType.TEXT:
             return (
               <BlockWrapper>
                 <TextBlock
-                  key={content.id}
+                  key={content.contentId}
                   editable={isEditMode}
                   value={content.value}
-                  focusInfo={content.id === focusInfo?.contentId ? focusInfo : null}
+                  focusInfo={content.contentId === focusInfo?.contentId ? focusInfo : null}
                   onBlur={handleBlur}
-                  onFocus={createFocusHandler(content.id)}
+                  onFocus={createFocusHandler(content.contentId)}
                   onKeyDown={createKeyDownHandler(index)}
                   onKeyPress={createKeyPressHandler(index)}
                   onChange={createChangeHandler(index)}
@@ -423,16 +423,16 @@ const Contents: FC<Props> = ({ isEditMode, contents, onChangeContents }) => {
             return (
               <BlockWrapper>
                 <ImageBlock
-                  key={content.id}
+                  key={content.contentId}
                   editable={isEditMode}
                   url={content.url}
-                  focusInfo={content.id === focusInfo?.contentId ? focusInfo : null}
+                  focusInfo={content.contentId === focusInfo?.contentId ? focusInfo : null}
                   onBlur={handleBlur}
-                  onFocus={createFocusHandler(content.id)}
+                  onFocus={createFocusHandler(content.contentId)}
                   onKeyDown={createKeyDownHandler(index)}
                   onKeyPress={createKeyPressHandler(index)}
                   represent={content.represent}
-                  onChangeRepresent={createChangeRepresentImageHandler(content.id)}
+                  onChangeRepresent={createChangeRepresentImageHandler(content.contentId)}
                   onDelete={deleteCurrentContents(index)}
                 />
               </BlockWrapper>
@@ -441,15 +441,15 @@ const Contents: FC<Props> = ({ isEditMode, contents, onChangeContents }) => {
             return (
               <BlockWrapper>
                 <DividerBlock
-                  key={content.id}
+                  key={content.contentId}
                   type={content.deviderType}
                   editable={isEditMode}
-                  focusInfo={content.id === focusInfo?.contentId ? focusInfo : null}
+                  focusInfo={content.contentId === focusInfo?.contentId ? focusInfo : null}
                   onBlur={handleBlur}
-                  onFocus={createFocusHandler(content.id)}
+                  onFocus={createFocusHandler(content.contentId)}
                   onKeyDown={createKeyDownHandler(index)}
                   onKeyPress={createKeyPressHandler(index)}
-                  onChange={createChangeDividerHandler(content.id)}
+                  onChange={createChangeDividerHandler(content.contentId)}
                   onDelete={deleteCurrentContents(index)}
                 />
               </BlockWrapper>
@@ -458,12 +458,12 @@ const Contents: FC<Props> = ({ isEditMode, contents, onChangeContents }) => {
             return (
               <BlockWrapper>
                 <CodeBlock
-                  key={content.id}
+                  key={content.contentId}
                   editable={isEditMode}
                   value={content.value}
-                  focusInfo={content.id === focusInfo?.contentId ? focusInfo : null}
+                  focusInfo={content.contentId === focusInfo?.contentId ? focusInfo : null}
                   onBlur={handleBlur}
-                  onFocus={createFocusHandler(content.id)}
+                  onFocus={createFocusHandler(content.contentId)}
                   onKeyDown={createKeyDownHandler(index)}
                   onKeyPress={createKeyPressHandler(index)}
                   // onChange={createChangeCodeHandler(index)}

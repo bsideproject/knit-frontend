@@ -12,7 +12,7 @@ interface Props {
   onChange: (tags: Thread['tags']) => void;
 }
 
-const Tags: FC<Props> = ({ isEditMode, tags, onChange }) => {
+const Tags: FC<Props> = ({ isEditMode, tags = [], onChange }) => {
   const tagsRef = useRef(tags);
   const inputRef = useRef<HTMLDivElement>();
   const inputValue = useRef('');
@@ -55,10 +55,13 @@ const Tags: FC<Props> = ({ isEditMode, tags, onChange }) => {
 
   return (
     <Container ref={containerRef} isEditMode={isEditMode} onClick={handleClickContainer}>
-      {tags.map(({ id, value }) => (
+      {tags?.map(({ id, value }) => (
         <Tag key={id} id={id} title={value} editting={editting} onClickDelete={handleClickDelete} />
       ))}
-      {editting ? (
+
+      <EmptyTag tags={tags} editting={editting} />
+
+      {editting && (
         <TagInput
           ref={inputRef}
           value={inputValue.current}
@@ -66,9 +69,7 @@ const Tags: FC<Props> = ({ isEditMode, tags, onChange }) => {
           onCancel={handleCancel}
           onSubmit={handleSubmitInput}
         />
-      ) : tags.length === 0 ? (
-        <EmptyTag />
-      ) : null}
+      )}
     </Container>
   );
 };
