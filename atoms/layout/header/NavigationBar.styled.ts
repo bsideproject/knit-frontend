@@ -28,10 +28,9 @@ export const RightBox = styled.div`
 `;
 
 export const RightContent = styled.div`
-  width: 450px;
+  width: 530px;
+  position: relative;
   justify-content: space-around;
 `;
 
-export const AtagStyled = styled.a`
-  margin-left: 10px;
-`;
+export const AtagStyled = styled.a``;

@@ -1,23 +1,38 @@
-import { FC, memo } from 'react';
+import { FC, memo, MouseEvent } from 'react';
 import { promptFileSelector } from '~/utils/file';
 import { Container, Image, ImageChangeButton, ImageWrapper, TaskButton } from './Cover.styled';
-import { CoverProps } from './types';
+import { CoverProps, ImageUploadResponse } from './types';
+import axios from '~/utils/api';
+import { FileExtensionType } from '~/utils/file/types';
 
 const Cover: FC<CoverProps> = ({ url, editable, onChange }) => {
+  const appendImage = async () => {
+    const file = await promptFileSelector(FileExtensionType.IMAGE);
+
+    const formData = new FormData();
+    formData.append('file', file);
+    formData.append('type', 'thumbnail');
+    try {
+      const { url } = (await axios.post(`upload`, formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      })) as ImageUploadResponse;
+      console.log(url);
+      onChange(url);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   const handleClickImage = async () => {
     if (!editable) return;
 
-    // 썸네일 변경
-    const file = await promptFileSelector();
-    /**
-     * TODO
-     * - S3 파일 업로드
-     * - 내려온 URL을 onChange로 부모 컴포넌트에 전달
-     */
-    console.log(file);
+    appendImage();
   };
 
-  const handleClickTaskButton = async () => {
+  const handleClickTaskButton = async (e: MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
     // 썸네일 삭제
     if (url) {
       onChange(null);
@@ -25,13 +40,7 @@ const Cover: FC<CoverProps> = ({ url, editable, onChange }) => {
     }
 
     // 썸네일 추가
-    const file = await promptFileSelector();
-    console.log(file);
-    /**
-     * TODO
-     * - S3 파일 업로드
-     * - 내려온 URL을 onChange로 부모 컴포넌트에 전달
-     */
+    appendImage();
   };
 
   return (

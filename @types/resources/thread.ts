@@ -1,20 +1,20 @@
 export interface Thread {
   /* 문서 id */
-  id: 123;
+  id?: 123;
   /* 문서 대표이미지 url (s3) */
-  thumbnailUrl?: string;
+  thumbnailUrl?: string | null;
   /* 문서 표제 */
-  title: string;
+  title?: string;
   /* 문서 부제 */
   subTitle?: string;
   /* 문서 직군 카테고리 리스트 (DEVELOP | DESIGN | PLANNING | MARKETING | DATA | ETC) */
-  categories: ReadonlyArray<CategoryType>;
+  categories?: ReadonlyArray<{ categoryId: number; value: CategoryType }>;
   /* 문서 태그 리스트 */
-  tags: ReadonlyArray<{ id: number; value: string }>;
+  tags?: ReadonlyArray<{ tagId: number; value: string }>;
   /* 문서 본문 */
-  contents: ReadonlyArray<TextContent | ImageContent | CodeContent | DividerContent>;
+  contents?: ReadonlyArray<TextContent | ImageContent | CodeContent | DividerContent>;
   /* 문서 작성 시간 */
-  modifiedDateTime: number;
+  modifiedDateTime?: number;
 }
 
 export enum DesignCommandType {
@@ -48,7 +48,7 @@ export enum ContentType {
 }
 
 export interface Content<T extends ContentType> {
-  id: number;
+  contentId: number;
   type: T;
 }
 
