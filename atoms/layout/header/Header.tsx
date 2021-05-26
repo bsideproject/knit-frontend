@@ -12,6 +12,7 @@ const PROMOTION_CLOSE_RETENTION_TIME_MS = 24 * 60 * 60 * 1000;
 
 const Header: FC = () => {
   const dispatch = useDispatch();
+
   const [promotionBannerOpened, setPromotionBannerOpened] = useState(false);
 
   useEffect(() => {
