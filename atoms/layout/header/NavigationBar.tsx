@@ -4,16 +4,26 @@ import { useRouter } from 'next/router';
 import { Container } from '~/atoms/layout';
 import { SearchInput } from '~/atoms/field';
 import { SigninModal } from '~/molecules/signin';
+import { useOnClickOutside } from '~/utils/dom';
 import { LeftBox, RightBox, RightContent, Wrapper, AtagStyled } from './NavigationBar.styled';
 import Mainlogo from '~/public/assets/mainlogo';
 import useSession, { signOut } from '~/utils/auth/session';
+import CategoryDropDown from './CategoryDropDown';
 
 const NavigationBar = () => {
   const router = useRouter();
 
   const [signinModalOpened, setSigninModalOpened] = useState(false);
+  const [categoryDropDownOpened, setCategoryDropDownOpened] = useState(false);
   const session = useSession();
-  console.log(session);
+
+  const outofFocusHref = () => {
+    if (categoryDropDownOpened) {
+      setCategoryDropDownOpened(false);
+    }
+  };
+  const elemRef = useOnClickOutside<HTMLDivElement>(outofFocusHref, [categoryDropDownOpened]);
+
   const handleClickSignin = (event: MouseEvent<HTMLAnchorElement>) => {
     event.preventDefault();
     setSigninModalOpened(true);
@@ -23,6 +33,10 @@ const NavigationBar = () => {
     router.push(`/search/${value}`);
   };
 
+  const handleMouseClickedHref = (e: MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault();
+    setCategoryDropDownOpened((prev) => !prev);
+  };
   return (
     <Wrapper>
       <Container>
@@ -35,9 +49,10 @@ const NavigationBar = () => {
         </LeftBox>
         <RightBox>
           <RightContent>
-            <Link href="/">
-              <a>문서 읽기</a>
-            </Link>
+            <a href="#" onClick={handleMouseClickedHref}>
+              문서 읽기
+            </a>
+            {categoryDropDownOpened && <CategoryDropDown elemRef={elemRef} />}
             <Link href="/thread">
               <a>문서 작성</a>
             </Link>

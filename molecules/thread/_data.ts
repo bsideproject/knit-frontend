@@ -6,10 +6,13 @@ export default {
     'https://storage.googleapis.com/twg-content/original_images/2560x1152_Google_MarketingPlatform.png',
   title: 'Google Marketing Platform으로 데이터 분석하기',
   subTitle: '',
-  categories: [CategoryType.MARKETING, CategoryType.DATA],
+  categories: [
+    { categoryId: 1, value: CategoryType.MARKETING },
+    { categoryId: 2, value: CategoryType.DATA },
+  ],
   tags: [
-    { id: 1, value: '퍼포먼스 마케팅' },
-    { id: 2, value: 'GA' },
+    { tagId: 1, value: '퍼포먼스 마케팅' },
+    { tagId: 2, value: 'GA' },
   ] as Thread['tags'],
   contents: [
     {

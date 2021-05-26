@@ -5,6 +5,7 @@ import Tag from './Tag';
 import { Container } from './Tags.styled';
 import { Thread } from '~/@types/resources/thread';
 import EmptyTag from './EmptyTag';
+import { generateUuid } from '~/utils/id';
 
 interface Props {
   isEditMode: boolean;
@@ -38,7 +39,7 @@ const Tags: FC<Props> = ({ isEditMode, tags = [], onChange }) => {
 
   const handleSubmitInput = () => {
     if (!inputValue.current) return;
-    onChange(tagsRef.current.concat({ id: Date.now(), value: inputValue.current }));
+    onChange(tagsRef.current.concat({ tagId: generateUuid(), value: inputValue.current }));
     inputValue.current = '';
   };
 
@@ -48,15 +49,21 @@ const Tags: FC<Props> = ({ isEditMode, tags = [], onChange }) => {
   };
 
   const handleClickDelete = useMemo(() => {
-    return (id: number) => onChange(tags.filter((tag) => tag.id !== id));
+    return (id: number) => onChange(tags.filter((tag) => tag.tagId !== id));
   }, [tags, onChange]);
 
   const containerRef = useOnClickOutside<HTMLDivElement>(handleCancel);
 
   return (
     <Container ref={containerRef} isEditMode={isEditMode} onClick={handleClickContainer}>
-      {tags?.map(({ id, value }) => (
-        <Tag key={id} id={id} title={value} editting={editting} onClickDelete={handleClickDelete} />
+      {tags?.map(({ tagId, value }) => (
+        <Tag
+          key={tagId}
+          id={tagId}
+          title={value}
+          editting={editting}
+          onClickDelete={handleClickDelete}
+        />
       ))}
 
       <EmptyTag tags={tags} editting={editting} />
