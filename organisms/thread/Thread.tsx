@@ -35,7 +35,8 @@ interface Props {
 const ThreadPage: FC<Props> = ({ id, isEditMode }) => {
   const router = useRouter();
   const [thread, setThread] = useState<Thread | null>(null);
-  const [editMode, setEditMode] = useState(isEditMode);
+  const [editMode, setEditMode] = useState(false);
+
   const { data: response } = useSWR<any>(id ? `/thread/${id}` : null, axios);
 
   useEffect(() => {
@@ -43,6 +44,10 @@ const ThreadPage: FC<Props> = ({ id, isEditMode }) => {
       setThread(response.data);
     }
   }, [response, id, router]);
+
+  useEffect(() => {
+    setEditMode(isEditMode);
+  }, [isEditMode]);
 
   const handleClickCancelEdit = useCallback(() => {
     if (id) {
