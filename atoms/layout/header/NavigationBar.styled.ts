@@ -29,6 +29,7 @@ export const RightBox = styled.div`
 
 export const RightContent = styled.div`
   width: 530px;
+  position: relative;
   justify-content: space-around;
 `;
 
