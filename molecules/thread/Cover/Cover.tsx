@@ -11,7 +11,7 @@ const Cover: FC<CoverProps> = ({ url, editable, onChange }) => {
 
     const formData = new FormData();
     formData.append('file', file);
-    formData.append('type', 'thumbnail');
+    formData.append('type', 'thumbnailUrl');
     try {
       const { url } = (await axios.post(`upload`, formData, {
         headers: {
