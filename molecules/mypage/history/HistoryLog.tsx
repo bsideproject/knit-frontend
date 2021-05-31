@@ -1,6 +1,5 @@
 import { Container, DateTime, Content } from './HistoryLog.styled';
 
-// hello
 const HistoryLog = () => {
   return (
     <Container>
