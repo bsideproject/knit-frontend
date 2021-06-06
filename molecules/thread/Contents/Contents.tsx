@@ -425,13 +425,13 @@ const Contents: FC<Props> = ({ isEditMode, contents = [], onChangeContents }) =>
                 <ImageBlock
                   key={content.contentId}
                   editable={isEditMode}
-                  url={content.url}
+                  url={content.value}
                   focusInfo={content.contentId === focusInfo?.contentId ? focusInfo : null}
                   onBlur={handleBlur}
                   onFocus={createFocusHandler(content.contentId)}
                   onKeyDown={createKeyDownHandler(index)}
                   onKeyPress={createKeyPressHandler(index)}
-                  represent={content.represent}
+                  // represent={content.represent}
                   onChangeRepresent={createChangeRepresentImageHandler(content.contentId)}
                   onDelete={deleteCurrentContents(index)}
                 />

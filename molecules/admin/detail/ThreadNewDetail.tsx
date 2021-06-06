@@ -1,4 +1,4 @@
-import { FC, useState } from 'react';
+import { FC, useState, ReactNode } from 'react';
 import { Select, Modal, Button } from 'antd';
 import {
   Container,
@@ -6,15 +6,30 @@ import {
   Row,
   Label,
   ThreadTitle,
-  TextArea,
   TagTitle,
   Tag,
   ModalTitle,
   ModalContent,
+  ContentEditable,
 } from './ThreadNewDetail.styled';
+import { CategoryType, Thread, ContentType } from '~/@types/resources/thread';
 
 const { Option } = Select;
-const ThreadNewDetail: FC = () => {
+
+interface Props {
+  thread?: Thread;
+}
+
+const label: Record<CategoryType, ReactNode> = {
+  [CategoryType.PLANNING]: '기획',
+  [CategoryType.DESIGN]: '디자인',
+  [CategoryType.MARKETING]: '마케팅',
+  [CategoryType.DEVELOP]: '개발',
+  [CategoryType.DATA]: '데이터분석',
+  [CategoryType.ETC]: '기타',
+};
+
+const ThreadNewDetail: FC<Props> = ({ thread }) => {
   const [acesssModalOpened, setAcesssModalOpened] = useState(false);
   const [rejectModalOpened, setRejectModalOpened] = useState(false);
 
@@ -59,25 +74,44 @@ const ThreadNewDetail: FC = () => {
             </Select>
           </Row>
         </Content>
-        <Content height="595" paddingTop="60">
-          <ThreadTitle>Docuement Title</ThreadTitle>
+        <Content paddingTop="60">
+          <ThreadTitle>{thread?.title}</ThreadTitle>
 
           <Row span={2}>
             <TagTitle>
               직군 태그
-              <Tag>dsdsad</Tag>
-              <Tag>dsdsad</Tag>
+              {thread?.categories?.map((category) => (
+                <Tag key={category.categoryId}>#{label[category.value]}</Tag>
+              ))}
             </TagTitle>
           </Row>
           <Row span={2}>
             <TagTitle>
               주제 태그
-              <Tag>dsdsad</Tag>
-              <Tag>dsdsad</Tag>
+              {thread?.tags?.map((category) => (
+                <Tag key={category.tagId}>#{category.value}</Tag>
+              ))}
             </TagTitle>
           </Row>
 
-          <TextArea disabled />
+          <ContentEditable
+            disabled
+            onChange={() => {}}
+            html={
+              thread?.contents
+                ?.map((content) => {
+                  if (content.type === ContentType.DEVIDER) {
+                    return null;
+                  }
+
+                  if (content.type === ContentType.IMAGE) {
+                    return `<div><img width="800px" heigth="400px" src=${content.value} /></div>`;
+                  }
+                  return `<div>${content.value}</div>`;
+                })
+                ?.join('') ?? ''
+            }
+          />
         </Content>
       </Container>
 

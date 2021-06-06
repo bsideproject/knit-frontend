@@ -2,6 +2,7 @@ import { VFC } from 'react';
 import useSWR from 'swr';
 import { TableProps } from 'antd';
 import { useRouter } from 'next/router';
+import dayjs from 'dayjs';
 import { AdminTableStyled } from '~/atoms/table';
 import axios from '~/utils/api';
 import { ThreadNewDetail } from '~/molecules/admin/detail';
@@ -18,6 +19,7 @@ const columns = [
     title: '제안 등록일',
     dataIndex: 'createdDate',
     key: 'createdDate',
+    render: (createdDate: Date) => dayjs(createdDate).format('YYYY-MM-DD HH:mm:ss'),
   },
   {
     title: '제안한 유저',
@@ -28,9 +30,10 @@ const threadNewEndPoint = '/v1/admin/waiting';
 
 const ThreadNew: VFC = () => {
   // Todo => response date typing
-  const { data, error } = useSWR<any>(threadNewEndPoint, axios);
   const router = useRouter();
   const { id } = router.query;
+  const { data, error } = useSWR<any>(threadNewEndPoint, axios);
+  const { data: response } = useSWR<any>(id ? `/thread/${1}` : null, axios);
   const onRow = ({ id }: TableProps<Record<string, ''>>) => {
     return {
       onClick: () => {
@@ -40,11 +43,11 @@ const ThreadNew: VFC = () => {
   };
 
   if (id) {
-    return <ThreadNewDetail />;
+    return <ThreadNewDetail thread={response?.data} />;
   }
   return (
     <AdminTableStyled
-      rowKey="userId"
+      rowKey="id"
       loading={!data && !error}
       dataSource={data?.data}
       columns={columns}

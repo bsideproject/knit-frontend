@@ -43,13 +43,13 @@ const SidePannel: FC<Props> = ({ onContentCreated }) => {
     formData.append('file', file);
     formData.append('type', 'thread');
     try {
-      const { url } = (await axios.post(`upload`, formData, {
+      const { url: value } = (await axios.post(`upload`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
       })) as ImageUploadResponse;
 
-      onContentCreated(createImageContent({ url, represent: false }));
+      onContentCreated(createImageContent({ value }));
     } catch (error) {
       console.error(error);
     }

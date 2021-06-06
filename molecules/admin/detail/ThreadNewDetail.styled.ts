@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import ReactContentEditable from 'react-contenteditable';
 import { theme } from '~/styles';
 import * as font from '~/styles/font';
 
@@ -7,7 +8,7 @@ export const Container = styled.div`
   max-width: 1280px;
 `;
 
-export const Content = styled.div<{ height: string; paddingTop?: string }>`
+export const Content = styled.div<{ height?: string; paddingTop?: string }>`
   display: flex;
   flex-wrap: wrap;
   background: ${theme.palette.white};
@@ -36,21 +37,21 @@ export const ThreadTitle = styled.div`
   display: block;
   width: 100%;
   ${font.set(26, 'bold')}
+  padding-bottom: 20px;
 `;
 export const TagTitle = styled.div`
   display: flex;
   align-items: center;
   width: 100%;
-  height: 40px;
+  height: 50%;
   ${font.set(18, 'bold')}
 `;
 
-export const TextArea = styled.textarea`
+export const ContentEditable = styled(ReactContentEditable as any)`
+  padding: 20px;
   width: 100%;
-  height: 60%;
   background: ${theme.palette.white};
   cursor: not-allowed;
-
   border: 1px solid #c4c4c4;
   box-sizing: border-box;
   border-radius: 10px;
@@ -60,13 +61,14 @@ export const Tag = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 100px;
+  width: auto;
   height: 100%;
   background: #ffffff;
   border: 1px solid #c4c4c4;
   box-sizing: border-box;
   border-radius: 10px;
   margin: 3px;
+  padding: 20px;
   color: #18a0fb;
   :first-of-type {
     margin-left: 20px;

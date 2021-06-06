@@ -16,11 +16,8 @@ export const createDividerContent = (deviderType: DividerType): DividerContent =
   return { contentId: generateUuid(), type: ContentType.DEVIDER, deviderType };
 };
 
-export const createImageContent = ({
-  url,
-  represent,
-}: Pick<ImageContent, 'represent' | 'url'>): ImageContent => {
-  return { contentId: generateUuid(), type: ContentType.IMAGE, url, represent };
+export const createImageContent = ({ value }: Pick<ImageContent, 'value'>): ImageContent => {
+  return { contentId: generateUuid(), type: ContentType.IMAGE, value };
 };
 
 export const createUrlContent = (url: string, description: string): UrlContent => {
