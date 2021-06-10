@@ -13,8 +13,12 @@ export interface Thread {
   tags?: ReadonlyArray<{ tagId: number; value: string }>;
   /* 문서 본문 */
   contents?: ReadonlyArray<TextContent | ImageContent | CodeContent | DividerContent>;
-  /* 문서 작성 시간 */
+  /* 문서 작성 시간  deprecated */
   modifiedDateTime?: number;
+  /* 문서 작성시간 */
+  createdDate?: Date;
+
+  nickname?: string;
 }
 
 export enum DesignCommandType {

@@ -28,8 +28,11 @@ const icon: Record<CategoryType, ReactNode> = {
 };
 
 const Category: FC<Props> = ({ type, isEditMode, selected, onClick }) => {
-  const handleClick = () => onClick?.(type);
-
+  const handleClick = () => {
+    if (isEditMode) {
+      onClick?.(type);
+    }
+  };
   return (
     <Container>
       <IconContainer isEditMode={isEditMode} selected={selected} onClick={handleClick}>
