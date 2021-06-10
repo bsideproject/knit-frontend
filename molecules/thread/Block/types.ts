@@ -14,6 +14,7 @@ export interface BlockProps {
 }
 
 export interface TextBlockProps extends BlockProps {
+  id?: number;
   placeholder?: string;
   value?: string;
   onChange?: (event: ContentEditableEvent) => void;
@@ -47,6 +48,8 @@ export type FocusInfo =
   | {
       focusType: FocusType.PASSIVE | FocusType.FIRST_CARET | FocusType.LAST_CARET;
     };
+
+export type MemoFocusInfo = { contentId: number };
 
 export enum FocusType {
   PASSIVE = 1,

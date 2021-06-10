@@ -18,6 +18,7 @@ const TextInput = ({
   description,
   pattern,
   required,
+  onChange,
 }: TextInputProps) => {
   let errorMessage;
 
@@ -42,6 +43,7 @@ const TextInput = ({
         value={value}
         name={name}
         pattern={pattern}
+        onChange={onChange}
       />
       <BorderLine disabled={disabled} error={error} />
       {error ? (

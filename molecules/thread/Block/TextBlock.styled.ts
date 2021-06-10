@@ -16,6 +16,13 @@ export const Container = styled(ContentEditable as any)<Omit<BlockProps, 'onChan
 
   outline: none;
 
+  ${({ test }) =>
+    test
+      ? `background: #f3f2f5;
+box-shadow: 0px 0px 1px 1px #865acc80;
+  `
+      : ``}
+
   ${resolveProp('disabled', {
     false: css`
       color: #2f2f2f;

@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { MemoFocusInfo } from '../Block';
 
 interface Offset {
   x: number;
@@ -11,6 +12,7 @@ interface ContentsState {
   isOpenHeadingPanel: boolean;
   isOpenUrlPanel: boolean;
   posTrashPanel: Offset | null;
+  memoFocusInfo: MemoFocusInfo | null;
 }
 
 const initialState: ContentsState = {
@@ -20,6 +22,7 @@ const initialState: ContentsState = {
   isOpenHeadingPanel: false,
   isOpenUrlPanel: false,
   posTrashPanel: null,
+  memoFocusInfo: null,
 };
 
 const contentsSlice = createSlice({
@@ -44,6 +47,10 @@ const contentsSlice = createSlice({
     setPosTrashPanel(state, { payload }: any) {
       state.posTrashPanel = payload;
     },
+    setMemoFocusInfo(state, { payload }: any) {
+      state.memoFocusInfo = payload;
+    },
+
     // setPosTrashPanel(state, { payload }: PayloadAction<Offset | null>) {
     //   state.posTrashPanel = payload;
     // },
@@ -57,4 +64,5 @@ export const {
   setIsOpenBackPalette,
   setIsOpenUrlPanel,
   setPosTrashPanel,
+  setMemoFocusInfo,
 } = contentsSlice.actions;
