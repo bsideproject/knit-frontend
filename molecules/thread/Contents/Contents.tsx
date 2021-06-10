@@ -19,6 +19,7 @@ import {
   setIsOpenHeadingPanel,
   setIsOpenBackPalette,
   setIsOpenUrlPanel,
+  setMemoFocusInfo,
 } from './Contents.slice';
 
 interface Props {
@@ -37,6 +38,7 @@ const Contents: FC<Props> = ({ isEditMode, contents = [], onChangeContents }) =>
     isOpenHeadingPanel,
     isOpenBackPalette,
     isOpenUrlPanel,
+    memoFocusInfo,
   } = useRootState(({ contents }) => contents);
 
   const handleClickEmptySpace: MouseEventHandler = (event) => {
@@ -360,34 +362,52 @@ const Contents: FC<Props> = ({ isEditMode, contents = [], onChangeContents }) =>
     }
 
     if (createdContent.type === ContentType.URL) {
-      // const { key, shiftKey, target } = event;
-      // Next step
-      // if (!focusInfo) throw new Error();
-      // // const content = contents[index];
-      // const index = contents.findIndex(({ contentId }) => contentId === focusInfo.contentId);
-      // const caretNum = getCaretNumber(target);
-      // let currContent;
-      // let nextContent;
-      // if (content.type === ContentType.TEXT) {
-      //   currContent = {
-      //     ...content,
-      //     ...(caretNum !== null ? { value: content.value.slice(0, caretNum) } : null),
-      //   };
-      //   nextContent = createTextContent(caretNum !== null ? content.value.slice(caretNum) : '');
-      // } else {
-      //   currContent = content;
-      //   nextContent = createTextContent();
-      // }
-      // onChangeContents([
-      //   ...contents.slice(0, index),
-      //   currContent,
-      //   nextContent,
-      //   ...contents.slice(index + 1),
-      // ]);
-      // setFocusInfo({
-      //   contentId: nextContent.contentId,
-      //   focusType: FocusType.FIRST_CARET,
-      // });
+      const { url, description } = createdContent;
+
+      try {
+        // text block에 focus되어 있는 상태로 이모티콘 추가한 경우 현재 caret 위치에 이모티콘 입력
+        if (!memoFocusInfo) throw new Error();
+
+        const index = contents.findIndex(({ contentId }) => contentId === memoFocusInfo.contentId);
+        if (index === -1) throw new Error();
+
+        const focusedContent = contents[index];
+        if (focusedContent.type !== ContentType.TEXT) throw new Error();
+        const caretPosNum = getCaretNumber();
+        // Todo Memo caret Postion
+
+        if (caretPosNum === null) throw new Error();
+
+        const { value } = focusedContent;
+        const updatedContent = {
+          ...focusedContent,
+          value: `${value.slice(0, caretPosNum)}<a href=${url}>${description}</a>${value.slice(
+            caretPosNum
+          )}`,
+        };
+
+        onChangeContents([
+          ...contents.slice(0, index),
+          updatedContent,
+          ...contents.slice(index + 1),
+        ]);
+        setFocusInfo({
+          contentId: updatedContent.contentId,
+          focusType: FocusType.DESIGNATE_CARET,
+          focusCaretPos: caretPosNum + '124214214'.length,
+        });
+      } catch {
+        // text block에 focus되어 있지 않은 경우 새 text block 생성 및 이모티콘 입력
+        const content = createTextContent(url);
+        onChangeContents(contents.concat(content));
+        setFocusInfo({
+          contentId: content.contentId,
+          focusType: FocusType.LAST_CARET,
+        });
+      } finally {
+        setMemoFocusInfo(null);
+      }
+      return;
     }
 
     console.log('keep return statement');
@@ -397,7 +417,7 @@ const Contents: FC<Props> = ({ isEditMode, contents = [], onChangeContents }) =>
     <Container isEditMode={isEditMode} onClick={handleClickEmptySpace} ref={containerRef}>
       {isEditMode && (
         <>
-          <SidePanel onContentCreated={handleContentCreated} />
+          <SidePanel focusInfo={focusInfo} onContentCreated={handleContentCreated} />
           <InlinePanel onContentWrapped={handleContentWrapped} baseElement={containerRef.current} />
         </>
       )}
@@ -407,6 +427,7 @@ const Contents: FC<Props> = ({ isEditMode, contents = [], onChangeContents }) =>
             return (
               <BlockWrapper>
                 <TextBlock
+                  id={content.contentId}
                   key={content.contentId}
                   editable={isEditMode}
                   value={content.value}

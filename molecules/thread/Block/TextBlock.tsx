@@ -5,8 +5,11 @@ import { setCaretPos } from '~/utils/dom';
 import { useWatchRef } from './helpers';
 import { Container } from './TextBlock.styled';
 import { TextBlockProps, FocusType } from './types';
+import { useRootState } from '~/app/store';
+// import { setMemoFocusInfo } from '~/molecules/thread/Contents/Contents.slice';
 
 const TextBlock: FC<TextBlockProps> = ({
+  id,
   className,
   placeholder,
   value,
@@ -25,12 +28,14 @@ const TextBlock: FC<TextBlockProps> = ({
   const onChangeRef = useWatchRef<TextBlockProps['onChange']>(onChange);
   const onKeyPressRef = useWatchRef<TextBlockProps['onKeyPress']>(onKeyPress);
   const onKeyDownRef = useWatchRef<TextBlockProps['onKeyDown']>(onKeyDown);
-
+  // const dispatch = useDispatch();
   const domRef = useRef<ContentEditable>();
-
+  const { memoFocusInfo } = useRootState(({ contents }) => contents);
   useEffect(() => {
     if (!focusInfo) return;
     const { focusType } = focusInfo;
+
+    // dispatch(setMemoFocusInfo(null));
     if (focusType === FocusType.PASSIVE) return;
 
     const element = domRef.current?.el.current;
@@ -68,9 +73,9 @@ const TextBlock: FC<TextBlockProps> = ({
   const handleKeyDown: KeyboardEventHandler = (event) => {
     onKeyDownRef.current?.(event);
   };
-
   return (
     <Container
+      test={id && memoFocusInfo?.contentId === id}
       ref={domRef}
       data-block="true"
       data-openpanel={openPanel}
