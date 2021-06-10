@@ -20,7 +20,7 @@ export interface TextBlockProps extends BlockProps {
 }
 export interface ImageBlockProps extends BlockProps {
   url: string;
-  represent: boolean;
+  represent?: boolean;
   onChangeRepresent: () => void;
   onDelete: () => void;
 }

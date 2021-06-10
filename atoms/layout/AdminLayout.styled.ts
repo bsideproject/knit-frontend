@@ -12,7 +12,6 @@ export const Contents = styled.div<ContentsProps>`
   display: flex;
   padding-top: ${({ paddingTopPx }) => paddingTopPx}px;
   flex: 1 1 auto;
-  width: 100vh;
 `;
 
 export const DashboardTitle = styled.div`

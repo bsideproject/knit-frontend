@@ -51,12 +51,13 @@ const menuOptions = [
     label: '문서 관리',
     children: [
       {
-        key: 'topics',
+        key: 'thread-new',
         label: '새 주제 제안 검토',
         icon: <FileUnknownOutlined />,
+        detail: { key: 'thread-new-detail', label: '제안 상세' },
       },
       {
-        key: 'topics-update',
+        key: 'thread-update',
         label: '수정 제안 검토',
         icon: <EditOutlined />,
       },

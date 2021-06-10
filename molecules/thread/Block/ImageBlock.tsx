@@ -1,6 +1,6 @@
 import { FC, FormEventHandler, KeyboardEventHandler, memo, useEffect, useRef } from 'react';
 import styled from '@emotion/styled';
-import { Container, RepresentButton } from './ImageBlock.styled';
+import { Container } from './ImageBlock.styled';
 import { FocusType, ImageBlockProps } from './types';
 import { setCaretPos } from '~/utils/dom';
 import { ImagePicker } from '~/molecules/thread/Image';
@@ -44,6 +44,7 @@ const ImageBlock: FC<ImageBlockProps> = ({
     onKeyPress?.(event);
   };
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const handleClickRepresent = () => {
     if (represent) return;
     onChangeRepresent();
@@ -66,11 +67,11 @@ const ImageBlock: FC<ImageBlockProps> = ({
       className={className}
     >
       <img alt="" src={url} />
-      {editable && (
-        <RepresentButton represent={represent} onClick={handleClickRepresent} tabIndex={-1}>
+      {/* {editable && (
+        <RepresentButton onClick={handleClickRepresent} tabIndex={-1}>
           대표
         </RepresentButton>
-      )}
+      )} */}
       {editable && focusInfo && <ImagePicker onDelete={onDelete} />}
     </Container>
   );

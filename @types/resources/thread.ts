@@ -57,8 +57,8 @@ export interface TextContent extends Content<ContentType.TEXT> {
 }
 
 export interface ImageContent extends Content<ContentType.IMAGE> {
-  url: string;
-  represent: boolean;
+  value: string;
+  // represent: boolean;
 }
 
 export interface CodeContent extends Content<ContentType.CODE> {
