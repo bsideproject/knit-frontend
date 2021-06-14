@@ -107,6 +107,7 @@ const ThreadPage: FC<Props> = ({ id, isEditMode }) => {
     const { title, thumbnailUrl } = thread;
     if (!title || !thumbnailUrl) {
       window.alert('필수 항목이 누락되었어요. 제목과 커버이미지를 등록해주세요.');
+      return;
     }
     if (id) {
       try {

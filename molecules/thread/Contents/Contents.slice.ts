@@ -13,6 +13,7 @@ interface ContentsState {
   isOpenUrlPanel: boolean;
   posTrashPanel: Offset | null;
   memoFocusInfo: MemoFocusInfo | null;
+  memoCaretNumber: number | null;
 }
 
 const initialState: ContentsState = {
@@ -23,6 +24,7 @@ const initialState: ContentsState = {
   isOpenUrlPanel: false,
   posTrashPanel: null,
   memoFocusInfo: null,
+  memoCaretNumber: null,
 };
 
 const contentsSlice = createSlice({
@@ -50,6 +52,9 @@ const contentsSlice = createSlice({
     setMemoFocusInfo(state, { payload }: any) {
       state.memoFocusInfo = payload;
     },
+    setMemoCaretNumber(state, { payload }: any) {
+      state.memoCaretNumber = payload;
+    },
 
     // setPosTrashPanel(state, { payload }: PayloadAction<Offset | null>) {
     //   state.posTrashPanel = payload;
@@ -65,4 +70,5 @@ export const {
   setIsOpenUrlPanel,
   setPosTrashPanel,
   setMemoFocusInfo,
+  setMemoCaretNumber,
 } = contentsSlice.actions;

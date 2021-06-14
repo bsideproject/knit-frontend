@@ -147,3 +147,8 @@ export const findSelectionBlockNode = (): HTMLElement | null => {
   }
   return null;
 };
+
+export const isDomNode = (domString: string) => {
+  const doc = new DOMParser().parseFromString(domString, 'text/html');
+  return Array.from(doc.body.childNodes).some((node) => node.nodeType === 1);
+};

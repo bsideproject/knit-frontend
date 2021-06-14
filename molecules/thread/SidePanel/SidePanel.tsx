@@ -12,8 +12,9 @@ import { createDividerContent, createImageContent, createUrlContent } from '../C
 import axios from '~/utils/api';
 import { FileExtensionType } from '~/utils/file/types';
 import UrlPicker from './UrlPicker';
-import { setMemoFocusInfo } from '~/molecules/thread/Contents/Contents.slice';
+import { setMemoCaretNumber, setMemoFocusInfo } from '~/molecules/thread/Contents/Contents.slice';
 import { MemoFocusInfo } from '../Block';
+import { getCaretNumber } from '~/utils/dom';
 
 interface Props {
   onContentCreated: (createdContent: CreatedContent) => void;
@@ -82,9 +83,11 @@ const SidePannel: FC<Props> = ({ onContentCreated, focusInfo }) => {
 
     if (element?.parentElement?.childElementCount === 5) {
       dispatch(setMemoFocusInfo(focusInfo));
+      dispatch(setMemoCaretNumber(getCaretNumber()));
     }
     if (element?.parentElement?.tagName === 'svg') {
       dispatch(setMemoFocusInfo(focusInfo));
+      dispatch(setMemoCaretNumber(getCaretNumber()));
     }
   };
 
