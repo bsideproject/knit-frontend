@@ -26,14 +26,15 @@ const columns = [
   },
 ];
 
-const threadNewEndPoint = '/v1/admin/waiting';
+const threadsEndPoint = '/v1/admin/waiting';
+const threadDetailEndPoint = '/v1/admin/thread';
 
 const ThreadNew: VFC = () => {
   // Todo => response date typing
   const router = useRouter();
   const { id } = router.query;
-  const { data, error } = useSWR<any>(threadNewEndPoint, axios);
-  const { data: response } = useSWR<any>(id ? `/thread/${1}` : null, axios);
+  const { data: threads, error } = useSWR<any>(threadsEndPoint, axios);
+  const { data: threadDetail } = useSWR<any>(id ? `${threadDetailEndPoint}/${id}` : null, axios);
   const onRow = ({ id }: TableProps<Record<string, ''>>) => {
     return {
       onClick: () => {
@@ -43,13 +44,13 @@ const ThreadNew: VFC = () => {
   };
 
   if (id) {
-    return <ThreadNewDetail thread={response?.data} />;
+    return <ThreadNewDetail thread={threadDetail?.data} />;
   }
   return (
     <AdminTableStyled
       rowKey="id"
-      loading={!data && !error}
-      dataSource={data?.data}
+      loading={!threads && !error}
+      dataSource={threads?.data}
       columns={columns}
       onRow={onRow}
     />
