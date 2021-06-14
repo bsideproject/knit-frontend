@@ -1,5 +1,6 @@
 import { FC, useState, ReactNode } from 'react';
 import { Select, Modal, Button } from 'antd';
+import dayjs from 'dayjs';
 import {
   Container,
   Content,
@@ -12,6 +13,8 @@ import {
   ModalContent,
   ContentEditable,
 } from './ThreadNewDetail.styled';
+import axios from '~/utils/api';
+import { openNotification } from '~/atoms/modal';
 import { CategoryType, Thread, ContentType } from '~/@types/resources/thread';
 
 const { Option } = Select;
@@ -33,7 +36,19 @@ const ThreadNewDetail: FC<Props> = ({ thread }) => {
   const [acesssModalOpened, setAcesssModalOpened] = useState(false);
   const [rejectModalOpened, setRejectModalOpened] = useState(false);
 
-  const handleAccessClicked = () => {
+  const handleAccessClicked = async () => {
+    try {
+      if (thread) {
+        const { id: threadId } = thread;
+        await axios.post(`v1/admin/accept/${threadId}`);
+        openNotification('success', {
+          message: '요청 완료',
+          description: '제안이 승인되었습니다.',
+        });
+      }
+    } catch (error) {
+      console.error(error);
+    }
     setAcesssModalOpened(false);
   };
 
@@ -42,8 +57,20 @@ const ThreadNewDetail: FC<Props> = ({ thread }) => {
     setRejectModalOpened(false);
   };
 
-  const handleRejectClicked = () => {
-    setAcesssModalOpened(false);
+  const handleRejectClicked = async () => {
+    try {
+      if (thread) {
+        const { id: threadId } = thread;
+        await axios.post(`v1/admin/reject/${threadId}`);
+        openNotification('success', {
+          message: '요청 완료',
+          description: '제안이 반려되었습니다.',
+        });
+      }
+    } catch (error) {
+      console.error(error);
+    }
+    setRejectModalOpened(false);
   };
 
   const handleChanged = (value: string) => {
@@ -60,10 +87,12 @@ const ThreadNewDetail: FC<Props> = ({ thread }) => {
       <Container>
         <Content height="144">
           <Row>
-            <Label>제안한 유저 :</Label> ㅅㄷㄴㅅ
+            <Label>제안한 유저 :</Label>
+            {thread?.nickname && thread?.nickname}
           </Row>
           <Row>
             <Label>제안 등록일 :</Label>
+            {thread?.createdDate && dayjs(thread?.createdDate).format('YYYY-MM-DD HH:mm:ss')}
           </Row>
           <Row>
             <Label>처리 상태 :</Label>
