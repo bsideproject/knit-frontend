@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import _ from 'lodash';
 import { ContentEditableEvent } from 'react-contenteditable';
 import { ContentType, DividerType, Thread, DesignCommandType } from '~/@types/resources/thread';
-import { getCaretNumber } from '~/utils/dom';
+import { getCaretNumber, isDomNode } from '~/utils/dom';
 import { TextBlock, CodeBlock } from '../Block';
 import { createTextContent } from './helpers';
 import { SidePanel, CreatedContent } from '../SidePanel';
@@ -19,6 +19,7 @@ import {
   setIsOpenHeadingPanel,
   setIsOpenBackPalette,
   setIsOpenUrlPanel,
+  setMemoFocusInfo,
 } from './Contents.slice';
 
 interface Props {
@@ -37,6 +38,8 @@ const Contents: FC<Props> = ({ isEditMode, contents = [], onChangeContents }) =>
     isOpenHeadingPanel,
     isOpenBackPalette,
     isOpenUrlPanel,
+    memoFocusInfo,
+    memoCaretNumber,
   } = useRootState(({ contents }) => contents);
 
   const handleClickEmptySpace: MouseEventHandler = (event) => {
@@ -91,19 +94,46 @@ const Contents: FC<Props> = ({ isEditMode, contents = [], onChangeContents }) =>
       event.preventDefault();
 
       // 다음 위치에 text block을 생성한 뒤 focus
-      const caretNum = getCaretNumber(target);
+      const caretNum = getCaretNumber(target) ?? 0;
       let currContent;
       let nextContent;
       if (content.type === ContentType.TEXT) {
+        let currValue = '';
+        let nextValue = '';
+        if (isDomNode(content.value)) {
+          const parser = new DOMParser();
+          const htmlNode = parser.parseFromString(content.value, 'text/html').body;
+
+          currValue = htmlNode.innerText.slice(0, caretNum);
+          nextValue = htmlNode.innerText.slice(caretNum);
+
+          if (caretNum === 0) {
+            currValue = '';
+            nextValue = content.value;
+          } else if (htmlNode.innerText.length === caretNum) {
+            currValue = (htmlNode.firstChild as HTMLElement).outerHTML;
+          } else if (content.value[caretNum] === '<') {
+            currValue = (htmlNode.firstChild as HTMLElement).textContent ?? '';
+            nextValue = (htmlNode.lastChild as HTMLElement).outerHTML;
+          } else if (content.value[caretNum] === '>') {
+            currValue = (htmlNode.lastChild as HTMLElement).textContent ?? '';
+            nextValue = (htmlNode.firstChild as HTMLElement).outerHTML;
+          }
+        } else {
+          currValue = content.value.slice(0, caretNum);
+          nextValue = content.value.slice(caretNum);
+        }
+
         currContent = {
           ...content,
-          ...(caretNum !== null ? { value: content.value.slice(0, caretNum) } : null),
+          ...(caretNum !== null ? { value: currValue } : null),
         };
-        nextContent = createTextContent(caretNum !== null ? content.value.slice(caretNum) : '');
+        nextContent = createTextContent(caretNum !== null ? nextValue : '');
       } else {
         currContent = content;
         nextContent = createTextContent();
       }
+
       onChangeContents([
         ...contents.slice(0, index),
         currContent,
@@ -360,34 +390,53 @@ const Contents: FC<Props> = ({ isEditMode, contents = [], onChangeContents }) =>
     }
 
     if (createdContent.type === ContentType.URL) {
-      // const { key, shiftKey, target } = event;
-      // Next step
-      // if (!focusInfo) throw new Error();
-      // // const content = contents[index];
-      // const index = contents.findIndex(({ contentId }) => contentId === focusInfo.contentId);
-      // const caretNum = getCaretNumber(target);
-      // let currContent;
-      // let nextContent;
-      // if (content.type === ContentType.TEXT) {
-      //   currContent = {
-      //     ...content,
-      //     ...(caretNum !== null ? { value: content.value.slice(0, caretNum) } : null),
-      //   };
-      //   nextContent = createTextContent(caretNum !== null ? content.value.slice(caretNum) : '');
-      // } else {
-      //   currContent = content;
-      //   nextContent = createTextContent();
-      // }
-      // onChangeContents([
-      //   ...contents.slice(0, index),
-      //   currContent,
-      //   nextContent,
-      //   ...contents.slice(index + 1),
-      // ]);
-      // setFocusInfo({
-      //   contentId: nextContent.contentId,
-      //   focusType: FocusType.FIRST_CARET,
-      // });
+      const { url, description } = createdContent;
+
+      try {
+        // text block에 focus되어 있는 상태로 URL 추가한 경우 현재 caret 위치에 URL 입력
+        if (!memoFocusInfo) throw new Error();
+
+        const index = contents.findIndex(({ contentId }) => contentId === memoFocusInfo.contentId);
+        if (index === -1) throw new Error();
+
+        const focusedContent = contents[index];
+        if (focusedContent.type !== ContentType.TEXT) throw new Error();
+        // const caretPosNum = getCaretNumber();
+        // Todo Memo caret Postion
+
+        if (memoCaretNumber === null) throw new Error();
+
+        const { value } = focusedContent;
+        const updatedContent = {
+          ...focusedContent,
+          value: `${value.slice(0, memoCaretNumber)}<a href=${url}>${description}</a>${value.slice(
+            memoCaretNumber
+          )}`,
+        };
+
+        onChangeContents([
+          ...contents.slice(0, index),
+          updatedContent,
+          ...contents.slice(index + 1),
+        ]);
+
+        setFocusInfo({
+          contentId: updatedContent.contentId,
+          focusType: FocusType.DESIGNATE_CARET,
+          focusCaretPos: memoCaretNumber + description.length,
+        });
+      } catch {
+        // text block에 focus되어 있지 않은 경우 새 text block 생성 및 URL 입력
+        const content = createTextContent(`<a href=${url}>${description}</a>`);
+        onChangeContents(contents.concat(content));
+        setFocusInfo({
+          contentId: content.contentId,
+          focusType: FocusType.LAST_CARET,
+        });
+      } finally {
+        setMemoFocusInfo(null);
+      }
+      return;
     }
 
     console.log('keep return statement');
@@ -397,7 +446,7 @@ const Contents: FC<Props> = ({ isEditMode, contents = [], onChangeContents }) =>
     <Container isEditMode={isEditMode} onClick={handleClickEmptySpace} ref={containerRef}>
       {isEditMode && (
         <>
-          <SidePanel onContentCreated={handleContentCreated} />
+          <SidePanel focusInfo={focusInfo} onContentCreated={handleContentCreated} />
           <InlinePanel onContentWrapped={handleContentWrapped} baseElement={containerRef.current} />
         </>
       )}
@@ -407,6 +456,7 @@ const Contents: FC<Props> = ({ isEditMode, contents = [], onChangeContents }) =>
             return (
               <BlockWrapper>
                 <TextBlock
+                  id={content.contentId}
                   key={content.contentId}
                   editable={isEditMode}
                   value={content.value}
@@ -467,7 +517,9 @@ const Contents: FC<Props> = ({ isEditMode, contents = [], onChangeContents }) =>
                   onKeyDown={createKeyDownHandler(index)}
                   onKeyPress={createKeyPressHandler(index)}
                   // onChange={createChangeCodeHandler(index)}
-                  onChange={() => {}}
+                  onChange={() => {
+                    console.log('block change');
+                  }}
                   onDelete={deleteCurrentContents(index)}
                 />
               </BlockWrapper>

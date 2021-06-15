@@ -1,5 +1,6 @@
 import { FC, memo, MouseEvent, useEffect, useRef, useState } from 'react';
 import _ from 'lodash';
+import { useDispatch } from 'react-redux';
 import { ImageIcon, SmileIcon, LineIcon, CodeIcon, LinkIcon } from '~/public/assets/icon';
 import { Container, IconContainer } from './SidePanel.styled';
 import { promptFileSelector } from '~/utils/file';
@@ -11,15 +12,20 @@ import { createDividerContent, createImageContent, createUrlContent } from '../C
 import axios from '~/utils/api';
 import { FileExtensionType } from '~/utils/file/types';
 import UrlPicker from './UrlPicker';
+import { setMemoCaretNumber, setMemoFocusInfo } from '~/molecules/thread/Contents/Contents.slice';
+import { MemoFocusInfo } from '../Block';
+import { getCaretNumber } from '~/utils/dom';
 
 interface Props {
   onContentCreated: (createdContent: CreatedContent) => void;
+  focusInfo: MemoFocusInfo | null | undefined;
 }
 
 // const threadImageUploadEndpoint = '/upload/thumbnail';
 
-const SidePannel: FC<Props> = ({ onContentCreated }) => {
+const SidePannel: FC<Props> = ({ onContentCreated, focusInfo }) => {
   const ref = useRef<HTMLDivElement>(null);
+  const dispatch = useDispatch();
   const [emojiPickerOpened, setEmojiPickerOpened] = useState(false);
   const [deviderPickerOpened, setDividerPickerOpened] = useState(false);
   const [urlPickerOpened, setUrlPickerOpened] = useState(false);
@@ -73,7 +79,16 @@ const SidePannel: FC<Props> = ({ onContentCreated }) => {
     onContentCreated(createUrlContent(url, description));
   };
   const handleMouseDown = (event: MouseEvent<HTMLDivElement>) => {
-    event.preventDefault();
+    const element = event.target as HTMLElement;
+
+    if (element?.parentElement?.childElementCount === 5) {
+      dispatch(setMemoFocusInfo(focusInfo));
+      dispatch(setMemoCaretNumber(getCaretNumber()));
+    }
+    if (element?.parentElement?.tagName === 'svg') {
+      dispatch(setMemoFocusInfo(focusInfo));
+      dispatch(setMemoCaretNumber(getCaretNumber()));
+    }
   };
 
   return (
@@ -106,13 +121,20 @@ const SidePannel: FC<Props> = ({ onContentCreated }) => {
       <IconContainer>
         <CodeIcon />
       </IconContainer>
-      <IconContainer onClick={() => setUrlPickerOpened(true)}>
+      <IconContainer
+        onClick={() => {
+          setUrlPickerOpened(true);
+        }}
+      >
         <LinkIcon />
         {urlPickerOpened && (
           <UrlPicker
             isPanel
             onSelect={handleSelectUrl}
-            onClickOutside={() => setUrlPickerOpened(false)}
+            onClickOutside={() => {
+              dispatch(setMemoFocusInfo(null));
+              setUrlPickerOpened(false);
+            }}
           />
         )}
       </IconContainer>

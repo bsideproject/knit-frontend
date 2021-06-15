@@ -134,18 +134,6 @@ export const useOnClickOutside = <T extends HTMLElement>(
   return elemRef;
 };
 
-export const getDragPostition = () => {
-  const range = document?.getSelection()?.getRangeAt(0);
-
-  if (range) {
-    return {
-      startOffset: range.startOffset,
-      endOffset: range.endOffset,
-    };
-  }
-  return null;
-};
-
 export const findSelectionBlockNode = (): HTMLElement | null => {
   let selectionNode = document.getSelection()?.getRangeAt(0).startContainer as
     | HTMLElement
@@ -158,4 +146,9 @@ export const findSelectionBlockNode = (): HTMLElement | null => {
     }
   }
   return null;
+};
+
+export const isDomNode = (domString: string) => {
+  const doc = new DOMParser().parseFromString(domString, 'text/html');
+  return Array.from(doc.body.childNodes).some((node) => node.nodeType === 1);
 };
