@@ -90,7 +90,6 @@ const threadsRegisterEndPoint = '/v1/admin/waiting';
 const ThreadsRegister: VFC = () => {
   // Todo => response date typing
   const { data, error } = useSWR<any>(threadsRegisterEndPoint, axios);
-  console.log(data.data);
   return (
     <Table rowKey="userId" loading={!data && !error} dataSource={data?.data} columns={columns} />
   );

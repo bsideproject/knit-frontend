@@ -40,6 +40,12 @@ const ThreadPage: FC<Props> = ({ id, isEditMode }) => {
   const { data: response } = useSWR<any>(id ? `/thread/${id}` : null, axios);
 
   useEffect(() => {
+    if (!response && !id) {
+      const randomNumber = Math.floor(Math.random() * (11 - 1) + 1);
+      setThread({
+        thumbnailUrl: `https://knit-document.s3.ap-northeast-2.amazonaws.com/thread/cover/cover${randomNumber}.png`,
+      });
+    }
     if (response) {
       setThread(response.data);
     }
@@ -101,6 +107,7 @@ const ThreadPage: FC<Props> = ({ id, isEditMode }) => {
     const { title, thumbnailUrl } = thread;
     if (!title || !thumbnailUrl) {
       window.alert('필수 항목이 누락되었어요. 제목과 커버이미지를 등록해주세요.');
+      return;
     }
     if (id) {
       try {
@@ -166,8 +173,7 @@ const ThreadPage: FC<Props> = ({ id, isEditMode }) => {
                   <Category
                     key={categoryType}
                     type={categoryType}
-                    isEditMode
-                    // selected={thread?.categories?.filter?.includes(categoryType)}
+                    isEditMode={editMode}
                     selected={
                       !!thread?.categories?.find((category) => category.value === categoryType)
                     }

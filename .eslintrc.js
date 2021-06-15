@@ -74,7 +74,9 @@ module.exports = {
         '@typescript-eslint/prefer-as-const': ['warn'],
         '@typescript-eslint/no-shadow': 'warn',
         // Includes .prettierrc.js rules
-        'prettier/prettier': ['error', {}, { usePrettierrc: true }],
+        'prettier/prettier': [
+          'error', { usePrettierrc: true, endOfLine: 'auto', },
+        ],
         'no-nested-ternary': 'off',
         'import/no-cycle': 'off', // 추가해야할 코드
       },

@@ -6,6 +6,7 @@ import _ from 'lodash';
 interface IBreadcrumbOption {
   key: string;
   label: string;
+  detail?: { key: string; label: string };
   children: Array<Omit<IBreadcrumbOption, 'children'>>;
 }
 interface BreadcrumbProps {
@@ -16,19 +17,23 @@ const Breadcrumb: FC<BreadcrumbProps> = ({ options = [] }) => {
     Array<Omit<IBreadcrumbOption, 'children'>>
   >([]);
   const router = useRouter();
-  const { subMenu: queryMenu } = router.query;
-
+  const { subMenu: queryMenu, id } = router.query;
   useEffect(() => {
     if (_.size(options)) {
       options.forEach((menu) => {
         menu.children.forEach((subMenu) => {
           if (subMenu.key === queryMenu) {
-            setCurrentBreadcrumb([menu, subMenu]);
+            if (id && subMenu.detail) {
+              setCurrentBreadcrumb([menu, subMenu, subMenu.detail]);
+            } else {
+              setCurrentBreadcrumb([menu, subMenu]);
+            }
           }
         });
       });
     }
-  }, [queryMenu, options]);
+  }, [queryMenu, options, id]);
+
   return (
     <ABradcrumb separator=">" style={{ margin: '16px 0' }}>
       {currentBreadcrumb.map(({ key, label }) => (
