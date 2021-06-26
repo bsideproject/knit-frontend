@@ -1,6 +1,7 @@
+import { AnchorHTMLAttributes, DetailedHTMLProps, memo, VFC } from 'react';
 import styled from '@emotion/styled';
 import Link from 'next/link';
-import { AnchorHTMLAttributes, DetailedHTMLProps, memo, VFC } from 'react';
+
 import { ITag } from '~/@types';
 import { Anchor } from './Tag.styled';
 
@@ -11,7 +12,6 @@ type AnchorProps = Omit<
 
 interface TagProps extends ITag, AnchorProps {
   className?: string;
-  onClick?: () => void;
 }
 
 const Tag: VFC<TagProps> = ({ url, title, className, onClick, ...restProps }) => {

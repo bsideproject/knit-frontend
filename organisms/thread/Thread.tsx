@@ -8,6 +8,7 @@ import {
 } from 'react';
 import useSWR from 'swr';
 import { useRouter } from 'next/router';
+import _ from 'lodash';
 import { Color } from '~/@types';
 import { CategoryType, Thread, ThreadAction } from '~/@types/resources/thread';
 import {
@@ -104,9 +105,9 @@ const ThreadPage: FC<Props> = ({ id, isEditMode }) => {
     if (!thread) {
       return;
     }
-    const { title, thumbnailUrl } = thread;
-    if (!title || !thumbnailUrl) {
-      window.alert('필수 항목이 누락되었어요. 제목과 커버이미지를 등록해주세요.');
+    const { title, subTitle, thumbnailUrl, categories } = thread;
+    if (!_.size(categories) || !title || !thumbnailUrl || !subTitle) {
+      window.alert('필수 항목이 누락되었어요. 제목 , 부재 , 직군 태그 모두 입력해주세요');
       return;
     }
     if (id) {
@@ -124,6 +125,8 @@ const ThreadPage: FC<Props> = ({ id, isEditMode }) => {
       await axios.post(`v1/threads/register`, { ...thread });
       window.alert('문서가 등록 되었어요. \n검수 후에 등록될 예정이에요');
     } catch (error) {
+      window.alert('오류가 발생 했습니다. 오류가 반복되면 관리자에게 문의 해주세요.');
+
       console.error(error);
     }
   };

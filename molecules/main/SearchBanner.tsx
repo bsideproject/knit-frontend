@@ -1,3 +1,4 @@
+import { MouseEvent } from 'react';
 import { useRouter } from 'next/router';
 import mockData from './_data';
 import { Container, TagsContainer, Tag, Headline, SearchInput } from './SearchBanner.styled';
@@ -8,6 +9,10 @@ const SearchBanner = () => {
   const onSubmit = (value: string) => {
     router.push(`/search/${value}`);
   };
+
+  const handleClick = (title: string) => {
+    router.push(`/search/${encodeURIComponent(title)}`);
+  };
   return (
     <Container>
       <Headline>IT의 모든것 Knit</Headline>
@@ -15,7 +20,15 @@ const SearchBanner = () => {
 
       <TagsContainer>
         {mockData.searchBanner.map(({ url, title }) => (
-          <Tag key={url} url={url} title={title} />
+          <Tag
+            key={url}
+            url={url}
+            title={title}
+            onClick={(e: MouseEvent<HTMLAnchorElement>) => {
+              e.preventDefault();
+              handleClick(title);
+            }}
+          />
         ))}
       </TagsContainer>
     </Container>

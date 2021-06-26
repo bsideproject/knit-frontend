@@ -52,7 +52,12 @@ const NavigationBar = () => {
             <a href="#" onClick={handleMouseClickedHref}>
               문서 읽기
             </a>
-            {categoryDropDownOpened && <CategoryDropDown elemRef={elemRef} />}
+            {categoryDropDownOpened && (
+              <CategoryDropDown
+                elemRef={elemRef}
+                setCategoryDropDownOpened={setCategoryDropDownOpened}
+              />
+            )}
             <Link href="/thread">
               <a>문서 작성</a>
             </Link>

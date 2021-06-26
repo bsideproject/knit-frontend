@@ -1,3 +1,4 @@
+import { useRouter } from 'next/router';
 import Section from '../Section';
 import { Color, Size } from '~/@types';
 import {
@@ -13,6 +14,11 @@ import {
 const hasThumbnail = false;
 
 const FeaturedSection = () => {
+  const router = useRouter();
+
+  const handleButtonClicked = () => {
+    router.push('/thread/1');
+  };
   return (
     <Section title="Featured">
       <Container>
@@ -24,7 +30,11 @@ const FeaturedSection = () => {
             보여주고, 이후의 내용은 우측 하단의 [이어서 읽기] 버튼을 눌러서 볼 수 있습니다. 대표
             이미지가 포함된 문서와, 이미지가 포함되지 않은 경우가 필요합니다. 3줄까지 보여주기
           </Desc>
-          <FeaturedSectionButton color={Color.PRIMARY} size={Size.MIDDLE}>
+          <FeaturedSectionButton
+            color={Color.PRIMARY}
+            size={Size.MIDDLE}
+            onClick={handleButtonClicked}
+          >
             이어서 읽기
           </FeaturedSectionButton>
         </Contents>
