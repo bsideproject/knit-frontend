@@ -79,6 +79,7 @@ module.exports = {
         ],
         'no-nested-ternary': 'off',
         'import/no-cycle': 'off', // 추가해야할 코드
+        'no-alert' :'off'
       },
     },
   ],

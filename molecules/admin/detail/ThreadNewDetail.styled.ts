@@ -44,7 +44,7 @@ export const TagTitle = styled.div`
   align-items: center;
   width: 100%;
   height: 50%;
-  ${font.set(18, 'bold')}
+  ${font.set(16, 'bold')}
 `;
 
 export const ContentEditable = styled(ReactContentEditable as any)`
@@ -68,7 +68,7 @@ export const Tag = styled.div`
   box-sizing: border-box;
   border-radius: 10px;
   margin: 3px;
-  padding: 20px;
+  padding: 14px;
   color: #18a0fb;
   :first-of-type {
     margin-left: 20px;
