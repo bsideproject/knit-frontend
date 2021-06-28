@@ -21,7 +21,8 @@ const SearchPage: FC = () => {
 
   useEffect(() => {
     if (typeof queryValue === 'string') {
-      setValue('searchValue', queryValue);
+      setSearchValue(queryValue);
+      // setValue('searchValue', queryValue);
     }
   }, [queryValue, setValue]);
 

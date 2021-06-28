@@ -16,4 +16,6 @@ const defaultResponseHandler = (res: AxiosResponse) => {
 // };
 instance.interceptors.response.use(defaultResponseHandler);
 
+export const fetcher = (url: string) => instance.get(url).then((res) => res.data);
+
 export default instance;
