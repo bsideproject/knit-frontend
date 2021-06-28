@@ -8,7 +8,7 @@ export const Container = styled.div`
 
   position: relative;
   border-top: 1px solid #eeeeee;
-
+  cursor: pointer;
   &:last-of-type {
     border-bottom: 1px solid #eeeeee;
   }

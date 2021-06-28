@@ -4,11 +4,19 @@ import { Container, OrderNumber, Title, Desc, Count } from './MostViewItem.style
 
 interface MostViewProps extends Omit<IMostViewData, 'id'> {
   number: number;
+  onClick?: () => void;
 }
 
-const MostViewItem: VFC<MostViewProps> = ({ number, title, desc, viewCount, likeCount }) => {
+const MostViewItem: VFC<MostViewProps> = ({
+  number,
+  title,
+  desc,
+  viewCount,
+  likeCount,
+  onClick,
+}) => {
   return (
-    <Container>
+    <Container onClick={onClick}>
       <OrderNumber>{number}</OrderNumber>
       <Title>{title}</Title>
       <Desc>{desc}</Desc>

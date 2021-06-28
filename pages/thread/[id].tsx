@@ -9,7 +9,6 @@ const ThreadPage: FC = () => {
 
   const { id, action } = router.query as { id: string; action: ThreadAction };
   const isEditMode = action === ThreadAction.EDIT;
-
   return <ThreadComponent id={id} isEditMode={isEditMode} />;
 };
 
