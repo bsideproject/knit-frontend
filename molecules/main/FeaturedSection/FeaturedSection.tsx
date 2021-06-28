@@ -14,10 +14,13 @@ import {
 const hasThumbnail = false;
 
 const FeaturedSection = () => {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const router = useRouter();
 
   const handleButtonClicked = () => {
-    router.push('/thread/1');
+    // router.push('/thread/1');
+    const tempUrl = 'https://archive-dma.blogspot.com/';
+    window.open(tempUrl, '_blank');
   };
   return (
     <Section title="Featured">

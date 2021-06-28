@@ -41,16 +41,25 @@ const ThreadPage: FC<Props> = ({ id, isEditMode }) => {
   const { data: response } = useSWR<any>(id ? `/thread/${id}` : null, axios);
 
   useEffect(() => {
-    if (!response && !id) {
+    if (id === null) {
       const randomNumber = Math.floor(Math.random() * (11 - 1) + 1);
       setThread({
         thumbnailUrl: `https://knit-document.s3.ap-northeast-2.amazonaws.com/thread/cover/cover${randomNumber}.png`,
       });
     }
+  }, [id, router]);
+
+  useEffect(() => {
     if (response) {
+      if (response.data === null) {
+        window.alert('찾으시는 데이터가 없습니다. \n문서를 검색해 주세요.');
+        router.push(`/search/${encodeURIComponent(' ')}`);
+        return;
+      }
+
       setThread(response.data);
     }
-  }, [response, id, router]);
+  }, [response]);
 
   useEffect(() => {
     setEditMode(isEditMode);

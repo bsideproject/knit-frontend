@@ -4,6 +4,12 @@ import { Column } from './MostViewSection.styled';
 import MostViewItem from './MostViewItem';
 
 const MostViewSection = () => {
+  const handleViewItemClicked = (id: number) => {
+    if (id === 0) {
+      const tempUrl = 'https://archive-dma.blogspot.com/';
+      window.open(tempUrl, '_blank');
+    }
+  };
   return (
     <Section title="최근 많이 조회된 문서">
       <Column>
@@ -17,6 +23,9 @@ const MostViewSection = () => {
               desc={desc}
               viewCount={viewCount}
               likeCount={likeCount}
+              onClick={() => {
+                handleViewItemClicked(index);
+              }}
             />
           ))}
       </Column>

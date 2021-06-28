@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router';
 import { FC, useEffect, useState } from 'react';
-import { useForm, useWatch } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { NoSearchData, Threads, mockData, Layout } from '~/molecules/search';
 
 const { Container, ThreadsContainer, TotalCount, TextInput, CategoryContanier, Category } = Layout;
@@ -15,10 +15,10 @@ const SearchPage: FC = () => {
   const { setValue } = methods;
   const router = useRouter();
   const { value: queryValue } = router.query;
-  const searchValue = useWatch({ control: methods.control, name: 'searchValue' });
+  const [searchValue, setSearchValue] = useState('');
   const [currentCategory, setCurrentCategory] = useState<CategoryTypes>('문서');
-
   const [mockResponseData, setMockResponseData] = useState<typeof mockData | null>();
+
   useEffect(() => {
     if (typeof queryValue === 'string') {
       setValue('searchValue', queryValue);
@@ -36,7 +36,11 @@ const SearchPage: FC = () => {
   return (
     <>
       <Container>
-        <TextInput name="searchValue" methods={methods} placeholder="검색어를 입력하세요." />
+        <TextInput
+          value={searchValue}
+          onChange={(e) => setSearchValue(e.target.value)}
+          placeholder="검색어를 입력하세요."
+        />
         <CategoryContanier>
           {categorys.map((category, i) => (
             <>
