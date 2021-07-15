@@ -24,7 +24,6 @@ const MostViewSection = () => {
   const handleViewItemClicked = (threadId: number) => {
     router.push(`/thread/${threadId}`);
   };
-
   return (
     <Section title="최근 많이 조회된 문서">
       <Column>
