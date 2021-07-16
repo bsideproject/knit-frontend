@@ -30,7 +30,7 @@ const NavigationBar = () => {
   };
 
   const onSubmit = (value: string) => {
-    router.push(`/search/${value}`);
+    router.push(`/search/${encodeURIComponent(value)}`);
   };
 
   const handleMouseClickedHref = (e: MouseEvent<HTMLAnchorElement>) => {

@@ -113,7 +113,7 @@ const mockData: MockDataType = {
       id: 1,
       title:
         '여기에 타이틀. 최근 많이 조회된 문서가 이자리 넘어가면 말줄임밑줄임...여기에 타이틀. 최근 많이 조회된 문서가 이자리 넘어가면 말줄임밑줄임...',
-      desc:
+      contentSummary:
         '여기에 내용이 들어감 여기 내용을 블라블라 써내려감 넘어가면 말줄임말줄임...여기에 내용이 들어감 여기 내용을 블라블라 써내려감 넘어가면 말줄임말줄임...',
       viewCount: 9999,
       likeCount: 9999,
@@ -122,7 +122,7 @@ const mockData: MockDataType = {
       id: 2,
       title:
         '여기에 타이틀. 최근 많이 조회된 문서가 이자리 넘어가면 말줄임밑줄임...여기에 타이틀. 최근 많이 조회된 문서가 이자리 넘어가면 말줄임밑줄임...',
-      desc:
+      contentSummary:
         '여기에 내용이 들어감 여기 내용을 블라블라 써내려감 넘어가면 말줄임말줄임...여기에 내용이 들어감 여기 내용을 블라블라 써내려감 넘어가면 말줄임말줄임...',
       viewCount: 9999,
       likeCount: 9999,
@@ -131,7 +131,7 @@ const mockData: MockDataType = {
       id: 3,
       title:
         '여기에 타이틀. 최근 많이 조회된 문서가 이자리 넘어가면 말줄임밑줄임...여기에 타이틀. 최근 많이 조회된 문서가 이자리 넘어가면 말줄임밑줄임...',
-      desc:
+      contentSummary:
         '여기에 내용이 들어감 여기 내용을 블라블라 써내려감 넘어가면 말줄임말줄임...여기에 내용이 들어감 여기 내용을 블라블라 써내려감 넘어가면 말줄임말줄임...',
       viewCount: 9999,
       likeCount: 9999,
@@ -140,7 +140,7 @@ const mockData: MockDataType = {
       id: 4,
       title:
         '여기에 타이틀. 최근 많이 조회된 문서가 이자리 넘어가면 말줄임밑줄임...여기에 타이틀. 최근 많이 조회된 문서가 이자리 넘어가면 말줄임밑줄임...',
-      desc:
+      contentSummary:
         '여기에 내용이 들어감 여기 내용을 블라블라 써내려감 넘어가면 말줄임말줄임...여기에 내용이 들어감 여기 내용을 블라블라 써내려감 넘어가면 말줄임말줄임...',
       viewCount: 9999,
       likeCount: 9999,
@@ -149,7 +149,7 @@ const mockData: MockDataType = {
       id: 5,
       title:
         '여기에 타이틀. 최근 많이 조회된 문서가 이자리 넘어가면 말줄임밑줄임...여기에 타이틀. 최근 많이 조회된 문서가 이자리 넘어가면 말줄임밑줄임...',
-      desc:
+      contentSummary:
         '여기에 내용이 들어감 여기 내용을 블라블라 써내려감 넘어가면 말줄임말줄임...여기에 내용이 들어감 여기 내용을 블라블라 써내려감 넘어가면 말줄임말줄임...',
       viewCount: 9999,
       likeCount: 9999,
@@ -158,7 +158,7 @@ const mockData: MockDataType = {
       id: 6,
       title:
         '여기에 타이틀. 최근 많이 조회된 문서가 이자리 넘어가면 말줄임밑줄임...여기에 타이틀. 최근 많이 조회된 문서가 이자리 넘어가면 말줄임밑줄임...',
-      desc:
+      contentSummary:
         '여기에 내용이 들어감 여기 내용을 블라블라 써내려감 넘어가면 말줄임말줄임...여기에 내용이 들어감 여기 내용을 블라블라 써내려감 넘어가면 말줄임말줄임...',
       viewCount: 9999,
       likeCount: 9999,
@@ -167,52 +167,44 @@ const mockData: MockDataType = {
 
   recentlyModified: [
     {
-      id: 1,
+      threadId: 1,
       title:
         '타이틀 몇자까지 들어가나 들어 타이틀 몇자까지 들어가나 들어 타이틀 몇자까지 타이틀 몇자까지 들어가나 타이틀',
-      modifiedDate: Date.now(),
     },
     {
-      id: 2,
+      threadId: 2,
       title:
         '타이틀 몇자까지 들어가나 들어 타이틀 몇자까지 들어가나 들어 타이틀 몇자까지 타이틀 몇자까지 들어가나 타이틀',
-      modifiedDate: Date.now(),
     },
     {
-      id: 3,
+      threadId: 3,
       title:
         '타이틀 몇자까지 들어가나 들어 타이틀 몇자까지 들어가나 들어 타이틀 몇자까지 타이틀 몇자까지 들어가나 타이틀',
-      modifiedDate: Date.now(),
     },
     {
-      id: 4,
+      threadId: 4,
       title:
         '타이틀 몇자까지 들어가나 들어 타이틀 몇자까지 들어가나 들어 타이틀 몇자까지 타이틀 몇자까지 들어가나 타이틀',
-      modifiedDate: Date.now(),
     },
     {
-      id: 5,
+      threadId: 5,
       title:
         '타이틀 몇자까지 들어가나 들어 타이틀 몇자까지 들어가나 들어 타이틀 몇자까지 타이틀 몇자까지 들어가나 타이틀',
-      modifiedDate: Date.now(),
     },
     {
-      id: 6,
+      threadId: 6,
       title:
         '타이틀 몇자까지 들어가나 들어 타이틀 몇자까지 들어가나 들어 타이틀 몇자까지 타이틀 몇자까지 들어가나 타이틀',
-      modifiedDate: Date.now(),
     },
     {
-      id: 7,
+      threadId: 7,
       title:
         '타이틀 몇자까지 들어가나 들어 타이틀 몇자까지 들어가나 들어 타이틀 몇자까지 타이틀 몇자까지 들어가나 타이틀',
-      modifiedDate: Date.now(),
     },
     {
-      id: 8,
+      threadId: 8,
       title:
         '타이틀 몇자까지 들어가나 들어 타이틀 몇자까지 들어가나 들어 타이틀 몇자까지 타이틀 몇자까지 들어가나 타이틀',
-      modifiedDate: Date.now(),
     },
   ],
 };

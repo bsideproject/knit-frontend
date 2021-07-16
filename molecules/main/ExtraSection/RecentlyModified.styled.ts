@@ -24,14 +24,12 @@ export const ItemContainer = styled.div`
 `;
 
 export const ItemTitle = styled.span`
-  flex: 1 1 0;
+  width: 70%;
   margin-right: 10px;
-
   ${font.ellipse(1)}
 `;
 
 export const ItemDate = styled.span`
   width: auto;
-
   ${font.ellipse(1)}
 `;

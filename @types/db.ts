@@ -1,7 +1,7 @@
 export interface IMostViewData {
   id: number;
   title: string;
-  desc: string;
+  contentSummary: string | null;
   viewCount: number;
   likeCount: number;
 }
@@ -19,7 +19,7 @@ export interface ITag {
 }
 
 export interface IRecentlyModified {
-  id: number;
+  threadId: number;
   title: string;
-  modifiedDate: number;
+  modifiedDate?: Date;
 }

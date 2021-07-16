@@ -9,7 +9,7 @@ interface Props {
   onClick?: (type: CategoryType) => void;
 }
 
-const label: Record<CategoryType, ReactNode> = {
+export const label: Record<CategoryType, string> = {
   [CategoryType.PLANNING]: '기획',
   [CategoryType.DESIGN]: '디자인',
   [CategoryType.MARKETING]: '마케팅',
