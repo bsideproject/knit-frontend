@@ -1,6 +1,6 @@
 import { FC, useEffect } from 'react';
 import { useRouter } from 'next/router';
-import { initNaverSigninSDK } from '~/utils/auth';
+import { initGoogleSigninSDK, initNaverSigninSDK } from '~/utils/auth';
 import { SigninType } from '~/@types/auth';
 
 const SigninCallback: FC = () => {
@@ -20,6 +20,9 @@ const SigninCallback: FC = () => {
     }
 
     if (signinType === SigninType.GOOGLE) {
+      handleGoogleLogin().then(() => {
+        router.push('/');
+      });
       /**
        * Todo
        * - Google login callback
@@ -35,6 +38,15 @@ const SigninCallback: FC = () => {
 };
 
 export default SigninCallback;
+
+const handleGoogleLogin = async () => {
+  const googleLogin = await initGoogleSigninSDK({ callbackHandle: true });
+
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  return new Promise<void>((resolve, resject) => {
+    console.log(googleLogin);
+  });
+};
 
 const handleNaverLogin = async () => {
   const naverLogin = await initNaverSigninSDK({ callbackHandle: true });

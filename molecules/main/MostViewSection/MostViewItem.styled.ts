@@ -51,7 +51,7 @@ export const Count = styled.span<{ type: 'view' | 'like' }>`
   }
 
   & > svg {
-    margin-right: 3px;
+    margin-right: 2px;
   }
 
   ${resolveProp('type', {
