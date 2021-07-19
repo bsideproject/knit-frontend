@@ -1,4 +1,5 @@
-import { DateTime } from 'luxon';
+import useSWR from 'swr';
+import moment from 'dayjs';
 import Link from 'next/link';
 import {
   ItemContainer,
@@ -9,16 +10,33 @@ import {
   Title,
 } from './RecentlyModified.styled';
 
-import mockData from '../_data';
 import { IRecentlyModified } from '~/@types';
+import { fetcher } from '~/utils/api';
+
+const recentChangedEndpoint = `v1/home/recent/changed`;
+
+type RecentModifiedResponse = {
+  threadId: number;
+  title: string;
+  modifiedDate: Date;
+}[];
 
 const RecentlyModified = () => {
+  const { data: recentlyModifiedes } = useSWR<RecentModifiedResponse | null>(
+    recentChangedEndpoint,
+    fetcher
+  );
   return (
     <Container>
       <Title>최근 변경된 문서</Title>
       <Contents>
-        {mockData.recentlyModified.map(({ id, title, modifiedDate }) => (
-          <RecentlyModifiedItem key={id} title={title} modifiedDate={modifiedDate} />
+        {recentlyModifiedes?.map(({ threadId, title, modifiedDate }) => (
+          <RecentlyModifiedItem
+            key={threadId}
+            threadId={threadId}
+            title={title}
+            modifiedDate={modifiedDate}
+          />
         ))}
       </Contents>
     </Container>
@@ -26,16 +44,16 @@ const RecentlyModified = () => {
 };
 export default RecentlyModified;
 
-interface RecentlyModifiedItemProps extends Omit<IRecentlyModified, 'id'> {
-  modifiedDate: number;
+interface RecentlyModifiedItemProps extends IRecentlyModified {
+  modifiedDate: Date;
 }
 
-const RecentlyModifiedItem = ({ title, modifiedDate }: RecentlyModifiedItemProps) => {
+const RecentlyModifiedItem = ({ threadId, title, modifiedDate }: RecentlyModifiedItemProps) => {
   return (
-    <Link href="/thread/12">
+    <Link href={`/thread/${threadId}`}>
       <ItemContainer>
         <ItemTitle>{title}</ItemTitle>
-        <ItemDate>{DateTime.fromMillis(modifiedDate).toFormat('LL-dd HH:mm')}</ItemDate>
+        <ItemDate>{moment(modifiedDate).format('MM-DD HH:mm')}</ItemDate>
       </ItemContainer>
     </Link>
   );

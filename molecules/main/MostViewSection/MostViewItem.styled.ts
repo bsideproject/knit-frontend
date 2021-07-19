@@ -50,6 +50,10 @@ export const Count = styled.span<{ type: 'view' | 'like' }>`
     margin-right: 10px;
   }
 
+  & > svg {
+    margin-right: 2px;
+  }
+
   ${resolveProp('type', {
     view: css`
       ::before {

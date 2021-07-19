@@ -50,8 +50,8 @@ export const initGoogleSigninSDK = async ({
     gapi.load('auth2', async () => {
       const auth = gapi.auth2.init({
         client_id: process.env.NEXT_PUBLIC_OAUTH_GOOGLE_CLIENT_ID,
-        // redirect_uri: OAUTH_CALLBACK_URL[SigninType.GOOGLE],
-        // ux_mode: 'redirect',
+        redirect_uri: OAUTH_CALLBACK_URL[SigninType.GOOGLE],
+        ux_mode: 'redirect',
         // fetch_basic_profile: true,
       });
 
