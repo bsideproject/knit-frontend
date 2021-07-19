@@ -1,4 +1,5 @@
 import { useRouter } from 'next/router';
+import useSWR from 'swr';
 import Section from '../Section';
 import { Color, Size } from '~/@types';
 import {
@@ -9,30 +10,37 @@ import {
   Title,
   Desc,
 } from './FeaturedSection.styled';
+import { fetcher } from '~/utils/api';
 
 // mocking
 const hasThumbnail = false;
 
+const featuredEndpoint = 'v1/home/featured';
+
+type FeaturedReponse = {
+  threadId: number;
+  title: string;
+  content: string;
+};
+
 const FeaturedSection = () => {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const { data: featured } = useSWR<FeaturedReponse | null | undefined>(featuredEndpoint, fetcher);
+
   const router = useRouter();
 
   const handleButtonClicked = () => {
-    // router.push('/thread/1');
-    const tempUrl = 'https://archive-dma.blogspot.com/';
-    window.open(tempUrl, '_blank');
+    router.push(`/thread/${featured?.threadId}`);
   };
+
+  if (!featured) {
+    return null;
+  }
   return (
     <Section title="Featured">
       <Container>
         <Contents>
-          <Title>효율적인 업무를 위한 협업툴</Title>
-          <Desc>
-            Document description here. 문서들 중, 퀄리티가 우수하다고 판단되는 콘텐츠를 선정하여
-            여기에서 그 내용을 접할 수 있도록 밖으로 꺼내서 보여주는 영역입니다. 몇 줄 까지
-            보여주고, 이후의 내용은 우측 하단의 [이어서 읽기] 버튼을 눌러서 볼 수 있습니다. 대표
-            이미지가 포함된 문서와, 이미지가 포함되지 않은 경우가 필요합니다. 3줄까지 보여주기
-          </Desc>
+          <Title>{featured.title}</Title>
+          <Desc>{featured.content}</Desc>
           <FeaturedSectionButton
             color={Color.PRIMARY}
             size={Size.MIDDLE}
