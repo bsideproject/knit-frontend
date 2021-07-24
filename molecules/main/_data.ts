@@ -93,19 +93,19 @@ const mockData: MockDataType = {
   ],
   searchBanner: [
     {
-      title: '#비사이드',
+      title: '비사이드',
     },
     {
-      title: '#IT위키피디아테스트문구',
+      title: 'IT위키피디아테스트문구',
     },
     {
-      title: '#Share',
+      title: 'Share',
     },
     {
-      title: '#Test ECS CI/CD',
+      title: 'Test ECS CI/CD',
     },
     {
-      title: '#니트 가이드',
+      title: '니트 가이드',
     },
   ] as const,
   mostView: [

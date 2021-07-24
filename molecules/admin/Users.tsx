@@ -59,7 +59,7 @@ const columns = [
   },
 ];
 
-const SearchBanner = () => {
+const Users = () => {
   return <Table rowKey="userId" dataSource={dataSource} columns={columns} />;
 };
-export default SearchBanner;
+export default Users;

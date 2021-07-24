@@ -52,6 +52,8 @@ export const initGoogleSigninSDK = async ({
         client_id: process.env.NEXT_PUBLIC_OAUTH_GOOGLE_CLIENT_ID,
         redirect_uri: OAUTH_CALLBACK_URL[SigninType.GOOGLE],
         ux_mode: 'redirect',
+        response_type: 'id_token permission code',
+        // response_type: 'code',
         // fetch_basic_profile: true,
       });
 
@@ -61,6 +63,8 @@ export const initGoogleSigninSDK = async ({
           width: 230,
           height: 50,
           longtitle: true,
+          response_type: 'id_token permission code',
+
           // theme: 'dark',
         });
       }
