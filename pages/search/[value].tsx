@@ -2,6 +2,7 @@ import { useRouter } from 'next/router';
 import { FC, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import useSWR from 'swr';
+import { uniqueId } from 'lodash';
 import { NoSearchData, Threads, Layout } from '~/molecules/search';
 import { fetcher } from '~/utils/api';
 import useDebounce from '~/utils/hooks/useDebounce';
@@ -40,7 +41,6 @@ const SearchPage: FC = () => {
       setSearchValue(queryValue);
     }
   }, [queryValue, setValue]);
-
   return (
     <>
       <Container>
@@ -74,7 +74,7 @@ const SearchPage: FC = () => {
               {data.threads.map(({ id, title, subTitle, categories, thumbnailUrl }) => {
                 return (
                   <Threads
-                    key={id}
+                    key={uniqueId(id?.toString())}
                     id={id}
                     title={title}
                     subTitle={subTitle}

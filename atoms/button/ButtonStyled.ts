@@ -6,7 +6,7 @@ import { Color, Size } from '~/@types';
 
 export interface ButtonProps {
   color: Color;
-  size: Size;
+  size?: Size;
   className?: string;
   disabled?: boolean;
   onClick?: MouseEventHandler<HTMLButtonElement>;
@@ -128,6 +128,12 @@ const colorStyles = ({ theme, color, disabled }: ButtonProps & { theme: Theme })
           border-radius: 8px;
         }
       `;
+    case Color.BLUE:
+      return css`
+        background: ${theme.palette.blue};
+        color: ${theme.palette.white};
+      `;
+      break;
 
     default:
       return null;

@@ -12,6 +12,7 @@ export enum Color {
   LIGHTGREY = 'lightGrey',
   GREY = 'grey',
   DARKGREY = 'darkGrey',
+  BLUE = 'blue',
 }
 
 export enum Size {
