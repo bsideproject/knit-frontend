@@ -1,6 +1,8 @@
 import { VFC } from 'react';
 import { IMostViewData } from '~/@types/db';
 import { Container, OrderNumber, Title, Desc, Count } from './MostViewItem.styled';
+import LikeIcon from '~/public/assets/icon/LikeIcon';
+import ViewIcon from '~/public/assets/icon/ViewIcon';
 
 interface MostViewProps extends Omit<IMostViewData, 'id'> {
   number: number;
@@ -10,7 +12,7 @@ interface MostViewProps extends Omit<IMostViewData, 'id'> {
 const MostViewItem: VFC<MostViewProps> = ({
   number,
   title,
-  desc,
+  contentSummary,
   viewCount,
   likeCount,
   onClick,
@@ -18,11 +20,17 @@ const MostViewItem: VFC<MostViewProps> = ({
   return (
     <Container onClick={onClick}>
       <OrderNumber>{number}</OrderNumber>
-      <Title>{title}</Title>
-      <Desc>{desc}</Desc>
+      <Title>{title ?? 'No titie'}</Title>
+      <Desc>{contentSummary ?? 'No description'}</Desc>
       <div>
-        <Count type="view">{viewCount.toLocaleString()}</Count>
-        <Count type="like">{likeCount.toLocaleString()}</Count>
+        <Count type="view">
+          <ViewIcon />
+          {viewCount.toLocaleString()}
+        </Count>
+        <Count type="like">
+          <LikeIcon />
+          {likeCount.toLocaleString()}
+        </Count>
       </div>
     </Container>
   );

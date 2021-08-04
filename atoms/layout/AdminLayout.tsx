@@ -74,9 +74,15 @@ const menuOptions = [
     ],
   },
   {
-    key: 'debate',
-    label: '토론 관리',
-    children: [],
+    key: 'home',
+    label: '홈 관리',
+    children: [
+      {
+        key: 'featured',
+        label: 'Featured 관리',
+        icon: <FileUnknownOutlined />,
+      },
+    ],
   },
 ];
 

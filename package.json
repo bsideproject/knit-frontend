@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "dev:ts": "concurrently -k 'yarn dev' 'yarn type-check --watch'",
+    "dev:with-hostname": "NODE_OPTIONS='--inspect' next dev -H local.knitwiki.com",
+    "dev:ts": "concurrently -k 'yarn dev:with-hostname' 'yarn type-check --watch'",
     "build": "next build",
     "start": "next start -p 80",
     "test": "jest . --passWithNoTests",

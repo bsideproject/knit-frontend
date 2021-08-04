@@ -2,12 +2,13 @@ import styled from '@emotion/styled';
 import * as font from '~/styles/font';
 
 export const Box = styled.div`
-  width: 295px;
   height: 180px;
+  margin: 5px;
   padding: 20px;
   background: #f9f9f9;
-  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.12);
   border-radius: 8px;
+  box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.12);
+
   display: flex;
   flex-direction: column;
   justify-content: space-around;

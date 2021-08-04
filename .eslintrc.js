@@ -62,7 +62,7 @@ module.exports = {
         // conflicts with redux-toolkit
         'no-param-reassign': 'off',
         // Why would you want unused vars?
-        '@typescript-eslint/no-unused-vars': ['error'],
+        '@typescript-eslint/no-unused-vars': ['warn'],
         // Do not require return types on functions
         '@typescript-eslint/explicit-function-return-type': 'off',
         '@typescript-eslint/explicit-module-boundary-types': 'off',
@@ -74,12 +74,11 @@ module.exports = {
         '@typescript-eslint/prefer-as-const': ['warn'],
         '@typescript-eslint/no-shadow': 'warn',
         // Includes .prettierrc.js rules
-        'prettier/prettier': [
-          'error', { usePrettierrc: true, endOfLine: 'auto', },
-        ],
+        'prettier/prettier': ['error', { usePrettierrc: true, endOfLine: 'auto' }],
         'no-nested-ternary': 'off',
         'import/no-cycle': 'off', // 추가해야할 코드
-        'no-alert' :'off'
+        'no-alert': 'off',
+        'no-async-promise-executor': 'off',
       },
     },
   ],
