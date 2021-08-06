@@ -18,15 +18,21 @@ export const BoxTitle = styled.span`
   ${font.set(16, 'bold')}
   ${font.ellipse(1)}
   line-height: 36px;
-  color: #000000;
+  color: #2f2f2f;
+  @media only screen and (max-width: 768px) {
+    ${font.set(14, 'bold')}
+    line-height: 20px;
+  }
 `;
 
 export const BoxContent = styled.span`
   ${font.set(13, 'normal')}
-  color: #555555;
+  ${font.ellipse(2)}
+  color: #505055;
+  line-height: 19x;
 `;
 
 export const BoxComment = styled.span`
-  ${font.set(13, 'normal')}
-  color: #888888;
+  ${font.set(12, 'normal')}
+  color: #818189;
 `;

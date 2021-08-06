@@ -1,7 +1,17 @@
 import { CSSProperties } from 'react';
 import { css } from '@emotion/react';
 
+// TODO: font 적용 확인
 export const fontFamily = 'Noto Sans KR, sans-serif';
+
+export const GlobalFonts = `
+@font-face {
+  font-family: 'Noto Sans';
+  font-style: normal;
+  font-weight: 400;
+  src: url('./fonts/NotoSans/NotoSansKR-Regular.woff');
+}
+`;
 
 export const set = (
   fontSize: CSSProperties['fontSize'],
