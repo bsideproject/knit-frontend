@@ -42,4 +42,7 @@ export const SearchButton = styled(SearchIcon)`
   border: none;
   outline: none;
   cursor: pointer;
+  @media (max-width: 768px) {
+    height: 88%;
+  }
 `;

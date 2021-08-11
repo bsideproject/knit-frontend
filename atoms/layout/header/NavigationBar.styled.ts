@@ -16,6 +16,10 @@ export const Wrapper = styled.div`
     display: flex;
     align-items: center;
   }
+  @media (max-width: 768px) {
+    display: none;
+    height: 0;
+  }
 `;
 
 export const LeftBox = styled.div`
