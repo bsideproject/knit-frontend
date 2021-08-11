@@ -28,4 +28,7 @@ export const Title = styled.div`
   }
 `;
 
-export const Contents = styled.div``;
+export const Contents = styled.div`
+  padding-left: 20px;
+  padding-right: 20px;
+`;

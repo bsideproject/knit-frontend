@@ -7,7 +7,7 @@ export const Container = styled.div`
   min-width: 295px;
   @media (max-width: 768px) {
     overflow: hidden;
-    padding: 0 16px;
+    padding: 0px;
     min-width: unset;
   }
 `;

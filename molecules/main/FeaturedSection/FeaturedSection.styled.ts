@@ -17,8 +17,8 @@ export const Container = styled.div`
   padding: 30px 20px 20px 30px;
   box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.12);
   border-radius: 8px;
+
   @media (max-width: 768px) {
-    margin: 16px;
   }
 `;
 
@@ -30,7 +30,6 @@ export const Contents = styled.div`
   @media (max-width: 768px) {
     display: flex;
     flex-direction: column;
-    margin-right: 8px;
   }
 `;
 
