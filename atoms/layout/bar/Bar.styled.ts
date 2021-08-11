@@ -2,7 +2,7 @@ import styled from '@emotion/styled';
 
 export const BarContainer = styled.div`
   display: none;
-  @media only screen and (max-width: 768px) {
+  @media (max-width: 768px) {
     display: block;
     height: 8px;
     border-top: 1px solid #e2e1eb;

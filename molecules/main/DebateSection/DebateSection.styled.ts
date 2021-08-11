@@ -9,23 +9,21 @@ export const DebateSlider = styled(Slider)`
   background: transparent !important;
   box-shadow: none !important;
 
-  @media only screen and (max-width: 768px) {
+  @media (max-width: 768px) {
     height: 120px;
   }
 
   .slick-slide {
-    /* background: transparent !important;
-    box-shadow: none !important; */
     margin: 0 20px 0 0 !important; //카드 사이 간격
 
-    @media only screen and (max-width: 768px) {
+    @media (max-width: 768px) {
       margin: 0 8px 0 0 !important;
     }
     & > div > div {
       background: #ffffff;
       box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.12);
       border-radius: 8px;
-      @media only screen and (max-width: 768px) {
+      @media (max-width: 768px) {
         height: 120px;
       }
     }
@@ -33,7 +31,7 @@ export const DebateSlider = styled(Slider)`
 
   .slick-list {
     margin: 0 -80px 0 0;
-    @media only screen and (max-width: 768px) {
+    @media (max-width: 768px) {
       margin: 0 -40px;
     }
   }
@@ -43,7 +41,7 @@ export const DebateSlider = styled(Slider)`
   .slick-dots {
     margin: -38px 0;
 
-    @media only screen and (max-width: 768px) {
+    @media (max-width: 768px) {
       margin: -26px 0;
     }
   }
@@ -52,6 +50,6 @@ export const DebateSlider = styled(Slider)`
     padding: 0 3px !important;
   }
   .slick-dots li.slick-active button:before {
-    color: #5c16cb !important;
+    color: ${theme.palette.primary} !important;
   }
 `;

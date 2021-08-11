@@ -6,7 +6,7 @@ import { resolveProp } from '~/utils/styles';
 export const Container = styled.div`
   display: none;
 
-  @media only screen and (max-width: 768px) {
+  @media (max-width: 768px) {
     display: flex;
     width: 100%;
     flex-direction: column;
@@ -56,19 +56,19 @@ export const HashTags = styled.div`
   align-self: flex-start;
 `;
 export const BottomGroup = styled.div`
-  @media only screen and (max-width: 768px) {
+  @media (max-width: 768px) {
     display: flex;
     justify-content: space-between;
   }
 `;
 export const CountGroup = styled.div`
-  @media only screen and (max-width: 768px) {
+  @media (max-width: 768px) {
     display: flex;
     justify-content: flex-start;
   }
 `;
 export const Date = styled.div`
-  @media only screen and (max-width: 768px) {
+  @media (max-width: 768px) {
     ${font.set(12)};
     color: #a09db1;
   }

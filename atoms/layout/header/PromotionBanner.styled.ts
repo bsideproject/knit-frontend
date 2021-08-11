@@ -9,7 +9,7 @@ export const HEIGHT_PX = 50;
 export const Container = styled.div`
   background-color: #eefdfb;
   height: ${HEIGHT_PX}px;
-  @media only screen and (max-width: 768px) {
+  @media (max-width: 768px) {
     display: none;
   }
 `;

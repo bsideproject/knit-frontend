@@ -4,73 +4,78 @@ import * as font from '~/styles/font';
 import { resolveProp } from '~/utils/styles';
 
 export const Container = styled.div`
+  width: 100%;
+  display: flex;
+  align-items: flex-start;
   margin: 0 7px;
-  padding: 20px 0 20px 20px;
+  padding: 26px 7px 18px 7px;
   border-top: 1px solid #eeeeee;
   cursor: pointer;
-
-  @media only screen and (max-width: 768px) {
-    display: flex;
-    padding: 10px 16px;
+  @media (max-width: 768px) {
+    padding: 10px 10px 16px 16px;
     margin: 0 14px 0 18px;
-    overflow: hidden;
   }
 `;
 
-export const OrderNumber = styled.span`
-  // width: 24px;
-  // position: absolute;
-  // top: 18px;
-  // left: 0;
-
+export const OrderNumber = styled.div`
+  width: 19px;
   color: ${({ theme }) => theme.palette.primary};
-  font-size: 18px;
   text-align: center;
-  font-weight: bold;
-
-  @media only screen and (max-width: 768px) {
+  ${font.set(18, 'bold')}
+  margin-right: 11px;
+  line-height: 21px;
+  @media (max-width: 768px) {
+    width: 12px;
     font-size: 16px;
     margin-right: 16px;
   }
 `;
 
 export const Content = styled.div`
-  @media only screen and (max-width: 768px) {
-    width: 100%;
+  width: calc(100% - 19px);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  @media (max-width: 768px) {
+    width: calc(100% - 12px);
   }
 `;
 
-export const Title = styled.span`
-  margin-bottom: 14px;
+export const Title = styled.div`
+  width: 100%;
+  max-width: 418px;
 
-  ${font.set(16)}
+  margin-bottom: 14px;
+  ${font.set(16, 'bold')}
   ${font.ellipse(1)}
   color: ${({ theme }) => theme.palette.black};
-
-  @media only screen and (max-width: 768px) {
-    ${font.set(14)}
+  @media (max-width: 768px) {
+    max-width: 268px;
+    ${font.set(14, 'bold')}
     margin-bottom: 3px;
-    font-weight: bold;
   }
 `;
 
-export const Desc = styled.span`
-  margin-bottom: 14px;
-
-  ${font.set(14)}
+export const Desc = styled.div`
+  width: 100%;
+  max-width: 400px;
   ${font.ellipse(1)}
+  ${font.set(14)}
+  margin-bottom: 4px;
   color: #909090;
-  @media only screen and (max-width: 768px) {
-    ${font.set(16)}
-    margin-bottom: 0px;
+  @media (max-width: 768px) {
+    max-width: calc(100% - 18px);
+    ${font.set(16)};
   }
 `;
 
 export const CountGroup = styled.div`
-  @media only screen and (max-width: 768px) {
-    display: flex;
-    justify-content: flex-end;
-    margin-right: 10px;
+  width: 100%;
+  max-width: 340px;
+  display: flex;
+  justify-content: flex-start;
+  @media (max-width: 768px) {
+    /* justify-content: flex-end; */
   }
 `;
 
@@ -88,16 +93,10 @@ export const Count = styled.span<{ type: 'view' | 'like' }>`
 
   ${resolveProp('type', {
     view: css`
-      // ::before {
-      //content: ''; // view count icon
-      // }
       padding-left: 19px;
       background: url(/assets/view.svg) no-repeat left center;
     `,
     like: css`
-      // ::before {
-      //content: ''; // like count icon
-      // }
       padding-left: 16px;
       background: url(/assets/thumb.svg) no-repeat left center;
     `,

@@ -19,7 +19,7 @@ export const BoxTitle = styled.span`
   ${font.ellipse(1)}
   line-height: 36px;
   color: #2f2f2f;
-  @media only screen and (max-width: 768px) {
+  @media (max-width: 768px) {
     ${font.set(14, 'bold')}
     line-height: 20px;
   }

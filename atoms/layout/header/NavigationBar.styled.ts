@@ -16,7 +16,7 @@ export const Wrapper = styled.div`
     display: flex;
     align-items: center;
   }
-  @media only screen and (max-width: 768px) {
+  @media (max-width: 768px) {
     display: none;
     height: 0;
   }

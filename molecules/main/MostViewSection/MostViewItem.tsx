@@ -28,7 +28,7 @@ const MostViewItem: VFC<MostViewProps> = ({
       <OrderNumber>{number}</OrderNumber>
       <Content>
         <Title>{title ?? 'No titie'}</Title>
-        <Desc>{contentSummary ?? 'No description'}</Desc>t{' '}
+        <Desc>{contentSummary ?? 'No description'}</Desc>
         <CountGroup>
           <Count type="view">{viewCount.toLocaleString()}</Count>
           <Count type="like">{likeCount.toLocaleString()}</Count>
