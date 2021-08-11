@@ -4,7 +4,6 @@ import { fitInResolutionOnMain } from '~/styles/layout';
 
 export const Contents = styled.div`
   ${fitInResolutionOnMain}
-  margin: 0;
   padding: 0 80px; //TODO: layout 조정필요
   @media (max-width: 768px) {
     padding: 0; //TODO: layout 조정필요
