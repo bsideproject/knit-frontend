@@ -1,10 +1,12 @@
-import { VFC } from 'react';
+import { useEffect, VFC } from 'react';
 import Link from 'next/link';
 import { GithubOutlined } from '@ant-design/icons';
+import useSWR from 'swr';
 import { Layout, History } from '~/molecules/mypage';
 import { Color, Size } from '~/@types';
 import { Button } from '~/atoms/button';
 import { LinkedInIcon, NextStepIcon } from '~/public/assets/icon';
+import { fetcher } from '~/utils/api';
 
 const {
   Container,
@@ -17,7 +19,20 @@ const {
   LinkedContent,
   ProfileUpdate,
 } = Layout;
+
+const myPageEndpoint = `v1/user/profile`;
+
+type ProfileResponse = {
+  email: string | null;
+  github: string | null;
+  introduction: string | null;
+  linkedIn: string | null;
+  nickname: string | null;
+};
+
 const MyPage: VFC = () => {
+  const { data: profile } = useSWR<ProfileResponse | null>(myPageEndpoint, fetcher);
+
   return (
     <Container>
       <BackProfileContanier>
@@ -28,7 +43,7 @@ const MyPage: VFC = () => {
 
           <NextStepIcon />
         </ProfileUpdate>
-        <Nickname>구의동 뽀로로</Nickname>
+        <Nickname>{profile?.nickname}</Nickname>
 
         <Content>
           3년차 디자이너 구의동뽀로로입니다. 현재 글로벌 e커머스에서 GUI디자인하고 있습니다.
@@ -37,18 +52,23 @@ const MyPage: VFC = () => {
         </Content>
 
         <LinkedContent>
-          <Link href="/#">
-            <a>
-              <LinkedInIcon />
-              linkedin.com/in/hepark8
-            </a>
-          </Link>
-          <Link href="/#">
-            <a>
-              <GithubOutlined />
-              github.com/hepark8
-            </a>
-          </Link>
+          {profile?.linkedIn && (
+            <Link href={`https://${profile?.linkedIn}`}>
+              <a>
+                <LinkedInIcon />
+                {profile.linkedIn}
+              </a>
+            </Link>
+          )}
+
+          {profile?.github && (
+            <Link href={`https://${profile?.github}`}>
+              <a>
+                <GithubOutlined />
+                {profile.github}
+              </a>
+            </Link>
+          )}
         </LinkedContent>
       </BackProfileContanier>
 

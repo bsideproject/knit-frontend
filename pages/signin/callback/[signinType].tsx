@@ -47,17 +47,18 @@ const handleGoogleLogin = async () => {
   return new Promise<void>(async (resolve, reject) => {
     const googleUser = googleLogin.currentUser.get();
 
-    const idToken = googleUser.getAuthResponse().id_token;
+    const googleAccessToken = googleUser.getAuthResponse().id_token;
     const userEmail = googleUser.getBasicProfile().getEmail();
 
-    const data = {
-      token: idToken,
-      email: userEmail,
-      type: 'GOOGLE',
-    };
-
     try {
-      const response = await axios.post(`v1/user/login/`, data);
+      const { data } = await axios.post(`v1/user/login/google`, undefined, {
+        headers: {
+          token: googleUser.Zb.access_token, // TODO : Refactor accessToken
+        },
+      });
+
+      localStorage.setItem('access_token', data.accessToken);
+      resolve();
     } catch (error) {
       reject(error);
     }
@@ -68,7 +69,7 @@ const handleNaverLogin = async () => {
   const naverLogin = await initNaverSigninSDK({ callbackHandle: true });
 
   return new Promise<void>((resolve, reject) => {
-    naverLogin.getLoginStatus((status: unknown) => {
+    naverLogin.getLoginStatus(async (status: unknown) => {
       if (!status) {
         reject(new Error('naver login callback fail'));
         return;
@@ -83,13 +84,23 @@ const handleNaverLogin = async () => {
         return;
       }
 
+      try {
+        const { data } = await axios.post(`v1/user/login/naver`, undefined, {
+          headers: {
+            token: naverLogin.accessToken.accessToken, // TODO : Refactor accessToken
+          },
+        });
+
+        localStorage.setItem('access_token', data.accessToken);
+        resolve();
+      } catch (error) {
+        reject(error);
+      }
       /**
        * Todo
        * - Knit BE 로그인 API 호출
        * - Knit Access token, Refresh token 저장
        */
-      localStorage.setItem('access_token', naverLogin.accessToken.accessToken);
-      resolve();
     });
   });
 };
