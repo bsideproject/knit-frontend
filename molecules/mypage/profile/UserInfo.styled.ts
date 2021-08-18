@@ -40,11 +40,8 @@ export const Row = styled.div<{ align?: string }>`
   padding: 15px 0px 15px 0px;
   & > input {
     background: red;
-    /* padding-left: 30px !important; */
   }
   justify-content: flex-end;
-  /* padding-left: 100px; */
 
   padding-right: ${({ align }) => align !== 'right' && `80px`};
-  /* padding-right: 200px; */
 `;

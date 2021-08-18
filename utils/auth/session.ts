@@ -5,7 +5,6 @@ import { User } from '~/@types';
 
 const useSession = () => {
   const [session, setSession] = useState<User | null>();
-  //   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const sesssionEffect = async () => {
