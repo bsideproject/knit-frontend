@@ -13,7 +13,6 @@ import {
 import { fetcher } from '~/utils/api';
 
 // mocking
-const hasThumbnail = false;
 
 const featuredEndpoint = 'v1/home/featured';
 
@@ -49,11 +48,9 @@ const FeaturedSection = () => {
             이어서 읽기
           </FeaturedSectionButton>
         </Contents>
-        {hasThumbnail && (
-          <Thumbnail>
-            <img src="" alt="" />
-          </Thumbnail>
-        )}
+        <Thumbnail>
+          <img src="" alt="" />
+        </Thumbnail>
       </Container>
     </Section>
   );

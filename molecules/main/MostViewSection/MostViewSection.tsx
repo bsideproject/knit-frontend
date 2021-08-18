@@ -25,9 +25,26 @@ const MostViewSection = () => {
     router.push(`/thread/${threadId}`);
   };
   return (
-    <Section title="최근 많이 조회된 문서">
+    <Section title="지금 가장 인기있는 글">
       <Column>
-        {response?.mostViewedThreads
+        {response?.mostViewedThreads.map(
+          ({ threadId, title, contentSummary, viewCount, likeCount }, index) => (
+            <MostViewItem
+              key={threadId}
+              number={index + 1}
+              title={title}
+              contentSummary={contentSummary}
+              viewCount={viewCount}
+              likeCount={likeCount}
+              onClick={() => {
+                handleViewItemClicked(index);
+              }}
+            />
+          )
+        )}
+      </Column>
+      {/* <Column>
+        {mockData.mostView
           .filter((_, index) => index % 2 === 0)
           .map(({ threadId, title, contentSummary, viewCount, likeCount }, index) => (
             <MostViewItem
@@ -59,7 +76,7 @@ const MostViewSection = () => {
               }}
             />
           ))}
-      </Column>
+      </Column> */}
     </Section>
   );
 };

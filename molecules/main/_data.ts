@@ -12,7 +12,7 @@ const mockData: MockDataType = {
     {
       id: 1,
       title: '여기는 타이틀 자리입니다.',
-      content: '지금 토론진행중지금 토론진행중 지금 토론진행중 두줄까지만 보여주자요',
+      content: '지금 토론 진행 중',
       commentCount: 20,
     },
     {

@@ -5,6 +5,8 @@ interface ContentsProps {
 }
 
 export const Contents = styled.div<ContentsProps>`
-  padding-top: ${({ paddingTopPx }) => paddingTopPx}px;
-  flex: 1 1 auto;
+  padding-top: ${({ paddingTopPx }) => paddingTopPx}px; //TODO: 적용필요
+  @media (max-width: 768px) {
+    padding-top: 0;
+  }
 `;
