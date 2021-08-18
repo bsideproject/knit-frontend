@@ -17,7 +17,7 @@ export const DebateSlider = styled(Slider)`
     margin: 0 20px 0 0 !important; //카드 사이 간격
 
     @media (max-width: 768px) {
-      margin: 0 8px 0 0 !important;
+      margin: 0 4px 0 0 !important;
     }
     & > div > div {
       background: #ffffff;
@@ -29,12 +29,12 @@ export const DebateSlider = styled(Slider)`
     }
   }
 
-  .slick-list {
+  /* .slick-list {
     margin: 0 -80px 0 0;
     @media (max-width: 768px) {
       margin: 0 -40px;
     }
-  }
+  } */
   .slick-arrow {
     display: none !important;
   }

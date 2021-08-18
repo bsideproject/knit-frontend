@@ -7,13 +7,10 @@ export const Container = styled.div`
   width: 100%;
   display: flex;
   align-items: flex-start;
-  margin: 0 7px;
   padding: 26px 7px 18px 7px;
   border-top: 1px solid #eeeeee;
   cursor: pointer;
   @media (max-width: 768px) {
-    padding: 10px 10px 16px 16px;
-    margin: 0 14px 0 18px;
   }
 `;
 
