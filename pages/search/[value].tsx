@@ -68,7 +68,7 @@ const SearchPage: FC = () => {
 
       <ThreadsContainer>
         <Container>
-          {data === undefined ? null : data?.threads?.length > 0 ? (
+          {data && data?.threads?.length > 0 ? (
             <>
               <TotalCount>총 {data.count}건</TotalCount>
               {data.threads.map(({ id, title, subTitle, categories, thumbnailUrl }) => {

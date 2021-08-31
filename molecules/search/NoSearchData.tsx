@@ -18,7 +18,7 @@ const NoSearchData: VFC<Props> = ({ searchValue }) => {
   return (
     <Container>
       <Title>
-        <Strong>{searchValue}</Strong> 대한 검색 결과를 찾지 못했어요.
+        <Strong>{`"${searchValue}"` || `""`}</Strong> 대한 검색 결과를 찾지 못했어요.
       </Title>
       <Content>
         <Strong>{searchValue}</Strong> 문서의 첫번째 주인이 되어주세요.
