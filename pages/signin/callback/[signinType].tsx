@@ -43,7 +43,6 @@ export default SigninCallback;
 const handleGoogleLogin = async () => {
   const googleLogin = await initGoogleSigninSDK({ callbackHandle: true });
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   return new Promise<void>(async (resolve, reject) => {
     const googleUser = googleLogin.currentUser.get();
 

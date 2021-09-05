@@ -1,31 +1,57 @@
 import { useState, VFC } from 'react';
-import { Table } from 'antd';
 import useSWR from 'swr';
-import axios from '~/utils/api';
+import dayjs from 'dayjs';
+import axios, { fetcher } from '~/utils/api';
 import { Button } from '~/atoms/button';
 import { Color, Size } from '~/@types';
-import { Container, Label, Row, Search, Modal } from './Featured.styled';
+import { Container, Label, Row, Search, Modal, Table } from './Featured.styled';
 
 const columns = [
   {
+    key: 'id',
+    dataIndex: 'id',
     title: '스레드 ID',
-    key: 'threadId',
   },
   {
-    title: '스레드 타이틀',
-    key: 'nickname',
-  },
-  {
-    title: '노출 시작 일시',
     key: 'title',
+    dataIndex: 'title',
+    title: '스레드 타이틀',
+  },
+  {
+    key: 'subTitle',
+    dataIndex: 'subTitle',
+    title: '부제목',
+  },
+  {
+    key: 'nickname',
+    dataIndex: 'nickname',
+    title: '닉네임',
+  },
+  {
+    key: 'status',
+    dataIndex: 'status',
+    title: '상태',
+  },
+  {
+    key: 'createdDate',
+    dataIndex: 'createdDate',
+    title: '생성 날짜',
+    type: 'datetime',
   },
 ];
 
-const threadsRegisterEndPoint = '/v1/admin/waiting';
+interface GetFeaturedResponse {
+  threadId: number;
+  title: string;
+  content: string;
+}
+
+const getAllThreadEndpoint = '/v1/admin/all';
+const getFeaturedThreadEndpoint = 'v1/home/featured';
 
 const Featured: VFC = () => {
-  // Todo => response date typing
-  const { data, error } = useSWR<any>(threadsRegisterEndPoint, axios);
+  const { data, error } = useSWR<any>(getAllThreadEndpoint, fetcher);
+  const { data: featured } = useSWR<any>(getFeaturedThreadEndpoint, fetcher);
   const [modalOpened, setModalOpened] = useState(false);
 
   const handleCancelClicked = () => {
@@ -36,13 +62,20 @@ const Featured: VFC = () => {
     setModalOpened(true);
   };
 
-  //   const handleSubmit = () => {};
   return (
     <Container>
       <Button color={Color.BLUE} size={Size.MIDDLE} onClick={handleAddButtonClicked}>
         + 등록
       </Button>
-      <Table rowKey="userId" loading={!data && !error} dataSource={data?.data} columns={columns} />
+      <Table
+        rowKey="id"
+        rowClassName={(record: any, index) =>
+          record.id === featured?.threadId ? 'table-featured' : 'table-row-light'
+        }
+        loading={!data && !error}
+        dataSource={data || null}
+        columns={columns}
+      />
 
       <Modal
         visible={modalOpened}
