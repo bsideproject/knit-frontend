@@ -79,6 +79,8 @@ module.exports = {
         'import/no-cycle': 'off', // 추가해야할 코드
         'no-alert': 'off',
         'no-async-promise-executor': 'off',
+        "jsx-a11y/accessible-emoji" :'off',
+        "react/jsx-curly-newline":"off",
       },
     },
   ],

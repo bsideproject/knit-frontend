@@ -2,7 +2,7 @@ import axios, { AxiosResponse } from 'axios';
 
 let token: string | null = '';
 if (typeof window !== 'undefined') {
-  token = localStorage.getItem('access_token');
+  token = localStorage.getItem('access_token') ?? '';
 }
 const instance = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_URL,
