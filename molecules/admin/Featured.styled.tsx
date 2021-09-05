@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { Modal as AntdModal, Input } from 'antd';
+import { Modal as AntdModal, Input, Table as ATable } from 'antd';
 
 const { Search: AntdSearch } = Input;
 
@@ -22,5 +22,14 @@ export const Modal = styled(AntdModal)`
     & > button:first-of-type {
       margin-right: 10px;
     }
+  }
+`;
+
+export const Table = styled(ATable)`
+  .table-row-light {
+    background-color: #ffffff;
+  }
+  .table-featured {
+    background-color: rgb(105 205 195);
   }
 `;

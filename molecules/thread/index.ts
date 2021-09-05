@@ -6,3 +6,4 @@ export { default as Meta } from './Meta';
 export { default as Category } from './Category';
 export { default as Tags } from './Tags';
 export { default as Contents } from './Contents';
+export { LikeButtonContent } from './Contents';
