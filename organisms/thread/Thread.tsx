@@ -24,7 +24,7 @@ import {
   LikeButtonContent,
 } from '~/molecules/thread';
 import { getNextBlockElement } from '~/molecules/thread/Block/helpers';
-import axios from '~/utils/api';
+import axios, { fetcher } from '~/utils/api';
 import { generateUuid } from '~/utils/id';
 
 const { Container, Header, Tasks, TitleBlock, SubTitleBlock, Metas, Divider } = Layout;
@@ -39,11 +39,11 @@ const ThreadPage: FC<Props> = ({ id, isEditMode }) => {
   const [thread, setThread] = useState<Thread | null>(null);
   const [editMode, setEditMode] = useState(false);
 
-  const { data: response } = useSWR<any>(id ? `/thread/${id}` : null, axios);
-
+  const { data: threadData } = useSWR<Thread>(id ? `/thread/${id}` : null, fetcher);
   useEffect(() => {
     if (id === null) {
       const randomNumber = Math.floor(Math.random() * (11 - 1) + 1);
+
       setThread({
         thumbnailUrl: `https://knit-document.s3.ap-northeast-2.amazonaws.com/thread/cover/cover${randomNumber}.png`,
       });
@@ -51,28 +51,28 @@ const ThreadPage: FC<Props> = ({ id, isEditMode }) => {
   }, [id, router]);
 
   useEffect(() => {
-    if (response) {
-      if (response.data === null) {
-        window.alert('찾으시는 데이터가 없습니다. \n문서를 검색해 주세요.');
-        router.push(`/search/${encodeURIComponent(' ')}`);
-        return;
-      }
-
-      setThread(response.data);
+    if (threadData === null) {
+      window.alert('찾으시는 데이터가 없습니다. \n문서를 검색해 주세요.');
+      router.push(`/search/${encodeURIComponent(' ')}`);
+      return;
     }
-  }, [response]);
+
+    if (threadData) {
+      setThread(threadData);
+    }
+  }, [threadData, router]);
 
   useEffect(() => {
     setEditMode(isEditMode);
   }, [isEditMode]);
 
-  const handleClickCancelEdit = useCallback(() => {
+  const handleClickCancelEdit = () => {
     if (id) {
-      router.push(`/thread/${id}`);
-      // return setThread(response.data);
+      return router.push(`/thread/${id}`);
     }
-    return setThread(null);
-  }, [id, response]);
+
+    return setThread({ thumbnailUrl: thread?.thumbnailUrl });
+  };
 
   const handleChangeCover = (thumbnailUrl: string | null) => {
     setThread({ ...thread, thumbnailUrl });
@@ -213,7 +213,7 @@ const ThreadPage: FC<Props> = ({ id, isEditMode }) => {
           />
         </Container>
       </form>
-      <LikeButtonContent />
+      {thread?.id && !editMode && <LikeButtonContent id={thread.id} />}
     </>
   );
 };
