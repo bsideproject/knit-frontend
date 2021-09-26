@@ -4,7 +4,6 @@ import { fitInResolutionOnMain } from '~/styles/layout';
 
 export const Contents = styled.div`
   ${fitInResolutionOnMain}
-  padding: 0 80px; //TODO: layout 조정필요
   @media (max-width: 768px) {
     padding: 0; //TODO: layout 조정필요
   }
@@ -28,7 +27,6 @@ export const Column = styled.div<{ left?: boolean; right?: boolean }>`
     // left : 최근 많이 조회된 문서, Featured
     if (left) {
       return css`
-        padding-left: 44px;
         flex: 1 1 70%;
         @media (max-width: 768px) {
           padding-left: 0px;
