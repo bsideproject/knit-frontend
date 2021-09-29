@@ -1,3 +1,4 @@
+import { FC } from 'react';
 import Section from '../Section';
 import {
   Container,
@@ -13,27 +14,64 @@ import {
 } from './JobSection.styled';
 
 // mocking
+import data from '../_data';
 
-const JobSection = () => {
+const { searchedData } = data;
+
+interface Props {
+  menuCategory: string;
+}
+
+const JobSection: FC<Props> = ({ menuCategory }) => {
   return (
     <Section>
-      <Container>
-        <Contents>
-          <Thumbnail>
-            <img src="" alt="" />
-          </Thumbnail>
-          <JobTag>디자인</JobTag>
-          <Title>포트폴리오는 어떻게 만들어야 할까? 사진 없을때</Title>
-          <HashTags> #여기에 #키워드 #디자인 #가이드 #앱</HashTags>
-        </Contents>
-        <BottomGroup>
-          <CountGroup>
-            <Count type="view">200</Count>
-            <Count type="like">100</Count>
-          </CountGroup>
-          <Date>21.01.31.</Date>
-        </BottomGroup>
-      </Container>
+      {menuCategory !== '모아보기' &&
+        searchedData.map(
+          ({ id, title, category, hashTags, view, like, thumbnailUrl, createdDate }) => {
+            if (menuCategory === category) {
+              return (
+                <Container key={id}>
+                  <Contents>
+                    {thumbnailUrl && <Thumbnail thumbnailUrl={thumbnailUrl} />}
+                    <JobTag categorized={category}>{category}</JobTag>
+                    <Title>{title}</Title>
+                    <HashTags>{hashTags}</HashTags>
+                  </Contents>
+                  <BottomGroup>
+                    <CountGroup>
+                      <Count type="view">{view}</Count>
+                      <Count type="like">{like}</Count>
+                    </CountGroup>
+                    <Date>{createdDate}</Date>
+                  </BottomGroup>
+                </Container>
+              );
+            }
+            return <></>;
+          }
+        )}
+      {menuCategory === '모아보기' &&
+        searchedData.map(
+          ({ id, title, category, hashTags, view, like, thumbnailUrl, createdDate }) => {
+            return (
+              <Container key={id}>
+                <Contents>
+                  {thumbnailUrl && <Thumbnail thumbnailUrl={thumbnailUrl} />}
+                  {category && <JobTag categorized={category}>{category}</JobTag>}
+                  <Title>{title}</Title>
+                  <HashTags>{hashTags}</HashTags>
+                </Contents>
+                <BottomGroup>
+                  <CountGroup>
+                    <Count type="view">{view}</Count>
+                    <Count type="like">{like}</Count>
+                  </CountGroup>
+                  <Date>{createdDate}</Date>
+                </BottomGroup>
+              </Container>
+            );
+          }
+        )}
     </Section>
   );
 };

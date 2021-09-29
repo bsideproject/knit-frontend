@@ -29,12 +29,14 @@ export const DebateSlider = styled(Slider)`
     }
   }
 
-  /* .slick-list {
-    margin: 0 -80px 0 0;
+  .slick-list {
+    /* slick양 끝 사이드 여백 조정하는 부분 */
+    margin: 0 -50px 0 -15px;
     @media (max-width: 768px) {
-      margin: 0 -40px;
+      margin: 0 -20px 0 0;
     }
-  } */
+  }
+
   .slick-arrow {
     display: none !important;
   }

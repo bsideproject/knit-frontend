@@ -10,6 +10,11 @@ export const Container = styled.div`
     display: flex;
     width: 100%;
     flex-direction: column;
+    margin-bottom: 24px;
+    &:not(:last-child) {
+      padding-bottom: 20px;
+      border-bottom: 1px solid #f3f2f5;
+    }
   }
 `;
 
@@ -18,28 +23,56 @@ export const Contents = styled.div`
   flex-direction: column;
   align-items: center;
 `;
-
-export const Thumbnail = styled.div`
+interface ThumbnailProps {
+  thumbnailUrl: string;
+}
+export const Thumbnail = styled.div<ThumbnailProps>`
+  display: ${({ thumbnailUrl }) => (thumbnailUrl === '' ? 'none' : 'block')};
   align-self: center;
-
   width: 100%;
-  height: 200px;
+  height: ${({ thumbnailUrl }) => (thumbnailUrl === '' ? 'auto' : '200px')};
   margin-bottom: 13.5px;
-  background-size: contain;
-  background: url(/assets/images/thumbnail.png) no-repeat center center;
+  background-size: cover;
+  background-image: url(${({ thumbnailUrl }) => (thumbnailUrl !== '' ? thumbnailUrl : '')});
+  background-position: center center;
+  background-repeat: no-repeat;
 `;
 
-export const JobTag = styled.div`
-  width: 54px;
+interface TagProps {
+  categorized: string;
+}
+
+export const JobTag = styled.div<TagProps>`
+  width: auto;
   height: 20px;
   align-self: flex-start;
   padding: 2px 9px;
   ${font.set(12)}
-  background: #FED43F;
   border-radius: 10px;
-  color: #2f2f2f;
   margin-bottom: 8px;
+  color: ${({ categorized }) => {
+    if (categorized === '디자인' || categorized === '개발') {
+      return '#2f2f2f';
+    }
+    return `#ffffff`;
+  }};
+  background: ${({ categorized }) => {
+    if (categorized === '기획') {
+      return '#F84650';
+    }
+    if (categorized === '디자인') {
+      return '#fed43f';
+    }
+    if (categorized === '마케팅') {
+      return '#0500E2';
+    }
+    if (categorized === '개발') {
+      return '#55F5BB';
+    }
+    return '#3E3E3E';
+  }};
 `;
+
 export const Title = styled.div`
   ${font.set(16, 'bold')}
   color: #2f2f2f;
@@ -54,24 +87,28 @@ export const HashTags = styled.div`
   color: #818189;
   align-self: flex-start;
 `;
+
 export const BottomGroup = styled.div`
   @media (max-width: 768px) {
     display: flex;
     justify-content: space-between;
   }
 `;
+
 export const CountGroup = styled.div`
   @media (max-width: 768px) {
     display: flex;
     justify-content: flex-start;
   }
 `;
+
 export const Date = styled.div`
   @media (max-width: 768px) {
     ${font.set(12)};
     color: #a09db1;
   }
 `;
+
 export const Count = styled.span<{ type: 'view' | 'like' }>`
   ${font.set(12)}
   color: #909090;

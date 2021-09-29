@@ -28,6 +28,7 @@ export const Title = styled.div`
   }
 `;
 
+/* TODO: Banner는 패딩이 필요없음 */
 export const Contents = styled.div`
   padding-left: 20px;
   padding-right: 20px;
