@@ -5,7 +5,7 @@ import SearchInputAtom, { Props as SearchInputAtomProps } from '~/atoms/field/in
 import { Input } from '~/atoms/field/input/SearchInput.styled';
 import { Tag as TagAtom } from '~/atoms/tag';
 
-export const Container = styled.div`
+export const Container = styled.div<{ scroll: number }>`
   background: linear-gradient(270deg, #7800ef 0.01%, #27edd5 100%), #ffffff;
   box-shadow: 0px 8px 16px rgba(0, 0, 0, 5%);
 
@@ -16,6 +16,7 @@ export const Container = styled.div`
 
   @media (max-width: 768px) {
     padding: 20px 22px 35px;
+    display: ${({ scroll }) => (scroll > 30 ? 'none' : 'flex')};
   }
 `;
 

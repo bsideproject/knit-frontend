@@ -1,10 +1,11 @@
-import { IDebate, IMostViewData, ITag, IRecentlyModified } from '~/@types/db';
+import { IDebate, IMostViewData, ITag, IRecentlyModified, ISearchedData } from '~/@types/db';
 
 interface MockDataType {
   debate: ReadonlyArray<IDebate>;
   searchBanner: ReadonlyArray<ITag>;
   mostView: ReadonlyArray<IMostViewData>;
   recentlyModified: ReadonlyArray<IRecentlyModified>;
+  searchedData: ReadonlyArray<ISearchedData>;
 }
 
 const mockData: MockDataType = {
@@ -205,6 +206,128 @@ const mockData: MockDataType = {
       threadId: 8,
       title:
         '타이틀 몇자까지 들어가나 들어 타이틀 몇자까지 들어가나 들어 타이틀 몇자까지 타이틀 몇자까지 들어가나 타이틀',
+    },
+  ],
+  searchedData: [
+    {
+      id: 1,
+      title: '포트폴리오는 어떻게 만들어야 할까? 사진 없을때',
+      category: '디자인',
+      hashTags: '#여기에 #키워드 #디자인 #가이드 #앱',
+      view: 122,
+      like: 200,
+      thumbnailUrl: '/assets/images/thumbnail.png',
+      createdDate: '21.01.31',
+    },
+    {
+      id: 2,
+      title: '포트폴리오는 어떻게 만들어야 할까? 사진 없을때',
+      category: '개발',
+      hashTags: '#개발 #프론트엔드 #리액트',
+      view: 200,
+      like: 340,
+      thumbnailUrl: '/assets/images/thumbnail.png',
+      createdDate: '21.01.31',
+    },
+    {
+      id: 3,
+      title: '포트폴리오는 어떻게 만들어야 할까? 사진 없을때',
+      category: '디자인',
+      hashTags: '#디자인 #디자인가이드',
+      view: 777,
+      like: 200,
+      thumbnailUrl: '',
+      createdDate: '21.01.31',
+    },
+    {
+      id: 4,
+      title: '포트폴리오는 어떻게 만들어야 할까? 사진 없을때',
+      category: '기획',
+      hashTags: '#여기에 #키워드 #기획',
+      view: 200,
+      like: 999,
+      thumbnailUrl: '/assets/images/tempImage.jpg',
+      createdDate: '21.01.31',
+    },
+    {
+      id: 5,
+      title: '포트폴리오는 어떻게 만들어야 할까? 사진 없을때',
+      category: '기획',
+      hashTags: '#여기에 #키워드 #기획',
+      view: 200,
+      like: 999,
+      thumbnailUrl: '',
+      createdDate: '21.01.31',
+    },
+    {
+      id: 6,
+      title: '포트폴리오는 어떻게 만들어야 할까? 사진 없을때',
+      category: '개발',
+      hashTags: '#개발 #백엔드 #뷰',
+      view: 200,
+      like: 999,
+      thumbnailUrl: '',
+      createdDate: '21.01.31',
+    },
+    {
+      id: 7,
+      title: '포트폴리오는 어떻게 만들어야 할까? 사진 없을때',
+      category: '마케팅',
+      hashTags: '#마케팅분석 #크롤링',
+      view: 200,
+      like: 999,
+      thumbnailUrl: '',
+      createdDate: '21.01.31',
+    },
+    {
+      id: 8,
+      title: '포트폴리오는 어떻게 만들어야 할까? 사진 없을때',
+      category: '데이터분석',
+      hashTags: '#데이터 #데이터베이스 #DB',
+      view: 200,
+      like: 999,
+      thumbnailUrl: '',
+      createdDate: '21.01.31',
+    },
+    {
+      id: 9,
+      title: '포트폴리오는 어떻게 만들어야 할까? 사진 없을때',
+      category: '기획',
+      hashTags: '#여기에 #키워드 #기획',
+      view: 200,
+      like: 999,
+      thumbnailUrl: '',
+      createdDate: '21.01.31',
+    },
+    {
+      id: 10,
+      title: '포트폴리오는 어떻게 만들어야 할까? 사진 없을때',
+      category: '마케팅',
+      hashTags: '#마케팅분석 #크롤링',
+      view: 200,
+      like: 999,
+      thumbnailUrl: '',
+      createdDate: '21.01.31',
+    },
+    {
+      id: 11,
+      title: '포트폴리오는 어떻게 만들어야 할까? 사진 없을때',
+      category: '개발',
+      hashTags: '#개발 #백엔드 #뷰',
+      view: 200,
+      like: 999,
+      thumbnailUrl: '/assets/images/thumbnail.png',
+      createdDate: '21.01.31',
+    },
+    {
+      id: 12,
+      title: '포트폴리오는 어떻게 만들어야 할까? 사진 없을때',
+      category: '데이터분석',
+      hashTags: '#데이터 #데이터베이스 #DB',
+      view: 200,
+      like: 999,
+      thumbnailUrl: '',
+      createdDate: '21.01.31',
     },
   ],
 };

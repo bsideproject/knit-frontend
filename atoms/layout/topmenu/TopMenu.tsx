@@ -1,14 +1,36 @@
-import { FC } from 'react';
+import { FC, useState } from 'react';
 import { TopMenuContainer, MenuButton } from './TopMenu.styled';
 
-const TopMenu: FC = () => {
+interface Props {
+  scroll: number;
+  setMenuCategory?: any;
+}
+const categorys = ['홈', '모아보기', '기획', '디자인', '마케팅', '개발', '데이터분석'];
+
+const TopMenu: FC<Props> = (props) => {
+  const { scroll } = props;
+
+  const [currentCategory, setCurrentCategory] = useState('홈');
+  const onChangeCategory = (category: string) => {
+    setCurrentCategory(category);
+    props.setMenuCategory(category);
+  };
+
   return (
-    <TopMenuContainer>
-      <MenuButton className="selected">홈</MenuButton>
-      <MenuButton>모아보기</MenuButton>
-      <MenuButton>기획</MenuButton>
-      <MenuButton>디자인</MenuButton>
-      <MenuButton>개발</MenuButton>
+    <TopMenuContainer scroll={scroll}>
+      {categorys.map((category) => (
+        <>
+          <MenuButton
+            key={category}
+            selected={category === currentCategory}
+            onClick={() => {
+              onChangeCategory(category);
+            }}
+          >
+            {category}
+          </MenuButton>
+        </>
+      ))}
     </TopMenuContainer>
   );
 };

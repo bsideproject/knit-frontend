@@ -47,7 +47,7 @@ export const Title = styled.div`
   ${font.ellipse(1)}
   color: ${({ theme }) => theme.palette.black};
   @media (max-width: 768px) {
-    max-width: 268px;
+    /* max-width: 268px; */
     ${font.set(14, 'bold')}
     margin-bottom: 3px;
   }
@@ -68,11 +68,11 @@ export const Desc = styled.div`
 
 export const CountGroup = styled.div`
   width: 100%;
-  max-width: 340px;
+  /* max-width: 340px; */
   display: flex;
   justify-content: flex-start;
   @media (max-width: 768px) {
-    /* justify-content: flex-end; */
+    justify-content: flex-end;
   }
 `;
 

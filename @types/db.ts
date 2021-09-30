@@ -23,3 +23,14 @@ export interface IRecentlyModified {
   title: string;
   modifiedDate?: Date;
 }
+
+export interface ISearchedData {
+  id: number;
+  title: string;
+  category?: string;
+  hashTags?: string;
+  view?: number;
+  like?: number;
+  thumbnailUrl?: string;
+  createdDate?: string;
+}

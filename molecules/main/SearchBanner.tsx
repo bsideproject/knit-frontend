@@ -1,4 +1,5 @@
-import { MouseEvent } from 'react';
+import { FC, MouseEvent } from 'react';
+
 import { useRouter } from 'next/router';
 import mockData from './_data';
 import {
@@ -13,7 +14,11 @@ import {
   HeaderKnit,
 } from './SearchBanner.styled';
 
-const SearchBanner = () => {
+interface Props {
+  scroll: number;
+}
+
+const SearchBanner: FC<Props> = ({ scroll = 0 }) => {
   const router = useRouter();
 
   const onSubmit = (value: string) => {
@@ -25,7 +30,7 @@ const SearchBanner = () => {
   };
 
   return (
-    <Container>
+    <Container scroll={scroll}>
       <HamburgerButton />
       <Headline>
         <HeaderFirst>IT의 모든것</HeaderFirst>
@@ -33,7 +38,6 @@ const SearchBanner = () => {
       </Headline>
       <SearchContainer>
         <SearchInput placeholder="검색어를 입력해주세요" onSubmit={onSubmit} />
-
         <TagsContainer>
           {mockData.searchBanner.map(({ url, title }) => (
             <Tag
