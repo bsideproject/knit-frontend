@@ -50,10 +50,12 @@ export const Wrapper = styled.div<TextInputProps>`
     &:focus {
       border-bottom: 1px solid #a09db1;
 
-      & + div {
+      // FIXME : 공통 css
+      /* & + div {
+        bottom: 15px;
         width: 100%;
         height: 1px;
-      }
+      } */
     }
   }
 `;

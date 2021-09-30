@@ -79,7 +79,7 @@ const menuOptions = [
     children: [
       {
         key: 'featured',
-        label: 'Featured 관리',
+        label: '쓰레드 관리',
         icon: <FileUnknownOutlined />,
       },
     ],
@@ -157,7 +157,7 @@ const AdminLayout: FC = ({ children }) => {
         <Layout>
           <Content>
             <Breadcrumb options={menuOptions} />
-            <StyleH1>{title}</StyleH1>
+            {/* <StyleH1>{title}</StyleH1> */}
             {children}
           </Content>
         </Layout>

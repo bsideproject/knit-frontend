@@ -21,6 +21,7 @@ import {
   Category,
   Tags,
   Contents,
+  LikeButtonContent,
 } from '~/molecules/thread';
 import { getNextBlockElement } from '~/molecules/thread/Block/helpers';
 import axios from '~/utils/api';
@@ -141,76 +142,79 @@ const ThreadPage: FC<Props> = ({ id, isEditMode }) => {
   };
 
   return (
-    <form>
-      <Container onClickCapture={handleClickCaptureContainer}>
-        {editMode ? (
-          <Tasks action={ThreadAction.EDIT}>
-            <ButtonTask onClick={handleClickCancelEdit}>취소</ButtonTask>
-            <ButtonTask color={Color.PRIMARY} onClick={handleSubmit}>
-              등록
-            </ButtonTask>
-          </Tasks>
-        ) : (
-          <Header>
-            <ModifiedDateTime dateTime={thread?.modifiedDateTime} />
-            <Tasks>
-              <LinkTask href={`/thread/${id}?action=${ThreadAction.EDIT}`}>편집</LinkTask>
-              <LinkTask href="/#">토론</LinkTask>
-              <LinkTask href="/#">히스토리</LinkTask>
+    <>
+      <form>
+        <Container onClickCapture={handleClickCaptureContainer}>
+          {editMode ? (
+            <Tasks action={ThreadAction.EDIT}>
+              <ButtonTask onClick={handleClickCancelEdit}>취소</ButtonTask>
+              <ButtonTask color={Color.PRIMARY} onClick={handleSubmit}>
+                등록
+              </ButtonTask>
             </Tasks>
-          </Header>
-        )}
-        <Cover url={thread?.thumbnailUrl} editable={editMode} onChange={handleChangeCover} />
-        <TitleBlock
-          openPanel={false}
-          editable={editMode}
-          placeholder="어떤 글을 쓰실건가요?"
-          value={thread?.title}
-          onChange={({ target }) => setThread({ ...thread, title: target.value })}
-          onKeyPress={handleKeyPress}
-        />
-        <SubTitleBlock
-          openPanel={false}
-          editable={editMode}
-          placeholder="Subtitle"
-          value={thread?.subTitle}
-          onChange={({ target }) => setThread({ ...thread, subTitle: target.value })}
-          onKeyPress={handleKeyPress}
-        />
-        <Metas>
-          <tbody>
-            <Meta label="직군" required={editMode}>
-              {Object.values(CategoryType).map((categoryType) => {
-                return (
-                  <Category
-                    key={categoryType}
-                    type={categoryType}
-                    isEditMode={editMode}
-                    selected={
-                      !!thread?.categories?.find((category) => category.value === categoryType)
-                    }
-                    onClick={handleClickCategory}
-                  />
-                );
-              })}
-            </Meta>
-            <Meta label="주제태그" required={editMode}>
-              <Tags
-                isEditMode={editMode}
-                tags={thread?.tags}
-                onChange={(tags) => setThread((thread) => ({ ...thread, tags }))}
-              />
-            </Meta>
-          </tbody>
-        </Metas>
-        <Divider />
-        <Contents
-          isEditMode={editMode}
-          contents={thread?.contents}
-          onChangeContents={(contents) => setThread((thread) => ({ ...thread, contents }))}
-        />
-      </Container>
-    </form>
+          ) : (
+            <Header>
+              <ModifiedDateTime dateTime={thread?.modifiedDateTime} />
+              <Tasks>
+                <LinkTask href={`/thread/${id}?action=${ThreadAction.EDIT}`}>편집</LinkTask>
+                <LinkTask href="/#">토론</LinkTask>
+                <LinkTask href="/#">히스토리</LinkTask>
+              </Tasks>
+            </Header>
+          )}
+          <Cover url={thread?.thumbnailUrl} editable={editMode} onChange={handleChangeCover} />
+          <TitleBlock
+            openPanel={false}
+            editable={editMode}
+            placeholder="어떤 글을 쓰실건가요?"
+            value={thread?.title}
+            onChange={({ target }) => setThread({ ...thread, title: target.value })}
+            onKeyPress={handleKeyPress}
+          />
+          <SubTitleBlock
+            openPanel={false}
+            editable={editMode}
+            placeholder="Subtitle"
+            value={thread?.subTitle}
+            onChange={({ target }) => setThread({ ...thread, subTitle: target.value })}
+            onKeyPress={handleKeyPress}
+          />
+          <Metas>
+            <tbody>
+              <Meta label="직군" required={editMode}>
+                {Object.values(CategoryType).map((categoryType) => {
+                  return (
+                    <Category
+                      key={categoryType}
+                      type={categoryType}
+                      isEditMode={editMode}
+                      selected={
+                        !!thread?.categories?.find((category) => category.value === categoryType)
+                      }
+                      onClick={handleClickCategory}
+                    />
+                  );
+                })}
+              </Meta>
+              <Meta label="주제태그" required={editMode}>
+                <Tags
+                  isEditMode={editMode}
+                  tags={thread?.tags}
+                  onChange={(tags) => setThread((thread) => ({ ...thread, tags }))}
+                />
+              </Meta>
+            </tbody>
+          </Metas>
+          <Divider />
+          <Contents
+            isEditMode={editMode}
+            contents={thread?.contents}
+            onChangeContents={(contents) => setThread((thread) => ({ ...thread, contents }))}
+          />
+        </Container>
+      </form>
+      <LikeButtonContent />
+    </>
   );
 };
 
