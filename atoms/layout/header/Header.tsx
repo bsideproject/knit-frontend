@@ -1,5 +1,6 @@
 import { FC, useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
+import { useRouter } from 'next/router';
 import { setHeightPx } from './Header.slice';
 import { Container } from './Header.styled';
 import NavigationBar from './NavigationBar';
@@ -14,6 +15,7 @@ const Header: FC = () => {
   const dispatch = useDispatch();
 
   const [promotionBannerOpened, setPromotionBannerOpened] = useState(false);
+  const { route } = useRouter();
 
   useEffect(() => {
     const lastCloseTime = localStorage.getItem(LocalStorageKey.PROMOTION_CLOSE_TIMESTAMP);
@@ -35,7 +37,9 @@ const Header: FC = () => {
 
   return (
     <Container>
-      {promotionBannerOpened && <PromotionBanner onClickClose={handleClickClosePromotionBanner} />}
+      {route === '/' && promotionBannerOpened && (
+        <PromotionBanner onClickClose={handleClickClosePromotionBanner} />
+      )}
       <NavigationBar />
     </Container>
   );

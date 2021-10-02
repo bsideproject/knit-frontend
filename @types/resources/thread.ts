@@ -17,8 +17,8 @@ export interface Thread {
   modifiedDateTime?: number;
   /* 문서 작성시간 */
   createdDate?: Date;
-
   nickname?: string;
+  likeCount?: number;
 }
 
 export enum DesignCommandType {

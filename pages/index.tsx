@@ -31,9 +31,7 @@ const MainPage = () => {
             <ExtraSection />
           </Column>
         </Group>
-        <Group>
-          <DebateSection />
-        </Group>
+        <Group>{/* <DebateSection /> */}</Group>
         <Group>
           <JobSection />
         </Group>
