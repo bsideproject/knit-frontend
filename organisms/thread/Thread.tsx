@@ -213,7 +213,7 @@ const ThreadPage: FC<Props> = ({ id, isEditMode }) => {
           />
         </Container>
       </form>
-      {thread?.id && !editMode && <LikeButtonContent id={thread.id} />}
+      {thread?.id && !editMode && <LikeButtonContent id={thread.id} likeCount={thread.likeCount} />}
     </>
   );
 };

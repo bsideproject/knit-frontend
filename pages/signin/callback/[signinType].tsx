@@ -57,6 +57,8 @@ const handleGoogleLogin = async () => {
       });
 
       localStorage.setItem('access_token', data.accessToken);
+      localStorage.setItem('refresh_token', data.refreshToken);
+
       resolve();
     } catch (error) {
       reject(error);
@@ -91,15 +93,11 @@ const handleNaverLogin = async () => {
         });
 
         localStorage.setItem('access_token', data.accessToken);
+        localStorage.setItem('refresh_token', data.refreshToken);
         resolve();
       } catch (error) {
         reject(error);
       }
-      /**
-       * Todo
-       * - Knit BE 로그인 API 호출
-       * - Knit Access token, Refresh token 저장
-       */
     });
   });
 };
