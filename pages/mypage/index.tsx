@@ -45,11 +45,7 @@ const MyPage: VFC = () => {
         </ProfileUpdate>
         <Nickname>{profile?.nickname}</Nickname>
 
-        <Content>
-          3년차 디자이너 구의동뽀로로입니다. 현재 글로벌 e커머스에서 GUI디자인하고 있습니다.
-          <br />
-          소개글은 길면 두줄? instagram @abcdefghij_knitwiki
-        </Content>
+        <Content>{profile?.introduction}</Content>
 
         <LinkedContent>
           {profile?.linkedIn && (

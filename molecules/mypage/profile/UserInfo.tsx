@@ -1,10 +1,11 @@
 import { useEffect } from 'react';
 import { useForm, useWatch } from 'react-hook-form';
 import useSWR from 'swr';
+import axios, { fetcher } from '~/utils/api';
 import { Color, Size } from '~/@types';
 import { Button } from '~/atoms/button';
 import { TextInput, Textarea } from '~/atoms/field';
-import { fetcher } from '~/utils/api';
+
 import { Box, Title, Content, Label, Row } from './UserInfo.styled';
 
 const defaultValues = {
@@ -34,8 +35,10 @@ const UserInfo = () => {
   const { reset } = methods;
 
   // @Todo => submit form data
-  const onSubmit = (data: any) => {
-    console.log('complete', data);
+  const onSubmit = async (data: any) => {
+    const response = await axios.post(`v1/user/profile`, { ...data });
+
+    console.log({ response });
   };
 
   useEffect(() => {
@@ -44,7 +47,6 @@ const UserInfo = () => {
     }
   }, [profile, reset]);
 
-  console.log(introductionText);
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <Box>
